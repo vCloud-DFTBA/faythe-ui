@@ -12,16 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package handler
+package model
 
-import (
-	"net/http"
+import "github.com/dgrijalva/jwt-go"
 
-	"github.com/gorilla/mux"
-)
-
-func Register(r *mux.Router) {
-	r.Handle("/", http.FileServer(http.Dir("./pkg/web/views")))
-
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./pkg/web/static/"))))
+type Claims struct {
+	jwt.StandardClaims
+	Username string
 }

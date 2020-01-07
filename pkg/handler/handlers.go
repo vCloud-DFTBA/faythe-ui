@@ -12,31 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package handler
 
 import (
 	"net/http"
-	"os"
 
-	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	_ "github.com/joho/godotenv/autoload"
 
-	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler"
+	"github.com/vCloud-DFTBA/faythe-ui/pkg/middleware"
 )
 
-func main() {
-	r := mux.NewRouter()
-	r.StrictSlash(true)
+func Register(r *mux.Router) {
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./pkg/web/static"))))
 
-	headersOk := handlers.AllowedHeaders([]string{"Accept", "Authorization", "Content-Type", "Origin"})
-	originsOk := handlers.AllowedOrigins([]string{"*"})
-	methodsOk := handlers.AllowedMethods([]string{"GET", "POST", "DELETE"})
-	credsOK := handlers.AllowCredentials()
-	exposeHeaders := handlers.ExposedHeaders([]string{"Date"})
+	authRouter := r.PathPrefix("/public").Subrouter()
+	authRouter.HandleFunc("/auth", loginHandler).Methods("POST")
+	authRouter.Handle("/", http.FileServer(http.Dir("./pkg/web/views"))).Methods("GET")
 
-	handler.Register(r)
+	homeRouter := r.PathPrefix("/").Subrouter()
+	homeRouter.Use(middleware.Authorization)
+	homeRouter.HandleFunc("/home", homeHandler).Methods("GET")
+}
 
-	http.ListenAndServe(os.Getenv("SERVER_ADDR"),
-		handlers.CORS(headersOk, originsOk, methodsOk, exposeHeaders, credsOK)(r))
+var homeHandler = func(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello World!"))
 }

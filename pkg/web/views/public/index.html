@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Faythe UI</title>
+    <script type="text/javascript" src="/static/public/js/vue.min.js"></script>
+    <script type="text/javascript" src="/static/public/js/axios.min.js"></script>
+    <script type="text/javascript" src="/static/public/js/md5.min.js"></script>
+    <link rel="stylesheet" href="/static/public/css/style.css" type="text/css">
+</head>
+<body>
+<section id="login">
+    <form>
+        <h2>Login</h2>
+        <div class="info" v-bind:class="good">
+            <p>{{ alert.message }}</p>
+            <a href="http://localhost:8660/home/">Home</a>
+        </div>
+        <input type="text" v-model="login.username" placeholder="Username" />
+        <input type="password" v-model="login.password" placeholder="Password" />
+        <button v-on:click="onSubmit">Log in</button>
+    </form>
+</section>
+<script type="text/javascript" src="/static/public/js/login.js"></script>
+</body>
+</html>
