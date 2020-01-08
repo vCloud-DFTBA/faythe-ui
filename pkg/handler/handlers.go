@@ -15,25 +15,25 @@
 package handler
 
 import (
+	"github.com/vCloud-DFTBA/faythe-ui/pkg/middleware"
 	"net/http"
 
 	"github.com/gorilla/mux"
-
-	"github.com/vCloud-DFTBA/faythe-ui/pkg/middleware"
 )
 
 func Register(r *mux.Router) {
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./pkg/web/static"))))
+	r.HandleFunc("/auth", loginHandler).Methods("POST")
 
-	authRouter := r.PathPrefix("/public").Subrouter()
-	authRouter.HandleFunc("/auth", loginHandler).Methods("POST")
-	authRouter.Handle("/", http.FileServer(http.Dir("./pkg/web/views"))).Methods("GET")
+	authRouter := r.PathPrefix("/login").Subrouter()
+	authRouter.Handle("/", http.FileServer(http.Dir("./pkg/web/app")))
+	authRouter.PathPrefix("/img/").Handler(http.StripPrefix("/login/img/", http.FileServer(http.Dir("./pkg/web/app/login"))))
+	authRouter.PathPrefix("/js/").Handler(http.StripPrefix("/login/js/", http.FileServer(http.Dir("./pkg/web/app/login"))))
+	authRouter.PathPrefix("/css/").Handler(http.StripPrefix("/login/css/", http.FileServer(http.Dir("./pkg/web/app/login"))))
 
 	homeRouter := r.PathPrefix("/").Subrouter()
 	homeRouter.Use(middleware.Authorization)
-	homeRouter.HandleFunc("/home", homeHandler).Methods("GET")
-}
-
-var homeHandler = func(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello World!"))
+	homeRouter.Handle("/", http.FileServer(http.Dir("./pkg/web/app/faythe-ui/dist")))
+	homeRouter.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("./pkg/web/app/faythe-ui/dist/js"))))
+	homeRouter.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("./pkg/web/app/faythe-ui/dist/css"))))
+	homeRouter.PathPrefix("/img/").Handler(http.StripPrefix("/img/", http.FileServer(http.Dir("./pkg/web/app/faythe-ui/dist/img"))))
 }

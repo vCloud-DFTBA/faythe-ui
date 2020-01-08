@@ -29,6 +29,7 @@ func Authorization(next http.Handler) http.Handler {
 		c, err := r.Cookie("token")
 		if err != nil {
 			if err == http.ErrNoCookie {
+				http.Redirect(w, r, "/login", 401)
 				w.WriteHeader(http.StatusUnauthorized)
 				return
 			}
@@ -45,6 +46,7 @@ func Authorization(next http.Handler) http.Handler {
 
 		if err != nil {
 			if err == jwt.ErrSignatureInvalid {
+				http.Redirect(w, r, "/login", 401)
 				w.WriteHeader(http.StatusUnauthorized)
 				return
 			}
@@ -53,6 +55,7 @@ func Authorization(next http.Handler) http.Handler {
 		}
 
 		if !token.Valid {
+			http.Redirect(w, r, "/login", 401)
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
