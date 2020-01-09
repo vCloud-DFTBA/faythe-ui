@@ -36,4 +36,6 @@ func Register(r *mux.Router) {
 	homeRouter.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("./pkg/web/app/faythe-ui/dist/js"))))
 	homeRouter.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("./pkg/web/app/faythe-ui/dist/css"))))
 	homeRouter.PathPrefix("/img/").Handler(http.StripPrefix("/img/", http.FileServer(http.Dir("./pkg/web/app/faythe-ui/dist/img"))))
+
+	homeRouter.HandleFunc("/clouds/", listClouds).Methods("GET")
 }

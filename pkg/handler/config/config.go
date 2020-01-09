@@ -12,25 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package model
+package config
+
+import (
+	"os"
+
+	_ "github.com/joho/godotenv/autoload"
+)
 
 type config struct {
 	ServerAddress  string
 	SecretKey      string
 	Username       string
 	Password       string
-	FaytheHost     string
-	FaythePort     int
+	FaytheURL      string
 	FaytheUsername string
 	FaythePassword string
 }
 
-var Cfg *config
+var cfg *config
 
 func Get() *config {
-	if Cfg == nil {
-		Cfg = &config{}   // <--- NOT THREAD SAFE
+	if cfg == nil {
+		cfg = &config{
+			ServerAddress:  os.Getenv("SERVER_ADDR"),
+			SecretKey:      os.Getenv("SECRET_KEY"),
+			Username:       os.Getenv("USERNAME"),
+			Password:       os.Getenv("PASSWORD"),
+			FaytheURL:      os.Getenv("FAYTHE_URL"),
+			FaytheUsername: os.Getenv("FAYTHE_USERNAME"),
+			FaythePassword: os.Getenv("FAYTHE_PASSWORD"),
+		}
 	}
-	return Cfg
+	return cfg
 }
-

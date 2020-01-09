@@ -19,12 +19,11 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	_ "github.com/joho/godotenv/autoload"
 
+	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler/config"
 	"github.com/vCloud-DFTBA/faythe-ui/pkg/model"
 )
 
@@ -34,6 +33,7 @@ type credentials struct {
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
+	cfg := config.Get()
 	creds := credentials{}
 	dec := json.NewDecoder(r.Body)
 	err := dec.Decode(&creds)
@@ -42,10 +42,10 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	localHashPassword := md5.Sum([]byte(os.Getenv("PASSWORD")))
+	localHashPassword := md5.Sum([]byte(cfg.Password))
 
 	if hex.EncodeToString(localHashPassword[:]) != creds.Password ||
-		os.Getenv("USERNAME") != creds.Username {
+		cfg.Username != creds.Username {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
@@ -59,7 +59,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err := token.SignedString([]byte(os.Getenv("SECRET_KEY")))
+	tokenString, err := token.SignedString([]byte(cfg.SecretKey))
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

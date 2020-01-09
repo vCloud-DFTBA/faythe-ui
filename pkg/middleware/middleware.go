@@ -15,17 +15,16 @@
 package middleware
 
 import (
-	"net/http"
-	"os"
-
 	"github.com/dgrijalva/jwt-go"
-	_ "github.com/joho/godotenv/autoload"
+	"net/http"
 
+	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler/config"
 	"github.com/vCloud-DFTBA/faythe-ui/pkg/model"
 )
 
 func Authorization(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		cfg := config.Get()
 		c, err := r.Cookie("token")
 		if err != nil {
 			if err == http.ErrNoCookie {
@@ -41,7 +40,7 @@ func Authorization(next http.Handler) http.Handler {
 		claims := &model.Claims{}
 
 		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (i interface{}, err error) {
-			return []byte(os.Getenv("SECRET_KEY")), nil
+			return []byte(cfg.SecretKey), nil
 		})
 
 		if err != nil {

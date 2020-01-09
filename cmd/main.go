@@ -15,17 +15,16 @@
 package main
 
 import (
-	"net/http"
-	"os"
-
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	_ "github.com/joho/godotenv/autoload"
+	"net/http"
 
 	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler"
+	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler/config"
 )
 
 func main() {
+	cfg := config.Get()
 	r := mux.NewRouter()
 	r.StrictSlash(true)
 
@@ -37,6 +36,6 @@ func main() {
 
 	handler.Register(r)
 
-	http.ListenAndServe(os.Getenv("SERVER_ADDR"),
+	http.ListenAndServe(cfg.ServerAddress,
 		handlers.CORS(headersOk, originsOk, methodsOk, exposeHeaders, credsOK)(r))
 }
