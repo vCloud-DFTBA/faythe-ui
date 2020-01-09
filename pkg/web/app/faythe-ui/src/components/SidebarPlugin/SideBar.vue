@@ -88,10 +88,3 @@ export default {
   }
 };
 </script>
-<style>
-@media screen and (min-width: 991px) {
-  .nav-mobile-menu {
-    display: none;
-  }
-}
-</style>

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <side-bar>
-      <sidebar-link to="/table">
+      <sidebar-link to="/clouds">
         <p>Cloud Providers</p>
       </sidebar-link>
     </side-bar>

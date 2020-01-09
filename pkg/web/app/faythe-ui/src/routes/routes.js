@@ -1,17 +1,17 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
-import TableList from "@/pages/TableList.vue";
+import CloudsTable from "@/pages/CloudsTable.vue";
 
 const routes = [
   {
     path: "/",
     component: DashboardLayout,
-    redirect: "/table",
+    redirect: "/clouds",
     children: [
       {
-        path: "table",
-        name: "Table List",
-        component: TableList
+        path: "clouds",
+        name: "Clouds List",
+        component: CloudsTable
       }
     ]
   }

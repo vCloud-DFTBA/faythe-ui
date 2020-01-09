@@ -3,6 +3,9 @@ import StatsCard from "./Cards/StatsCard.vue";
 
 // Tables
 import OrderedTable from "./Tables/OrderedTable.vue";
-import SimpleTable from "./Tables/SimpleTable.vue";
+import CloudsTable from "./Tables/CloudsTable.vue";
 
-export { NavTabsCard, StatsCard, OrderedTable, SimpleTable };
+// Dialog
+import CloudDetails from "./Dialog/CloudDetails";
+
+export { NavTabsCard, StatsCard, OrderedTable, CloudsTable, CloudDetails };
