@@ -4,6 +4,9 @@
       <sidebar-link to="/clouds">
         <p>Cloud Providers</p>
       </sidebar-link>
+      <sidebar-link to="/clouds/create">
+        <p>Create Provider</p>
+      </sidebar-link>
     </side-bar>
     <div class="main-panel">
       <dashboard-content> </dashboard-content>

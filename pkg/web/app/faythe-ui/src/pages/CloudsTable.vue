@@ -7,7 +7,6 @@
         <md-card>
           <md-card-header data-background-color="green">
             <h4 class="title">Cloud Providers</h4>
-            <p class="category">List of cloud providers</p>
           </md-card-header>
           <md-card-content>
             <clouds-table table-header-color="green"></clouds-table>

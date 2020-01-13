@@ -40,7 +40,36 @@ func listClouds(w http.ResponseWriter, r *http.Request) {
 	}
 
 	bodyText, err := ioutil.ReadAll(resp.Body)
-	if err != nil{
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(bodyText)
+}
+
+func createCloud(w http.ResponseWriter, r *http.Request) {
+	cfg := config.Get()
+	u := model.MakeURL(cfg.FaytheURL, "clouds", "create")
+	client := &http.Client{}
+
+	req, err := http.NewRequest("POST", u, nil)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	req.Body = r.Body
+
+	req.SetBasicAuth(cfg.FaytheUsername, cfg.FaythePassword)
+	resp, err := client.Do(req)
+	if err != nil || resp.StatusCode != 200 {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	bodyText, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
