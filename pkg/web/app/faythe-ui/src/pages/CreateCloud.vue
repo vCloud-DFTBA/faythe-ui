@@ -32,15 +32,19 @@
         <md-button class="md-raised md-primary" @click="previewJSON"
           >Preview</md-button
         >
-        <md-button
-          class="md-raised md-success"
-          type="submit"
-        >
+        <md-button class="md-raised md-success" type="submit">
           Submit
         </md-button>
       </div>
     </form>
     <preview-data></preview-data>
+    <md-dialog-alert
+      :md-active.sync="alertFailed"
+      md-content="There is something wrong!" />
+    <md-dialog-alert
+      :md-active.sync="alertSuccess"
+      md-title="Cloud created!"
+      md-content="Your cloud has been registered!" />
   </div>
 </template>
 
@@ -55,6 +59,8 @@ export default {
     provider: null,
     providers: ["openstack"],
     tags: ["openstack"],
+    alertFailed: false,
+    alertSuccess: false,
   }),
   methods: {
     previewJSON() {
@@ -77,7 +83,10 @@ export default {
           tags: this.tags
         })
         .then(response => {
-          alert("OK");
+          alertSuccess = true;
+        })
+        .catch(error => {
+          alertFailed = true;
         });
     }
   }

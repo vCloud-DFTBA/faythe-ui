@@ -116,7 +116,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .md-dialog,
 .md-dialog-container {
   max-width: 768px;

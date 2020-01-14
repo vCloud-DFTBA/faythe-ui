@@ -39,4 +39,5 @@ func Register(r *mux.Router) {
 
 	homeRouter.HandleFunc("/clouds/", listClouds).Methods("GET")
 	homeRouter.HandleFunc("/clouds/create", createCloud).Methods("POST")
+	homeRouter.HandleFunc("/clouds/{id:[a-z 0-9]+}", deleteCloud).Methods("DELETE")
 }

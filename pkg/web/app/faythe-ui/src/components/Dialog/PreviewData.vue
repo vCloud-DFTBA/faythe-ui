@@ -1,7 +1,7 @@
 <template>
   <div>
     <md-dialog :md-active.sync="showDialog">
-      <md-content>
+      <md-content class="md-scrollbar">
         POST /clouds/create
         <pre>{{ json }}</pre>
       </md-content>
@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .md-dialog,
 .md-dialog-container {
   max-width: 768px;

@@ -16,6 +16,7 @@ package handler
 
 import (
 	"bytes"
+	"github.com/gorilla/mux"
 	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler/config"
 	"github.com/vCloud-DFTBA/faythe-ui/pkg/model"
 	"io/ioutil"
@@ -64,6 +65,35 @@ func createCloud(w http.ResponseWriter, r *http.Request) {
 
 	req.SetBasicAuth(cfg.FaytheUsername, cfg.FaythePassword)
 	req.Header.Set("Content-Type", "application/json")
+	resp, err := client.Do(req)
+	if err != nil || resp.StatusCode != 200 {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	bodyText, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(bodyText)
+}
+
+func deleteCloud(w http.ResponseWriter, r *http.Request) {
+	cfg := config.Get()
+	vars := mux.Vars(r)
+	u := model.MakeURL(cfg.FaytheURL, "clouds", vars["id"])
+	client := &http.Client{}
+
+	req, err := http.NewRequest("DELETE", u, nil)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	req.SetBasicAuth(cfg.FaytheUsername, cfg.FaythePassword)
 	resp, err := client.Do(req)
 	if err != nil || resp.StatusCode != 200 {
 		w.WriteHeader(http.StatusInternalServerError)
