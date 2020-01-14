@@ -10,6 +10,7 @@ import PreviewData from "./Dialog/PreviewData";
 import AuthCard from "./Cards/AuthCard";
 import MonitorCard from "./Cards/MonitorCard";
 import AtengineCard from "./Cards/AtengineCard";
+import ProviderSelectionCard from "./Cards/ProviderSelectionCard";
 
 export {
   CloudsTable,
@@ -18,5 +19,6 @@ export {
   MonitorCard,
   AtengineCard,
   PreviewData,
-  HealersTable
+  HealersTable,
+  ProviderSelectionCard
 };

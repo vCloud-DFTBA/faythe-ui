@@ -26,7 +26,7 @@
     </md-table>
     <md-dialog-confirm
       :md-active.sync="confirmation"
-      md-title="Delete Cloud"
+      md-title="Delete Cloud?"
       md-content="Are you sure to delete cloud? This action may harm your system."
       md-confirm-text="Agree"
       md-cancel-text="Disagree"
@@ -82,7 +82,12 @@ export default {
       let self = this;
       this.setConfirmation().then(function() {
         if (self.confirmDelete == 1) {
-          axios.delete("/clouds/" + id).then(response => location.reload());
+          axios.delete("/clouds/" + id)
+          .then(response => {
+            self.clouds = self.clouds.filter(function(value, index, arr){
+              return value.id != id;
+            });
+          });
         }
       });
       this.confirmDelete = -1;
