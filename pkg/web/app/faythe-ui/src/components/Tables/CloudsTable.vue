@@ -1,9 +1,6 @@
 <template>
   <div>
-    <md-table
-      v-model="clouds"
-      :table-header-color="tableHeaderColor"
-    >
+    <md-table v-model="clouds" :table-header-color="tableHeaderColor">
       <md-table-row
         slot="md-table-row"
         slot-scope="{ item }"
@@ -19,7 +16,11 @@
           item.atengine.address
         }}</md-table-cell>
         <md-table-cell
-          ><md-button class="md-accent" @click.native.stop="deleteCloud(item.id)">Delete</md-button></md-table-cell
+          ><md-button
+            class="md-accent"
+            @click.native.stop="deleteCloud(item.id)"
+            >Delete</md-button
+          ></md-table-cell
         >
       </md-table-row>
     </md-table>
@@ -30,7 +31,8 @@
       md-confirm-text="Agree"
       md-cancel-text="Disagree"
       @md-cancel="onCancel"
-      @md-confirm="onConfirm" />
+      @md-confirm="onConfirm"
+    />
   </div>
 </template>
 
@@ -49,7 +51,7 @@ export default {
     return {
       clouds: [],
       confirmation: false,
-      confirmDelete: -1,
+      confirmDelete: -1
     };
   },
   mounted() {
@@ -68,22 +70,21 @@ export default {
     },
     setConfirmation() {
       let self = this;
-      return new Promise(function (resolve, reject) {
-          (function waitForConfirmation(){
-              if (self.confirmDelete == 1) return resolve();
-              setTimeout(waitForConfirmation, 600);
-          })();
+      return new Promise(function(resolve, reject) {
+        (function waitForConfirmation() {
+          if (self.confirmDelete == 1) return resolve();
+          setTimeout(waitForConfirmation, 600);
+        })();
       });
     },
     deleteCloud(id) {
       this.confirmation = true;
       let self = this;
-      this.setConfirmation().then(function(){
+      this.setConfirmation().then(function() {
         if (self.confirmDelete == 1) {
-          axios.delete("/clouds/"+id)
-          .then(response => location.reload());
+          axios.delete("/clouds/" + id).then(response => location.reload());
         }
-      })
+      });
       this.confirmDelete = -1;
     },
     onConfirm() {
@@ -97,7 +98,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .md-accent {
-    background-color: #ff5252 !important;
-  }
+.md-accent {
+  background-color: #ff5252 !important;
+}
 </style>

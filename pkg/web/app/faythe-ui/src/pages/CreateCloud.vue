@@ -40,11 +40,13 @@
     <preview-data></preview-data>
     <md-dialog-alert
       :md-active.sync="alertFailed"
-      md-content="There is something wrong!" />
+      md-content="There is something wrong!"
+    />
     <md-dialog-alert
       :md-active.sync="alertSuccess"
       md-title="Cloud created!"
-      md-content="Your cloud has been registered!" />
+      md-content="Your cloud has been registered!"
+    />
   </div>
 </template>
 
@@ -60,7 +62,7 @@ export default {
     providers: ["openstack"],
     tags: ["openstack"],
     alertFailed: false,
-    alertSuccess: false,
+    alertSuccess: false
   }),
   methods: {
     previewJSON() {

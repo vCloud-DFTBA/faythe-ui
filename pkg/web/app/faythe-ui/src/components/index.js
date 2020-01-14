@@ -1,5 +1,6 @@
 // Tables
 import CloudsTable from "./Tables/CloudsTable.vue";
+import HealersTable from "./Tables/HealersTable";
 
 // Dialog
 import CloudDetails from "./Dialog/CloudDetails";
@@ -16,5 +17,6 @@ export {
   AuthCard,
   MonitorCard,
   AtengineCard,
-  PreviewData
+  PreviewData,
+  HealersTable
 };

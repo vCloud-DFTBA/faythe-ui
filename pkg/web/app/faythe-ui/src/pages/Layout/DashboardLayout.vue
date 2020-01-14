@@ -7,6 +7,9 @@
       <sidebar-link to="/clouds/create">
         <p>Create Provider</p>
       </sidebar-link>
+      <sidebar-link to="/healers">
+        <p>Healers</p>
+      </sidebar-link>
     </side-bar>
     <div class="main-panel">
       <dashboard-content> </dashboard-content>
