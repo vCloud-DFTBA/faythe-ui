@@ -17,10 +17,10 @@
           >
             <md-card>
               <md-card-header data-background-color="green">
-                <h4 class="title">Healers</h4>
+                <h4 class="title">Scalers</h4>
               </md-card-header>
               <md-card-content>
-                <healers-table></healers-table>
+                <scalers-table></scalers-table>
               </md-card-content>
             </md-card>
           </div>
@@ -42,10 +42,10 @@
           >
             <md-card>
               <md-card-header data-background-color="green">
-                <h4 class="title">Healers</h4>
+                <h4 class="title">Scalers</h4>
               </md-card-header>
               <md-card-content>
-                <healers-table></healers-table>
+                <scalers-table></scalers-table>
               </md-card-content>
             </md-card>
           </div>
@@ -56,11 +56,11 @@
 </template>
 
 <script>
-import { HealersTable, ProviderSelectionCard } from "@/components";
+import { ScalersTable, ProviderSelectionCard } from "@/components";
 
 export default {
   components: {
-    HealersTable,
+    ScalersTable,
     ProviderSelectionCard
   }
 };

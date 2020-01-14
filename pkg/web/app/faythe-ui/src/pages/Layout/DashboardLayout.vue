@@ -10,6 +10,9 @@
       <sidebar-link to="/healers">
         <p>Healers</p>
       </sidebar-link>
+      <sidebar-link to="/scalers">
+        <p>Scalers</p>
+      </sidebar-link>
     </side-bar>
     <div class="main-panel">
       <dashboard-content> </dashboard-content>

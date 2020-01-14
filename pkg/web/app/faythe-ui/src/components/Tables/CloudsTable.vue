@@ -82,9 +82,8 @@ export default {
       let self = this;
       this.setConfirmation().then(function() {
         if (self.confirmDelete == 1) {
-          axios.delete("/clouds/" + id)
-          .then(response => {
-            self.clouds = self.clouds.filter(function(value, index, arr){
+          axios.delete("/clouds/" + id).then(response => {
+            self.clouds = self.clouds.filter(function(value, index, arr) {
               return value.id != id;
             });
           });

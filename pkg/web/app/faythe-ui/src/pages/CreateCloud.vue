@@ -85,10 +85,10 @@ export default {
           tags: this.tags
         })
         .then(response => {
-          alertSuccess = true;
+          this.alertSuccess = true;
         })
         .catch(error => {
-          alertFailed = true;
+          this.alertFailed = true;
         });
     }
   }

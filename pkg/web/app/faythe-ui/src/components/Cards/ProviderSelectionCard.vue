@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="fetchHealers">
+    <form @submit.prevent="fetchChildComp">
       <md-autocomplete v-model="selectedProvider" :md-options="clouds" required>
         <label>Cloud provider</label>
       </md-autocomplete>
@@ -34,8 +34,8 @@ export default {
     });
   },
   methods: {
-    fetchHealers() {
-      this.$root.$emit("fetch_healers", this.selectedProvider);
+    fetchChildComp() {
+      this.$root.$emit("fetch_child_components", this.selectedProvider);
     }
   }
 };
