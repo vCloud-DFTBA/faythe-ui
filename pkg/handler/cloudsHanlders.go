@@ -15,6 +15,7 @@
 package handler
 
 import (
+	"bytes"
 	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler/config"
 	"github.com/vCloud-DFTBA/faythe-ui/pkg/model"
 	"io/ioutil"
@@ -51,17 +52,18 @@ func listClouds(w http.ResponseWriter, r *http.Request) {
 
 func createCloud(w http.ResponseWriter, r *http.Request) {
 	cfg := config.Get()
-	u := model.MakeURL(cfg.FaytheURL, "clouds", "create")
+	u := model.MakeURL(cfg.FaytheURL, "clouds", "openstack")
 	client := &http.Client{}
+	buf, _ := ioutil.ReadAll(r.Body)
 
-	req, err := http.NewRequest("POST", u, nil)
+	req, err := http.NewRequest("POST", u, bytes.NewBuffer(buf))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	req.Body = r.Body
 
 	req.SetBasicAuth(cfg.FaytheUsername, cfg.FaythePassword)
+	req.Header.Set("Content-Type", "application/json")
 	resp, err := client.Do(req)
 	if err != nil || resp.StatusCode != 200 {
 		w.WriteHeader(http.StatusInternalServerError)
