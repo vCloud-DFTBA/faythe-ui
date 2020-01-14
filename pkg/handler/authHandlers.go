@@ -23,7 +23,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 
-	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler/config"
+	"github.com/vCloud-DFTBA/faythe-ui/pkg/config"
 	"github.com/vCloud-DFTBA/faythe-ui/pkg/model"
 )
 

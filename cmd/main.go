@@ -15,12 +15,13 @@
 package main
 
 import (
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
 	"net/http"
 
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+
+	"github.com/vCloud-DFTBA/faythe-ui/pkg/config"
 	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler"
-	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler/config"
 )
 
 func main() {

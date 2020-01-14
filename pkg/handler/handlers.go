@@ -15,10 +15,11 @@
 package handler
 
 import (
-	"github.com/vCloud-DFTBA/faythe-ui/pkg/middleware"
 	"net/http"
 
 	"github.com/gorilla/mux"
+
+	"github.com/vCloud-DFTBA/faythe-ui/pkg/middleware"
 )
 
 func Register(r *mux.Router) {

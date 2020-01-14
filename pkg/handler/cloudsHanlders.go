@@ -16,11 +16,13 @@ package handler
 
 import (
 	"bytes"
-	"github.com/gorilla/mux"
-	"github.com/vCloud-DFTBA/faythe-ui/pkg/handler/config"
-	"github.com/vCloud-DFTBA/faythe-ui/pkg/model"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/gorilla/mux"
+
+	"github.com/vCloud-DFTBA/faythe-ui/pkg/config"
+	"github.com/vCloud-DFTBA/faythe-ui/pkg/model"
 )
 
 func listClouds(w http.ResponseWriter, r *http.Request) {
