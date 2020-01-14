@@ -33,7 +33,7 @@
           >
             <md-card>
               <md-card-content>
-                <provider-selection-card></provider-selection-card>
+                <provider-selection-without-btn-card></provider-selection-without-btn-card>
               </md-card-content>
             </md-card>
           </div>
@@ -42,10 +42,10 @@
           >
             <md-card>
               <md-card-header data-background-color="green">
-                <h4 class="title">Scalers</h4>
+                <h4 class="title">Create Scalers</h4>
               </md-card-header>
               <md-card-content>
-                <scalers-table></scalers-table>
+                <create-scaler-card></create-scaler-card>
               </md-card-content>
             </md-card>
           </div>
@@ -56,12 +56,19 @@
 </template>
 
 <script>
-import { ScalersTable, ProviderSelectionCard } from "@/components";
+import {
+  ScalersTable,
+  ProviderSelectionCard,
+  ProviderSelectionWithoutBtnCard,
+  CreateScalerCard
+} from "@/components";
 
 export default {
   components: {
     ScalersTable,
-    ProviderSelectionCard
+    ProviderSelectionCard,
+    ProviderSelectionWithoutBtnCard,
+    CreateScalerCard
   }
 };
 </script>

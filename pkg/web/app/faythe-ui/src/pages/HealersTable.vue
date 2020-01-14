@@ -33,7 +33,7 @@
           >
             <md-card>
               <md-card-content>
-                <provider-selection-card></provider-selection-card>
+                <provider-selection-without-btn-card></provider-selection-without-btn-card>
               </md-card-content>
             </md-card>
           </div>
@@ -45,7 +45,7 @@
                 <h4 class="title">Healers</h4>
               </md-card-header>
               <md-card-content>
-                <healers-table></healers-table>
+                <create-healer-card></create-healer-card>
               </md-card-content>
             </md-card>
           </div>
@@ -56,12 +56,19 @@
 </template>
 
 <script>
-import { HealersTable, ProviderSelectionCard } from "@/components";
+import {
+  HealersTable,
+  ProviderSelectionCard,
+  ProviderSelectionWithoutBtnCard,
+  CreateHealerCard
+} from "@/components";
 
 export default {
   components: {
     HealersTable,
-    ProviderSelectionCard
+    ProviderSelectionCard,
+    ProviderSelectionWithoutBtnCard,
+    CreateHealerCard
   }
 };
 </script>

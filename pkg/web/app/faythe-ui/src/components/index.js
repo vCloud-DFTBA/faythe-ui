@@ -14,6 +14,7 @@ import AtengineCard from "./Cards/AtengineCard";
 import ProviderSelectionCard from "./Cards/ProviderSelectionCard";
 import CreateHealerCard from "./Cards/CreateHealerCard";
 import CreateScalerCard from "./Cards/CreateScalerCard";
+import ProviderSelectionWithoutBtnCard from "./Cards/ProviderSelectionWithoutBtnCard";
 
 export {
   CloudsTable,
@@ -26,5 +27,6 @@ export {
   ProviderSelectionCard,
   ScalersTable,
   CreateScalerCard,
-  CreateHealerCard
+  CreateHealerCard,
+  ProviderSelectionWithoutBtnCard
 };

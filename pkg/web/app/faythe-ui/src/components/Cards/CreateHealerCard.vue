@@ -1,16 +1,12 @@
 <template>
-  <md-card>
-      
-  </md-card>
+  <md-card> </md-card>
 </template>
 
 <script>
 export default {
-  name: 'create-healer-card',
+  name: "create-healer-card",
   data() {
-    return {
-      
-    }
+    return {};
   }
-}
+};
 </script>
