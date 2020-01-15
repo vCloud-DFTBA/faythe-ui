@@ -42,6 +42,6 @@ export default {
 pre {
   outline: 1px solid #ccc;
   padding: 5px;
-  margin: 5px; 
+  margin: 5px;
 }
 </style>

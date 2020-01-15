@@ -2,7 +2,7 @@
   <md-card>
     <form @submit.prevent="createScaler">
       <md-field>
-        <label for="movie">Cloud provider</label>
+        <label>Cloud provider</label>
         <md-select v-model="selectedProvider" required>
           <md-option v-for="cloud in clouds" :value="cloud" :key="cloud">
             {{ cloud }}
@@ -10,7 +10,12 @@
         </md-select>
       </md-field>
 
+      <md-field>
+        <label>Query</label>
+        <md-textarea v-model="query" required></md-textarea>
+      </md-field>
 
+      <div class="md-layout"></div>
     </form>
   </md-card>
 </template>
@@ -36,7 +41,7 @@ export default {
       }
       this.clouds = arr;
     });
-  },
+  }
 };
 </script>
 

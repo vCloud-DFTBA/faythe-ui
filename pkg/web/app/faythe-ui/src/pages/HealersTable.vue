@@ -33,7 +33,7 @@
           >
             <md-card>
               <md-card-header data-background-color="green">
-                <h4 class="title">Healers</h4>
+                <h4 class="title">Create Healer</h4>
               </md-card-header>
               <md-card-content>
                 <create-healer-card></create-healer-card>

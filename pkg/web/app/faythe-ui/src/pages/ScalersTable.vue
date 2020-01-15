@@ -33,7 +33,7 @@
           >
             <md-card>
               <md-card-header data-background-color="green">
-                <h4 class="title">Create Scalers</h4>
+                <h4 class="title">Create Scaler</h4>
               </md-card-header>
               <md-card-content>
                 <create-scaler-card></create-scaler-card>

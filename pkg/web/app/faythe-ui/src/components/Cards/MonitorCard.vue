@@ -24,7 +24,11 @@
         </md-field>
         <md-field>
           <label>Password</label>
-          <md-input v-model="monitor.password" type="password" required></md-input>
+          <md-input
+            v-model="monitor.password"
+            type="password"
+            required
+          ></md-input>
         </md-field>
       </md-card-content>
     </md-card>
