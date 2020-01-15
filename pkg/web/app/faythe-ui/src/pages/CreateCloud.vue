@@ -85,7 +85,11 @@ export default {
           tags: this.tags
         })
         .then(response => {
-          this.alertSuccess = true;
+          if (!response.data.includes("OK")) {
+            this.alertFailed = true;
+          } else {
+            this.alertSuccess = true;
+          }
         })
         .catch(error => {
           this.alertFailed = true;
