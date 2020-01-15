@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       scalers: [],
+      scalersKey: [], 
       showScalersTable: false,
       confirmation: false,
       confirmDelete: -1
@@ -59,6 +60,7 @@ export default {
         let tmp = response.data.Data;
         for (let key in tmp) {
           arr.push(tmp[key]);
+          self.scalersKey.push(key);
         }
         self.scalers = arr;
         self.showScalersTable = true;
@@ -80,6 +82,16 @@ export default {
       let self = this;
       this.setConfirmation().then(function() {
         if (self.confirmDelete == 1) {
+          let url = self.scalersKey.filter(function(value, index, arr){
+            return value.includes(scaler.id)
+          });
+          axios
+            .delete(url[0])
+            .then(response => {
+              self.scalers = self.scalers.filter(function(value, index, arr) {
+                return value.id != scaler.id;
+              });
+            });
         }
       });
       this.confirmDelete = -1;
