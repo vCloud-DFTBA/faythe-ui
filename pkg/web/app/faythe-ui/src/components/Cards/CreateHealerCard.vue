@@ -69,18 +69,18 @@
           <h5 class="title">Healer actions</h5>
         </md-card-header>
         <md-card-content>
-          <template v-for="n in actionIndex">
+          <template v-for="(num, n) in numActions">
             <div class="md-layout" :key="`layout_1-${n}`">
               <div class="md-layout-item">
                 <md-radio
-                  v-model="actionType[n-1]"
+                  v-model="actionType[n]"
                   value="mail"
                   :key="`actionType_1-${n}`"
                   :id="`actionType_1-${n}`"
                   >Mail</md-radio
                 >
                 <md-radio
-                  v-model="actionType[n-1]"
+                  v-model="actionType[n]"
                   value="http"
                   :key="`actionType_2-${n}`"
                   :id="`actionType_2-${n}`"
@@ -91,7 +91,7 @@
                 <md-field>
                   <label>Attempts</label>
                   <md-input
-                    v-model="action.attempts[n-1]"
+                    v-model="action.attempts[n]"
                     type="number"
                     :key="`attempts-${n}`"
                     :id="`attempts-${n}`"
@@ -102,7 +102,7 @@
                 <md-field>
                   <label>Delay</label>
                   <md-input
-                    v-model="action.delay[n-1]"
+                    v-model="action.delay[n]"
                     :key="`delay-${n}`"
                     :id="`delay-${n}`"
                   ></md-input>
@@ -112,14 +112,14 @@
                 <md-field>
                   <label>Delay type</label>
                   <md-input
-                    v-model="action.delay_type[n-1]"
+                    v-model="action.delay_type[n]"
                     :key="`delay_type-${n}`"
                     :id="`delay_type-${n}`"
                   ></md-input>
                 </md-field>
               </div>
             </div>
-            <template v-if="actionType[n-1] == 'mail'">
+            <template v-if="actionType[n] == 'mail'">
               <div
                 class="md-layout"
                 :key="`layout_2-${n}`"
@@ -127,7 +127,7 @@
               >
                 <div class="md-layout-item">
                   <md-chips
-                    v-model="mail.receivers[n-1]"
+                    v-model="mail.receivers[n]"
                     md-placeholder="Add receivers..."
                     required
                     :key="`receivers-${n}`"
@@ -140,13 +140,13 @@
                 </div>
               </div>
             </template>
-            <template v-else-if="actionType[n-1] == 'http'">
+            <template v-else-if="actionType[n] == 'http'">
               <div class="md-layout" :key="`layout_3-${n}`">
                 <div class="md-layout-item">
                   <md-field>
                     <label>Method</label>
                     <md-select
-                      v-model="http.method[n-1]"
+                      v-model="http.method[n]"
                       :key="`method-${n}`"
                       :id="`method-${n}`"
                     >
@@ -162,7 +162,7 @@
                   <md-field>
                     <label>URL</label>
                     <md-input
-                      v-model="http.url[n-1]"
+                      v-model="http.url[n]"
                       required
                       :key="`url-${n}`"
                       :id="`url-${n}`"
@@ -214,7 +214,7 @@ export default {
       actionType: [],
       alertSuccess: null,
       alertFailed: null,
-      actionIndex: 2,
+      numActions: 1,
       // healer information
       query: 'up{job=~".compute-cadvisor.|.compute-node."} < 1',
       receivers: [],
