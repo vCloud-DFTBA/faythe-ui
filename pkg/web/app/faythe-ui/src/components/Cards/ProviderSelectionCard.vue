@@ -1,9 +1,14 @@
 <template>
   <div>
     <form @submit.prevent="fetchChildComp">
-      <md-autocomplete v-model="selectedProvider" :md-options="clouds" required>
-        <label>Cloud provider</label>
-      </md-autocomplete>
+      <md-field>
+        <label for="movie">Cloud provider</label>
+        <md-select v-model="selectedProvider" required>
+          <md-option v-for="cloud in clouds" :value="cloud" :key="cloud">
+            {{ cloud }}
+          </md-option>
+        </md-select>
+      </md-field>
       <md-button class="md-raised md-success" type="submit" style="float:right">
         View
       </md-button>
@@ -40,3 +45,9 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.md-menu-content {
+  min-width: 82%;
+  max-width: 82%;
+}
+</style>

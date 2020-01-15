@@ -1,12 +1,48 @@
 <template>
-  <md-card> </md-card>
+  <md-card>
+    <form @submit.prevent="createScaler">
+      <md-field>
+        <label for="movie">Cloud provider</label>
+        <md-select v-model="selectedProvider" required>
+          <md-option v-for="cloud in clouds" :value="cloud" :key="cloud">
+            {{ cloud }}
+          </md-option>
+        </md-select>
+      </md-field>
+
+
+    </form>
+  </md-card>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "create-scaler-card",
   data() {
-    return {};
-  }
+    return {
+      clouds: [],
+      selectedProvider: null
+    };
+  },
+  mounted() {
+    axios.get("/clouds").then(response => {
+      let arr = [];
+      let tmp = response.data.Data;
+      for (let key in tmp) {
+        let tc = tmp[key];
+        arr.push(tc.provider + " - " + tc.id + " - " + tc.auth.auth_url);
+      }
+      this.clouds = arr;
+    });
+  },
 };
 </script>
+
+<style lang="scss">
+.md-menu-content {
+  min-width: 82%;
+  max-width: 82%;
+}
+</style>

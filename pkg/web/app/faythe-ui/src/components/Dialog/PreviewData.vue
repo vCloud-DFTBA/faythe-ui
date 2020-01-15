@@ -2,7 +2,6 @@
   <div>
     <md-dialog :md-active.sync="showDialog">
       <md-content class="md-scrollbar">
-        POST /clouds/create
         <pre>{{ json }}</pre>
       </md-content>
       <md-dialog-actions>
@@ -38,5 +37,11 @@ export default {
 }
 .md-tabs-navigation {
   margin: auto 0 !important;
+}
+
+pre {
+  outline: 1px solid #ccc;
+  padding: 5px;
+  margin: 5px; 
 }
 </style>
