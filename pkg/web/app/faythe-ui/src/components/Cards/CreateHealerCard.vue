@@ -1,6 +1,5 @@
 <template>
   <md-card>
-    <form @submit.prevent="createHealer">
       <div class="md-layout">
         <div class="md-layout-item">
           <md-field>
@@ -69,7 +68,14 @@
           <h5 class="title">Healer actions</h5>
         </md-card-header>
         <md-card-content>
-          <template v-for="(num, n) in numActions">
+          <div class="md-layout">
+            <div class="md-layout-item" style="text-align: right;">
+              <md-button class="md-success" @click.native="addAction"
+                >Add</md-button
+              >
+            </div>
+          </div>
+          <template v-for="n in numActions">
             <div class="md-layout" :key="`layout_1-${n}`">
               <div class="md-layout-item">
                 <md-radio
@@ -117,6 +123,16 @@
                     :id="`delay_type-${n}`"
                   ></md-input>
                 </md-field>
+              </div>
+              <div class="md-layout-item md-layout">
+                <div class="md-layout-item" style="text-align: center;">
+                  <md-button
+                    class="md-accent"
+                    style="background-color: #ff5252 !important;"
+                    @click.native="deleteAction(n)"
+                    >Delete</md-button
+                  >
+                </div>
               </div>
             </div>
             <template v-if="actionType[n] == 'mail'">
@@ -179,12 +195,11 @@
           <md-button class="md-raised md-primary" @click.native="previewJSON"
             >Preview</md-button
           >
-          <md-button class="md-raised md-success" type="submit">
+          <md-button class="md-raised md-success" type="submit" @click.prevent="createHealer">
             Submit
           </md-button>
         </div>
       </div>
-    </form>
     <preview-data></preview-data>
     <md-dialog-alert
       :md-active.sync="alertFailed"
@@ -209,12 +224,13 @@ export default {
   },
   data() {
     return {
-      clouds: [],
+      clouds: [""],
       selectedProvider: null,
       actionType: [],
       alertSuccess: null,
       alertFailed: null,
-      numActions: 1,
+      numActions: [0],
+      actionIndex: 1,
       // healer information
       query: 'up{job=~".compute-cadvisor.|.compute-node."} < 1',
       receivers: [],
@@ -281,6 +297,19 @@ export default {
         .catch(error => {
           this.alertFailed = true;
         });
+    },
+    addAction() {
+      this.numActions.push(this.actionIndex);
+      this.actionIndex++;
+      this.http.method.push("POST");
+      this.action.delay.push("100ms");
+      this.action.delay_type.push("fixed");
+      this.action.attempts.push(10);
+    },
+    deleteAction(n) {
+      this.numActions = this.numActions.filter(function(value, index, arr) {
+        return value != n;
+      });
     }
   }
 };
