@@ -22,9 +22,9 @@
           <label>Username</label>
           <md-input v-model="monitor.username" required></md-input>
         </md-field>
-        <md-field md-toggle-password>
+        <md-field>
           <label>Password</label>
-          <md-input v-model="monitor.password" required></md-input>
+          <md-input v-model="monitor.password" type="password" required></md-input>
         </md-field>
       </md-card-content>
     </md-card>

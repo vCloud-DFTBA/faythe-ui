@@ -13,9 +13,9 @@
           <label>Username</label>
           <md-input v-model="auth.username" required></md-input>
         </md-field>
-        <md-field md-toggle-password>
+        <md-field>
           <label>Password</label>
-          <md-input v-model="auth.password" required></md-input>
+          <md-input v-model="auth.password" type="password" required></md-input>
         </md-field>
         <md-field>
           <label>Project</label>
