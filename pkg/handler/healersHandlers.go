@@ -15,6 +15,7 @@
 package handler
 
 import (
+	"bytes"
 	"io/ioutil"
 	"net/http"
 
@@ -37,6 +38,37 @@ func listHealers(w http.ResponseWriter, r *http.Request) {
 	}
 
 	req.SetBasicAuth(cfg.FaytheUsername, cfg.FaythePassword)
+	resp, err := client.Do(req)
+	if err != nil || resp.StatusCode != 200 {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	bodyText, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(bodyText)
+}
+
+func createHealer(w http.ResponseWriter, r *http.Request) {
+	cfg := config.Get()
+	vars := mux.Vars(r)
+	u := model.MakeURL(cfg.FaytheURL, "healers", vars["pid"])
+	client := &http.Client{}
+	buf, _ := ioutil.ReadAll(r.Body)
+
+	req, err := http.NewRequest("POST", u, bytes.NewBuffer(buf))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	req.SetBasicAuth(cfg.FaytheUsername, cfg.FaythePassword)
+	req.Header.Set("Content-Type", "application/json")
 	resp, err := client.Do(req)
 	if err != nil || resp.StatusCode != 200 {
 		w.WriteHeader(http.StatusInternalServerError)

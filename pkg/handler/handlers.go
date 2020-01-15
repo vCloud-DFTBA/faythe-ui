@@ -43,8 +43,10 @@ func Register(r *mux.Router) {
 	homeRouter.HandleFunc("/clouds/{id:[a-z 0-9]+}", deleteCloud).Methods("DELETE")
 
 	homeRouter.HandleFunc("/healers/{pid:[a-z 0-9]+}", listHealers).Methods("GET")
+	homeRouter.HandleFunc("/healers/{pid:[a-z 0-9]+}", createHealer).Methods("POST")
 	homeRouter.HandleFunc("/healers/{pid:[a-z 0-9]+}/{id:[a-z 0-9]+}", deleteHealer).Methods("DELETE")
 
 	homeRouter.HandleFunc("/scalers/{pid:[a-z 0-9]+}", listScalers).Methods("GET")
+	homeRouter.HandleFunc("/scalers/{pid:[a-z 0-9]+}", createScaler).Methods("POST")
 	homeRouter.HandleFunc("/scalers/{pid:[a-z 0-9]+}/{id:[a-z 0-9]+}", deleteScaler).Methods("DELETE")
 }
