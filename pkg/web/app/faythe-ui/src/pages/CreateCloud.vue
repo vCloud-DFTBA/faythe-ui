@@ -77,7 +77,7 @@ export default {
     },
     createCloud() {
       axios
-        .post("/clouds/create", {
+        .post("/clouds/" + this.provider, {
           provider: this.provider,
           auth: this.$refs.auth.auth,
           monitor: this.$refs.monitor.monitor,

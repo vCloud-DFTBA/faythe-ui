@@ -55,7 +55,8 @@ func listClouds(w http.ResponseWriter, r *http.Request) {
 
 func createCloud(w http.ResponseWriter, r *http.Request) {
 	cfg := config.Get()
-	u := model.MakeURL(cfg.FaytheURL, "clouds", "openstack")
+	vars := mux.Vars(r)
+	u := model.MakeURL(cfg.FaytheURL, "clouds", vars["p"])
 	client := &http.Client{}
 	buf, _ := ioutil.ReadAll(r.Body)
 

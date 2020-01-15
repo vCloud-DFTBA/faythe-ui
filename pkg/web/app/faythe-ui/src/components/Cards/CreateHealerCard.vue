@@ -6,7 +6,7 @@
           <md-field>
             <label>Cloud provider</label>
             <md-select v-model="selectedProvider" required>
-              <md-option v-for="cloud in clouds" :value="cloud" :key="cloud">
+              <md-option v-for="(cloud, index) in clouds" :value="cloud" :key="`cloud-${index}`">
                 {{ cloud }}
               </md-option>
             </md-select>
@@ -60,67 +60,74 @@
           </md-field>
         </div>
       </div>
-      <div class="md-layout">
-        <div class="md-layout-item">
-          <md-radio v-model="actionType" value="mail">Mail</md-radio>
-          <md-radio v-model="actionType" value="http">HTTP</md-radio>
-        </div>
-        <div class="md-layout-item">
-          <md-field>
-            <label>Attempts</label>
-            <md-input v-model="action.attempts" type="number"></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item">
-          <md-field>
-            <label>Delay</label>
-            <md-input v-model="action.delay"></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item">
-          <md-field>
-            <label>Delay type</label>
-            <md-input v-model="action.delay_type"></md-input>
-          </md-field>
-        </div>
-      </div>
-      <template v-if="actionType == 'mail'">
-        <div class="md-layout">
-          <div class="md-layout-item">
-            <md-chips
-              v-model="mail.receivers"
-              md-placeholder="Add receivers..."
-              required
-            >
-              <div class="md-helper-text">
-                If this is left empty, healer receivers will be taken.
-              </div></md-chips
-            >
+      <md-card>
+        <md-card-header data-background-color="green">
+          <h5 class="title">Healer actions</h5>
+        </md-card-header>
+        <md-card-content>
+          <div class="md-layout">
+            <div class="md-layout-item">
+              <md-radio v-model="actionType" value="mail">Mail</md-radio>
+              <md-radio v-model="actionType" value="http">HTTP</md-radio>
+            </div>
+            <div class="md-layout-item">
+              <md-field>
+                <label>Attempts</label>
+                <md-input v-model="action.attempts" type="number"></md-input>
+              </md-field>
+            </div>
+            <div class="md-layout-item">
+              <md-field>
+                <label>Delay</label>
+                <md-input v-model="action.delay"></md-input>
+              </md-field>
+            </div>
+            <div class="md-layout-item">
+              <md-field>
+                <label>Delay type</label>
+                <md-input v-model="action.delay_type"></md-input>
+              </md-field>
+            </div>
           </div>
-        </div>
-      </template>
-      <template v-else-if="actionType == 'http'">
-        <div class="md-layout">
-          <div class="md-layout-item">
-            <md-field>
-              <label>Method</label>
-              <md-select v-model="http.method">
-                <md-option value="GET">GET</md-option>
-                <md-option value="POST">POST</md-option>
-                <md-option value="DELETE">DELETE</md-option>
-                <md-option value="PUT">PUT</md-option>
-                <md-option value="PATCH">PATCH</md-option>
-              </md-select>
-            </md-field>
-          </div>
-          <div class="md-layout-item">
-            <md-field>
-              <label>URL</label>
-              <md-input v-model="http.url" required></md-input>
-            </md-field>
-          </div>
-        </div>
-      </template>
+          <template v-if="actionType == 'mail'">
+            <div class="md-layout">
+              <div class="md-layout-item">
+                <md-chips
+                  v-model="mail.receivers"
+                  md-placeholder="Add receivers..."
+                  required
+                >
+                  <div class="md-helper-text">
+                    If this is left empty, healer receivers will be taken.
+                  </div></md-chips
+                >
+              </div>
+            </div>
+          </template>
+          <template v-else-if="actionType == 'http'">
+            <div class="md-layout">
+              <div class="md-layout-item">
+                <md-field>
+                  <label>Method</label>
+                  <md-select v-model="http.method">
+                    <md-option value="GET">GET</md-option>
+                    <md-option value="POST">POST</md-option>
+                    <md-option value="DELETE">DELETE</md-option>
+                    <md-option value="PUT">PUT</md-option>
+                    <md-option value="PATCH">PATCH</md-option>
+                  </md-select>
+                </md-field>
+              </div>
+              <div class="md-layout-item">
+                <md-field>
+                  <label>URL</label>
+                  <md-input v-model="http.url" required></md-input>
+                </md-field>
+              </div>
+            </div>
+          </template>
+        </md-card-content>
+      </md-card>
       <div class="md-layout">
         <div class="md-layout-item" style="text-align: center;">
           <md-button class="md-raised md-primary" @click.native="previewJSON"
@@ -169,7 +176,7 @@ export default {
       description: null,
       tags: [],
       active: false,
-      actions: [],
+      actions: {},
       mail: {
         type: "mail",
         receivers: null
@@ -210,6 +217,19 @@ export default {
         tags: this.tags
       };
       this.$root.$emit("preview_data", data);
+    },
+    createHealer() {
+      axios
+        .post(
+          "/healers/" + this.selectedProvider.split("-")[1].replace(" ", ""),
+          {}
+        )
+        .then(response => {
+          this.alertSuccess = true;
+        })
+        .catch(error => {
+          this.alertFailed = true;
+        });
     }
   }
 };

@@ -4,7 +4,7 @@
       <md-field>
         <label>Cloud provider</label>
         <md-select v-model="selectedProvider" required>
-          <md-option v-for="cloud in clouds" :value="cloud" :key="cloud">
+          <md-option v-for="(cloud, index) in clouds" :value="cloud" :key="`cloud-${index}`">
             {{ cloud }}
           </md-option>
         </md-select>
