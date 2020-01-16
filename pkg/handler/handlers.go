@@ -49,4 +49,8 @@ func Register(r *mux.Router) {
 	homeRouter.HandleFunc("/scalers/{pid:[a-z 0-9]+}", listScalers).Methods("GET")
 	homeRouter.HandleFunc("/scalers/{pid:[a-z 0-9]+}", createScaler).Methods("POST")
 	homeRouter.HandleFunc("/scalers/{pid:[a-z 0-9]+}/{id:[a-z 0-9]+}", deleteScaler).Methods("DELETE")
+
+	homeRouter.HandleFunc("/silences/{pid:[a-z 0-9]+}", listSilences).Methods("GET")
+	homeRouter.HandleFunc("/silences/{pid:[a-z 0-9]+}", createSilence).Methods("POST")
+	homeRouter.HandleFunc("/silences/{pid:[a-z 0-9]+}/{id:[a-z 0-9]+}", deleteSilence).Methods("DELETE")
 }

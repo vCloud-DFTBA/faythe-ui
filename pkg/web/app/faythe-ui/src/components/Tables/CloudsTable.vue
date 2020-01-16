@@ -50,7 +50,8 @@ export default {
   data() {
     return {
       clouds: [],
-      confirmation: false
+      confirmation: false,
+      selectedForDelete: null
     };
   },
   mounted() {

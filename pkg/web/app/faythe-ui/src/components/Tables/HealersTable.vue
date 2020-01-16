@@ -49,7 +49,7 @@ export default {
       healers: [],
       showHealersTable: false,
       confirmation: false,
-      selectedForDelete
+      selectedForDelete: null
     };
   },
   mounted() {

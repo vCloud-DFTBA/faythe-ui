@@ -4,6 +4,7 @@ import CloudsTable from "@/pages/CloudsTable.vue";
 import CreateCloud from "@/pages/CreateCloud.vue";
 import HealersTable from "@/pages/HealersTable";
 import ScalersTable from "@/pages/ScalersTable";
+import SilencesTable from "@/pages/SilencesTable";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
         path: "scalers",
         name: "Scalers List",
         component: ScalersTable
+      },
+      {
+        path: "silences",
+        name: "Silences List",
+        component: SilencesTable
       }
     ]
   }

@@ -2,6 +2,7 @@
 import CloudsTable from "./Tables/CloudsTable.vue";
 import HealersTable from "./Tables/HealersTable";
 import ScalersTable from "./Tables/ScalersTable";
+import SilencesTable from "./Tables/SilencesTable";
 
 // Dialog
 import CloudDetails from "./Dialog/CloudDetails";
@@ -14,6 +15,7 @@ import AtengineCard from "./Cards/AtengineCard";
 import ProviderSelectionCard from "./Cards/ProviderSelectionCard";
 import CreateHealerCard from "./Cards/CreateHealerCard";
 import CreateScalerCard from "./Cards/CreateScalerCard";
+import CreateSilenceCard from "./Cards/CreateSilenceCard";
 
 export {
   CloudsTable,
@@ -26,5 +28,7 @@ export {
   ProviderSelectionCard,
   ScalersTable,
   CreateScalerCard,
-  CreateHealerCard
+  CreateHealerCard,
+  CreateSilenceCard,
+  SilencesTable
 };

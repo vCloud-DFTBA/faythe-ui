@@ -13,6 +13,9 @@
       <sidebar-link to="/scalers">
         <p>Scalers</p>
       </sidebar-link>
+      <sidebar-link to="/silences">
+        <p>Silences</p>
+      </sidebar-link>
     </side-bar>
     <div class="main-panel">
       <dashboard-content> </dashboard-content>
