@@ -286,7 +286,7 @@ export default {
           this.formBody()
         )
         .then(response => {
-          if (!response.data.Status != "OK") {
+          if (response.data.Status != "OK") {
             this.errorMessage = response.data.Err;
             this.errorTitle = response.data.Status;
             this.alertFailed = true;

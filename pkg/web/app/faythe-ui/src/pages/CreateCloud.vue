@@ -38,7 +38,7 @@
       </div>
     </form>
     <preview-data></preview-data>
-    <md-dialog-alert :md-active.sync="alertFailed" :md-content="errorMessage" />
+    <md-dialog-alert :md-active.sync="alertFailed" :md-content="errorMessage" :md-title="errorTitle"/>
     <md-dialog-alert
       :md-active.sync="alertSuccess"
       md-title="Cloud created!"
@@ -60,7 +60,8 @@ export default {
     tags: ["openstack"],
     alertFailed: false,
     alertSuccess: false,
-    errorMessage: ""
+    errorMessage: "",
+    errorTitle: "",
   }),
   methods: {
     previewJSON() {
@@ -83,14 +84,17 @@ export default {
           tags: this.tags
         })
         .then(response => {
-          if (!response.data.Status != "OK") {
+          
+          if (response.data.Status != "OK") {
             this.errorMessage = response.data.Err;
+            this.errorTitle = response.data.Status;
             this.alertFailed = true;
           } else {
             this.alertSuccess = true;
           }
         })
         .catch(error => {
+          this.errorTitle = "Oops!!";
           this.errorMessage = "There is something wrong!";
           this.alertFailed = true;
         });
