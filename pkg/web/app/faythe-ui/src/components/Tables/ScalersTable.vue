@@ -48,7 +48,7 @@ export default {
       scalersKey: [],
       showScalersTable: false,
       confirmation: false,
-      confirmDelete: -1
+      selectedForDelete: null
     };
   },
   mounted() {
@@ -68,37 +68,24 @@ export default {
     });
   },
   methods: {
-    setConfirmation() {
-      let self = this;
-      return new Promise(function(resolve, reject) {
-        (function waitForConfirmation() {
-          if (self.confirmDelete == 1) return resolve();
-          setTimeout(waitForConfirmation, 600);
-        })();
-      });
-    },
     deleteScaler(scaler) {
+      this.selectedForDelete = scaler;
       this.confirmation = true;
-      let self = this;
-      this.setConfirmation().then(function() {
-        if (self.confirmDelete == 1) {
-          let url = self.scalersKey.filter(function(value, index, arr) {
-            return value.includes(scaler.id);
-          });
-          axios.delete(url[0]).then(response => {
-            self.scalers = self.scalers.filter(function(value, index, arr) {
-              return value.id != scaler.id;
-            });
-          });
-        }
-      });
-      this.confirmDelete = -1;
     },
     onConfirm() {
-      this.confirmDelete = 1;
+      let self = this;
+      let url = self.scalersKey.filter(function(value, index, arr) {
+        return value.includes(self.selectedForDelete.id);
+      });
+      axios.delete(url[0]).then(response => {
+        self.scalers = self.scalers.filter(function(value, index, arr) {
+          return value.id != self.selectedForDelete.id;
+        });
+        self.selectedForDelete = null;
+      });
     },
     onCancel() {
-      this.confirmDelete = 0;
+      this.confirmation = false;
     }
   }
 };

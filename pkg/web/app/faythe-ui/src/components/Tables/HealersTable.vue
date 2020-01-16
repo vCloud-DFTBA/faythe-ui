@@ -49,7 +49,7 @@ export default {
       healers: [],
       showHealersTable: false,
       confirmation: false,
-      confirmDelete: -1
+      selectedForDelete
     };
   },
   mounted() {
@@ -68,36 +68,28 @@ export default {
     });
   },
   methods: {
-    setConfirmation() {
-      let self = this;
-      return new Promise(function(resolve, reject) {
-        (function waitForConfirmation() {
-          if (self.confirmDelete == 1) return resolve();
-          setTimeout(waitForConfirmation, 600);
-        })();
-      });
-    },
     deleteHealer(healer) {
+      this.selectedForDelete = healer;
       this.confirmation = true;
-      let self = this;
-      this.setConfirmation().then(function() {
-        if (self.confirmDelete == 1) {
-          axios
-            .delete("/healers/" + healer.cloudid + "/" + healer.id)
-            .then(response => {
-              self.healers = self.healers.filter(function(value, index, arr) {
-                return value.id != healer.id;
-              });
-            });
-        }
-      });
-      this.confirmDelete = -1;
     },
     onConfirm() {
-      this.confirmDelete = 1;
+      let self = this;
+      axios
+        .delete(
+          "/healers/" +
+            self.selectedForDelete.cloudid +
+            "/" +
+            self.selectedForDelete.id
+        )
+        .then(response => {
+          self.healers = self.healers.filter(function(value, index, arr) {
+            return value.id != self.selectedForDelete.id;
+          });
+          self.selectedForDelete = null;
+        });
     },
     onCancel() {
-      this.confirmDelete = 0;
+      this.confirmation = false;
     }
   }
 };

@@ -50,8 +50,7 @@ export default {
   data() {
     return {
       clouds: [],
-      confirmation: false,
-      confirmDelete: -1
+      confirmation: false
     };
   },
   mounted() {
@@ -68,34 +67,21 @@ export default {
     onSelect(item) {
       this.$root.$emit("open_cloud_details", item);
     },
-    setConfirmation() {
-      let self = this;
-      return new Promise(function(resolve, reject) {
-        (function waitForConfirmation() {
-          if (self.confirmDelete == 1) return resolve();
-          setTimeout(waitForConfirmation, 600);
-        })();
-      });
-    },
     deleteCloud(id) {
+      this.selectedForDelete = id;
       this.confirmation = true;
-      let self = this;
-      this.setConfirmation().then(function() {
-        if (self.confirmDelete == 1) {
-          axios.delete("/clouds/" + id).then(response => {
-            self.clouds = self.clouds.filter(function(value, index, arr) {
-              return value.id != id;
-            });
-          });
-        }
-      });
-      this.confirmDelete = -1;
     },
     onConfirm() {
-      this.confirmDelete = 1;
+      let self = this;
+      axios.delete("/clouds/" + this.selectedForDelete).then(response => {
+        self.clouds = self.clouds.filter(function(value, index, arr) {
+          return value.id != self.selectedForDelete;
+        });
+        self.selectedForDelete = null;
+      });
     },
     onCancel() {
-      this.confirmDelete = 0;
+      this.confirmation = false;
     }
   }
 };

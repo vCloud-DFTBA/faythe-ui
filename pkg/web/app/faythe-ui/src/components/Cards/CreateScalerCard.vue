@@ -261,7 +261,7 @@ export default {
         })
         .catch(error => {
           this.errorMessage = "There is something wrong!";
-      
+
           this.errorTitle = "Oops!!";
           this.alertFailed = true;
         });
