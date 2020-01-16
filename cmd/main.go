@@ -15,6 +15,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gorilla/handlers"
@@ -37,6 +38,8 @@ func main() {
 
 	handler.Register(r)
 
-	http.ListenAndServe(cfg.ServerAddress,
-		handlers.CORS(headersOk, originsOk, methodsOk, exposeHeaders, credsOK)(r))
+	if err := http.ListenAndServe(cfg.ServerAddress,
+		handlers.CORS(headersOk, originsOk, methodsOk, exposeHeaders, credsOK)(r)); err != nil {
+		fmt.Println(err.Error())
+	}
 }
