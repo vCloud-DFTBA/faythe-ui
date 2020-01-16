@@ -38,7 +38,11 @@
       </div>
     </form>
     <preview-data></preview-data>
-    <md-dialog-alert :md-active.sync="alertFailed" :md-content="errorMessage" :md-title="errorTitle"/>
+    <md-dialog-alert
+      :md-active.sync="alertFailed"
+      :md-content="errorMessage"
+      :md-title="errorTitle"
+    />
     <md-dialog-alert
       :md-active.sync="alertSuccess"
       md-title="Cloud created!"
@@ -61,7 +65,7 @@ export default {
     alertFailed: false,
     alertSuccess: false,
     errorMessage: "",
-    errorTitle: "",
+    errorTitle: ""
   }),
   methods: {
     previewJSON() {
@@ -84,7 +88,6 @@ export default {
           tags: this.tags
         })
         .then(response => {
-          
           if (response.data.Status != "OK") {
             this.errorMessage = response.data.Err;
             this.errorTitle = response.data.Status;

@@ -30,8 +30,8 @@
         <md-chips
           v-model="receivers"
           md-placeholder="Add receivers..."
-          :key="`receivers-${n}`"
-          :id="`receivers-${n}`"
+          :key="`receivers`"
+          :id="`receivers`"
           required
         ></md-chips>
       </div>
@@ -203,7 +203,11 @@
       </div>
     </div>
     <preview-data></preview-data>
-    <md-dialog-alert :md-active.sync="alertFailed" :md-content="errorMessage" :md-title="errorTitle" />
+    <md-dialog-alert
+      :md-active.sync="alertFailed"
+      :md-content="errorMessage"
+      :md-title="errorTitle"
+    />
     <md-dialog-alert
       :md-active.sync="alertSuccess"
       md-title="Healer created!"
@@ -275,7 +279,7 @@ export default {
     },
     createHealer() {
       if (this.selectedProvider == null) {
-        this.errorTitle = "Oops!!"
+        this.errorTitle = "Oops!!";
         this.errorMessage = "cloud provider cannot be empty!";
         this.alertFailed = true;
         return;
@@ -296,7 +300,7 @@ export default {
         })
         .catch(error => {
           this.errorMessage = "There is something wrong!";
-          this.errorTitle = "Oops!!"
+          this.errorTitle = "Oops!!";
           this.alertFailed = true;
         });
     },
@@ -315,6 +319,7 @@ export default {
     },
     formBody() {
       let self = this;
+      this.actions = {};
       this.numActions.forEach(function(v, i, arr) {
         self.actions[v] = {
           attempts: self.action.attempts[v],
