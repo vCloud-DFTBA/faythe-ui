@@ -20,7 +20,7 @@
                 <h4 class="title">Healers</h4>
               </md-card-header>
               <md-card-content>
-                <healers-table></healers-table>
+                <healers-table table-header-color="green"></healers-table>
               </md-card-content>
             </md-card>
           </div>

@@ -30,6 +30,8 @@
         <md-chips
           v-model="receivers"
           md-placeholder="Add receivers..."
+          :key="`receivers-${n}`"
+          :id="`receivers-${n}`"
           required
         ></md-chips>
       </div>
@@ -142,8 +144,8 @@
                   v-model="mail.receivers[n]"
                   md-placeholder="Add receivers..."
                   required
-                  :key="`receivers-${n}`"
-                  :id="`receivers-${n}`"
+                  :key="`mail_receivers-${n}`"
+                  :id="`mail_receivers-${n}`"
                 >
                   <div class="md-helper-text">
                     If this is left empty, healer receivers will be taken.
@@ -201,7 +203,7 @@
       </div>
     </div>
     <preview-data></preview-data>
-    <md-dialog-alert :md-active.sync="alertFailed" :md-content="errorMessage" />
+    <md-dialog-alert :md-active.sync="alertFailed" :md-content="errorMessage" :md-title="errorTitle" />
     <md-dialog-alert
       :md-active.sync="alertSuccess"
       md-title="Healer created!"
@@ -224,11 +226,12 @@ export default {
       clouds: [],
       selectedProvider: null,
       actionType: [],
-      alertSuccess: null,
-      alertFailed: null,
+      alertSuccess: false,
+      alertFailed: false,
       numActions: [0],
       actionIndex: 1,
       errorMessage: "",
+      errorTitle: "",
       // healer information
       query: 'up{job=~".compute-cadvisor.|.compute-node."} < 1',
       receivers: [],
@@ -267,20 +270,12 @@ export default {
   },
   methods: {
     previewJSON() {
-      let data = {
-        query: this.query,
-        receivers: this.receivers,
-        interval: this.interval,
-        duration: this.duration,
-        active: this.active,
-        actions: this.actions,
-        description: this.description,
-        tags: this.tags
-      };
-      this.$root.$emit("preview_data", data);
+      let body = this.formBody();
+      this.$root.$emit("preview_data", body);
     },
     createHealer() {
       if (this.selectedProvider == null) {
+        this.errorTitle = "Oops!!"
         this.errorMessage = "cloud provider cannot be empty!";
         this.alertFailed = true;
         return;
@@ -288,11 +283,12 @@ export default {
       axios
         .post(
           "/healers/" + this.selectedProvider.split("-")[1].replace(" ", ""),
-          {}
+          this.formBody()
         )
         .then(response => {
           if (!response.data.Status != "OK") {
             this.errorMessage = response.data.Err;
+            this.errorTitle = response.data.Status;
             this.alertFailed = true;
           } else {
             this.alertSuccess = true;
@@ -300,6 +296,7 @@ export default {
         })
         .catch(error => {
           this.errorMessage = "There is something wrong!";
+          this.errorTitle = "Oops!!"
           this.alertFailed = true;
         });
     },
@@ -315,6 +312,35 @@ export default {
       this.numActions = this.numActions.filter(function(value, index, arr) {
         return value != n;
       });
+    },
+    formBody() {
+      let self = this;
+      this.numActions.forEach(function(v, i, arr) {
+        self.actions[v] = {
+          attempts: self.action.attempts[v],
+          delay: self.action.delay[v],
+          delay_type: self.action.delay_type[v]
+        };
+        if (self.actionType[v] == "mail") {
+          (self.actions[v].type = "mail"),
+            (self.actions[v].receivers = self.mail.receivers[v]);
+        } else if (self.actionType[v] == "http") {
+          self.actions[v].type = "http";
+          self.actions[v].method = self.http.method[v];
+          self.actions[v].url = self.http.url[v];
+        }
+      });
+      let body = {
+        query: this.query,
+        receivers: this.receivers,
+        interval: this.interval,
+        duration: this.duration,
+        active: this.active,
+        actions: this.actions,
+        description: this.description,
+        tags: this.tags
+      };
+      return body;
     }
   }
 };

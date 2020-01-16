@@ -20,7 +20,7 @@
                 <h4 class="title">Scalers</h4>
               </md-card-header>
               <md-card-content>
-                <scalers-table></scalers-table>
+                <scalers-table table-header-color="green"></scalers-table>
               </md-card-content>
             </md-card>
           </div>
