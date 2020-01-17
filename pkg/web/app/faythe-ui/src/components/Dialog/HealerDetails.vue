@@ -13,6 +13,10 @@
               <md-table-cell>{{ healer.id }}</md-table-cell>
             </md-table-row>
             <md-table-row>
+              <md-table-cell>Active</md-table-cell>
+              <md-table-cell>{{ healer.active }}</md-table-cell>
+            </md-table-row>
+            <md-table-row>
               <md-table-cell>Query</md-table-cell>
               <md-table-cell>{{ healer.query }}</md-table-cell>
             </md-table-row>
@@ -40,8 +44,8 @@
         </md-tab>
         <md-tab
           v-for="(action, name) in healer.actions"
-          :key="`${action.type}_${name}`"
-          :id="`${action.type}_${name}`"
+          :key="`${action.type}-${name}`"
+          :id="`tab-${action.type}-${name}`"
           :md-label="action.type"
         >
           <md-table>
