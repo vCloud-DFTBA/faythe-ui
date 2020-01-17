@@ -19,9 +19,8 @@ FROM alpine:3.9
 RUN mkdir -p /home/faythe-ui
 WORKDIR /home/faythe-ui
 COPY --from=build-go /bin/faythe-ui .
-COPY pkg/web/app/login ./pkg/web/app/login
-COPY --from=build-html /app/dist ./pkg/web/app/faythe-ui/dist
-COPY .env .
+COPY pkg/web/app/login ./web/login
+COPY --from=build-html /app/dist ./web/faythe-ui
 RUN chown -R nobody:nogroup /home/faythe-ui
 USER nobody
 EXPOSE 8660
