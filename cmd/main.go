@@ -15,7 +15,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/handlers"
@@ -40,6 +40,6 @@ func main() {
 
 	if err := http.ListenAndServe(cfg.ServerAddress,
 		handlers.CORS(headersOk, originsOk, methodsOk, exposeHeaders, credsOK)(r)); err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 	}
 }
