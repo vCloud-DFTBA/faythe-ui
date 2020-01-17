@@ -23,6 +23,7 @@
                 <healers-table table-header-color="green"></healers-table>
               </md-card-content>
             </md-card>
+            <healer-details></healer-details>
           </div>
         </div>
       </md-tab>
@@ -50,14 +51,16 @@
 import {
   HealersTable,
   ProviderSelectionCard,
-  CreateHealerCard
+  CreateHealerCard,
+  HealerDetails
 } from "@/components";
 
 export default {
   components: {
     HealersTable,
     ProviderSelectionCard,
-    CreateHealerCard
+    CreateHealerCard,
+    HealerDetails
   }
 };
 </script>

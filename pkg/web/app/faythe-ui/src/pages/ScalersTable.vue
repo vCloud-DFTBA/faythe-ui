@@ -23,6 +23,7 @@
                 <scalers-table table-header-color="green"></scalers-table>
               </md-card-content>
             </md-card>
+            <scaler-details></scaler-details>
           </div>
         </div>
       </md-tab>
@@ -50,14 +51,16 @@
 import {
   ScalersTable,
   ProviderSelectionCard,
-  CreateScalerCard
+  CreateScalerCard,
+  ScalerDetails
 } from "@/components";
 
 export default {
   components: {
     ScalersTable,
     ProviderSelectionCard,
-    CreateScalerCard
+    CreateScalerCard,
+    ScalerDetails
   }
 };
 </script>

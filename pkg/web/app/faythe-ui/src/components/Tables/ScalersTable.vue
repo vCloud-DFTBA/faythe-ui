@@ -5,7 +5,11 @@
       :table-header-color="tableHeaderColor"
       :md-active.sync="showScalersTable"
     >
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
+      <md-table-row
+        slot="md-table-row"
+        slot-scope="{ item }"
+        @click.native="onSelect(item)"
+      >
         <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
         <md-table-cell md-label="Query">{{ item.query }}</md-table-cell>
         <md-table-cell md-label="Duration">{{ item.duration }}</md-table-cell>
@@ -86,6 +90,9 @@ export default {
     },
     onCancel() {
       this.confirmation = false;
+    },
+    onSelect(item) {
+      this.$root.$emit("open_scaler_details", item);
     }
   }
 };

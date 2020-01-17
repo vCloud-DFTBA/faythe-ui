@@ -11,7 +11,7 @@
       <div class="copyright text-center">
         &copy; {{ new Date().getFullYear() }}
         <a href="https://github.com/vCloud-DFTBA" target="_blank">Cloud Team</a
-        >, made with <i class="fa fa-heart heart"></i>
+        >, made with &#60;3
       </div>
     </div>
   </footer>

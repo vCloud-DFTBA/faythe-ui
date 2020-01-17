@@ -7,6 +7,8 @@ import SilencesTable from "./Tables/SilencesTable";
 // Dialog
 import CloudDetails from "./Dialog/CloudDetails";
 import PreviewData from "./Dialog/PreviewData";
+import ScalerDetails from "./Dialog/ScalerDetails";
+import HealerDetails from "./Dialog/HealerDetails";
 
 // Cards
 import AuthCard from "./Cards/AuthCard";
@@ -30,5 +32,7 @@ export {
   CreateScalerCard,
   CreateHealerCard,
   CreateSilenceCard,
-  SilencesTable
+  SilencesTable,
+  HealerDetails,
+  ScalerDetails
 };

@@ -5,7 +5,11 @@
       :table-header-color="tableHeaderColor"
       :md-active.sync="showHealersTable"
     >
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
+      <md-table-row
+        slot="md-table-row"
+        slot-scope="{ item }"
+        @click.native="onSelect(item)"
+      >
         <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
         <md-table-cell md-label="Query">{{ item.query }}</md-table-cell>
         <md-table-cell md-label="Receivers">{{ item.receivers }}</md-table-cell>
@@ -90,6 +94,9 @@ export default {
     },
     onCancel() {
       this.confirmation = false;
+    },
+    onSelect(item) {
+      this.$root.$emit("open_healer_details", item);
     }
   }
 };

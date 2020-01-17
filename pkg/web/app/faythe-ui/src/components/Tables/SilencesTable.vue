@@ -10,7 +10,9 @@
         <md-table-cell md-label="Pattern">{{ item.pattern }}</md-table-cell>
         <md-table-cell md-label="TTL">{{ item.ttl }}</md-table-cell>
         <md-table-cell md-label="Tags">{{ item.tags }}</md-table-cell>
-        <md-table-cell md-label="Description">{{ item.description }}</md-table-cell>
+        <md-table-cell md-label="Description">{{
+          item.description
+        }}</md-table-cell>
         <md-table-cell
           ><md-button class="md-accent" @click.native="deleteSilence(item)"
             >Delete</md-button

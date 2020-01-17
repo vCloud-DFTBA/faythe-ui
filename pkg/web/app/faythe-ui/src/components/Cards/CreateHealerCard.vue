@@ -53,6 +53,12 @@
         </md-field>
       </div>
       <div class="md-layout-item">
+        <md-field>
+          <label>Evaluation Level</label>
+          <md-input v-model="evaluation_level" type="number"></md-input>
+        </md-field>
+      </div>
+      <div class="md-layout-item">
         <md-radio v-model="active" :value="true">Active</md-radio>
         <md-radio v-model="active" :value="false">Inactive</md-radio>
       </div>
@@ -140,17 +146,11 @@
           <template v-if="actionType[n] == 'mail'">
             <div class="md-layout" :key="`layout_2-${n}`" :id="`layout_2-${n}`">
               <div class="md-layout-item">
-                <md-chips
-                  v-model="mail.receivers[n]"
-                  md-placeholder="Add receivers..."
-                  required
-                  :key="`mail_receivers-${n}`"
-                  :id="`mail_receivers-${n}`"
-                >
-                  <div class="md-helper-text">
-                    If this is left empty, healer receivers will be taken.
-                  </div></md-chips
-                >
+                <p>
+                  Send notification about healing actions triggered to
+                  receivers.
+                </p>
+                <p>Recommendation: One Mail Action per healer.</p>
               </div>
             </div>
           </template>
@@ -241,13 +241,13 @@ export default {
       receivers: [],
       interval: "18s",
       duration: "3m",
+      evaluation_level: 2,
       description: null,
       tags: [],
       active: false,
       actions: {},
       mail: {
-        type: "mail",
-        receivers: [[]]
+        type: "mail"
       },
       http: {
         type: "http",
@@ -327,8 +327,7 @@ export default {
           delay_type: self.action.delay_type[v]
         };
         if (self.actionType[v] == "mail") {
-          (self.actions[v].type = "mail"),
-            (self.actions[v].receivers = self.mail.receivers[v]);
+          self.actions[v].type = "mail";
         } else if (self.actionType[v] == "http") {
           self.actions[v].type = "http";
           self.actions[v].method = self.http.method[v];
@@ -337,9 +336,10 @@ export default {
       });
       let body = {
         query: this.query,
-        receivers: this.receivers,
         interval: this.interval,
+        receivers: this.receivers,
         duration: this.duration,
+        evaluation_level: this.evaluation_level,
         active: this.active,
         actions: this.actions,
         description: this.description,

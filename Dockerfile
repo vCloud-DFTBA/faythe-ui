@@ -6,7 +6,6 @@ COPY pkg/web/app/faythe-ui .
 RUN npm run build
 
 FROM golang:1.12-alpine as build-go
-
 ENV GO111MODULE=on
 ENV APPLOC=$GOPATH/src/faythe-ui
 RUN apk add --no-cache git
