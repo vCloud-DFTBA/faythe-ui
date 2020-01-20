@@ -13,7 +13,6 @@
         <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
         <md-table-cell md-label="Query">{{ item.query }}</md-table-cell>
         <md-table-cell md-label="Receivers">{{ item.receivers }}</md-table-cell>
-        <md-table-cell md-label="Query">{{ item.query }}</md-table-cell>
         <md-table-cell md-label="Evaluation level">{{
           item.evaluation_level
         }}</md-table-cell>

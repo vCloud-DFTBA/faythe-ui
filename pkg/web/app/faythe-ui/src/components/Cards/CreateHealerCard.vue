@@ -237,7 +237,7 @@ export default {
       errorMessage: "",
       errorTitle: "",
       // healer information
-      query: 'up{job=~".compute-cadvisor.|.compute-node."} < 1',
+      query: 'up{job=~".*compute-cadvisor.*|.*compute-node.*"} < 1',
       receivers: [],
       interval: "18s",
       duration: "3m",
