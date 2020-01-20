@@ -14,11 +14,7 @@
 
 package config
 
-import (
-	"os"
-
-	_ "github.com/joho/godotenv/autoload"
-)
+import "os"
 
 type config struct {
 	ServerAddress  string

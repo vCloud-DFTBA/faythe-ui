@@ -2,6 +2,8 @@ version: '3'
 services:
   faythe-ui:
     build: .
+    env_file: 
+      - faythe-ui.env
     ports:
       - 8660:8660
     restart: always

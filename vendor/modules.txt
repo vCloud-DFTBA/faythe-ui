@@ -4,6 +4,3 @@ github.com/dgrijalva/jwt-go
 github.com/gorilla/handlers
 # github.com/gorilla/mux v1.7.3
 github.com/gorilla/mux
-# github.com/joho/godotenv v1.3.0
-github.com/joho/godotenv/autoload
-github.com/joho/godotenv
