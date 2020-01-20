@@ -2,7 +2,7 @@
 
 ## Usage
 
-Create `.env` file as of `.env_example`
+Create `faythe-ui.env` file as of `faythe-ui.env_example` template
 
 ```env
 # Listen address, eg: 0.0.0.0:8660
