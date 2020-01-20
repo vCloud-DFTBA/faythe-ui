@@ -17,7 +17,7 @@
         <md-table-cell md-label="Active">{{ item.active }}</md-table-cell>
 
         <md-table-cell
-          ><md-button class="md-accent" @click.native="deleteScaler(item)"
+          ><md-button class="md-accent" @click.native.stop="deleteScaler(item)"
             >Delete</md-button
           ></md-table-cell
         >

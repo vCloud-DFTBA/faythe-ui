@@ -19,7 +19,7 @@
         }}</md-table-cell>
         <md-table-cell md-label="Active">{{ item.active }}</md-table-cell>
         <md-table-cell
-          ><md-button class="md-accent" @click.native="deleteHealer(item)"
+          ><md-button class="md-accent" @click.native.stop="deleteHealer(item)"
             >Delete</md-button
           ></md-table-cell
         >
