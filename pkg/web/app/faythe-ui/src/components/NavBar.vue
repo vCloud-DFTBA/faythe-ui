@@ -19,7 +19,7 @@
       <v-list-item
         v-for="item in items"
         :key="item.title"
-        link
+        :to="item.link"
       >
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -40,11 +40,11 @@
       return {
         drawer: true,
         items: [
-          { title: 'Cloud Providers', icon: 'mdi-cloud' },
-          { title: 'Create Providers', icon: 'mdi-cloud-upload' },
-          { title: 'Healers', icon: 'mdi-ambulance' },
-          { title: 'Scalers', icon: 'mdi-arrow-expand-all' },
-          { title: 'Silencers', icon: 'mdi-volume-mute' },
+          { title: 'Cloud Providers', icon: 'mdi-cloud', link: '/clouds' },
+          { title: 'Create Providers', icon: 'mdi-cloud-upload', link: '/clouds/create' },
+          { title: 'Healers', icon: 'mdi-ambulance', link: '/healers' },
+          { title: 'Scalers', icon: 'mdi-arrow-expand-all', link: '/scalers' },
+          { title: 'Silencers', icon: 'mdi-volume-mute', link: '/silencers' },
         ],
       }
     },
