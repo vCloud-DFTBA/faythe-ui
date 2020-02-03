@@ -1,25 +1,12 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import App from "./App";
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import vuetify from './plugins/vuetify';
 
-// router setup
-import routes from "./routes/routes";
+Vue.config.productionTip = false
 
-// MaterialDashboard plugin
-import MaterialDashboard from "./material-dashboard";
-
-// configure router
-const router = new VueRouter({
-  routes, // short for routes: routes
-  linkExactActiveClass: "nav-item active"
-});
-
-Vue.use(VueRouter);
-Vue.use(MaterialDashboard);
-
-/* eslint-disable no-new */
 new Vue({
-  el: "#app",
-  render: h => h(App),
-  router
-});
+  router,
+  vuetify,
+  render: h => h(App)
+}).$mount('#app')
