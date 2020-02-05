@@ -10,10 +10,6 @@ Vue.use({
   install (Vue) {
     Vue.prototype.$api = axios.create({
       baseURL: 'http://localhost:8600/',
-      auth: {
-        username: 'admin',
-        password: '4ut0h34lyng@cloud'
-      },
     })
   }
 })
