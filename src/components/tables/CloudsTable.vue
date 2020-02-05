@@ -8,15 +8,17 @@
     disable-filtering
     disable-sort
   >
-  <template v-slot:item.action="{  }">
+  <template v-slot:item.action="{ item }">
       <v-icon
         small
         class="mr-2"
+        @click="editItem(item)"
       >
         mdi-lead-pencil
       </v-icon>
       <v-icon
         small
+        @click="deleteItem(item)"
       >
         mdi-delete
       </v-icon>
@@ -36,16 +38,18 @@
           { text: 'ATEngine', value: 'atengine' },
           { text: 'Actions', value: 'action' }
         ],
-        clouds: [
-          {
-            id: '123',
-            type: 'hello',
-            auth: 'xyz',
-            monitor: 'kkk',
-            atengine: 'asdasd'
-          }
-        ],
+        clouds: [],
       }
+    },
+    mounted() {
+      this.$api.get("/clouds").then(response => {
+        let arr = [];
+        let tmp = response.data.Data;
+        for (let key in tmp) {
+          arr.push(tmp[key]);
+        }
+        this.clouds = arr;
+      });
     },
   }
 </script>
