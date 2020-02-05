@@ -71,7 +71,7 @@ let router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('api-token') == null) {
+    if (getCookie('status') !== 'loggedIn') {
       next({
         path: '/login',
         param: { nextUrl: to.fullPath }
@@ -79,9 +79,31 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
+  } else if (to.matched.some(record => record.meta.guest)) {
+    if (getCookie('status') == 'loggedIn') {
+      next('/')
+    } else {
+      next()
+    }
   } else {
     next()
   }
 })
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 export default router

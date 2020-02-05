@@ -17,7 +17,6 @@
             <v-card class="elevation-12">
               <v-toolbar
                 color="primary"
-                dark
                 flat
               >
                 <v-toolbar-title>Login</v-toolbar-title>
@@ -25,24 +24,26 @@
               <v-card-text>
                 <v-form>
                   <v-text-field
-                    label="Login"
-                    name="login"
+                    label="Username"
+                    v-model="username"
                     prepend-icon="mdi-account"
                     type="text"
+                    required
                   />
 
                   <v-text-field
                     id="password"
                     label="Password"
-                    name="password"
+                    v-model="password"
                     prepend-icon="mdi-lock"
                     type="password"
+                    required
                   />
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn color="primary">Login</v-btn>
+                <v-btn @click="Submit" color="primary">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -54,8 +55,27 @@
 
 <script>
   export default {
-    props: {
-      source: String,
+    data() {
+      return {
+        username: '',
+        password: '',
+      }
     },
+    methods: {
+      Submit() {
+        this.$api.login(this.username, this.password).then(function(response){
+          if (response.data.Status == 'OK') {
+            let d = new Date();                
+            d.setTime(d.getTime() + (60*60*1000));
+            let expires = "expires="+ d.toUTCString();
+            document.cookie = "status=loggedIn" + ";" + expires + ";path=/";
+            document.cookie = "statuss=loggedIn" + ";" + expires + ";path=/";
+            window.location.href = '/clouds'
+          } else {
+            alert(response.data.Err)
+          }
+        })
+      }
+    }
   }
 </script>

@@ -42,14 +42,7 @@
       }
     },
     mounted() {
-      this.$api.get("/clouds").then(response => {
-        let arr = [];
-        let tmp = response.data.Data;
-        for (let key in tmp) {
-          arr.push(tmp[key]);
-        }
-        this.clouds = arr;
-      });
+
     },
   }
 </script>
