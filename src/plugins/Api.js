@@ -3,7 +3,7 @@ import axios from 'axios'
 export default {
   login(user, pass) {
     return axios.get(
-      '/login/',
+      '/public/login',
       {
         auth: {
           username: user,
@@ -11,5 +11,9 @@ export default {
         }
       }
     )
+  },
+
+  getClouds() {
+    return axios.get('/clouds')
   }
 }

@@ -3,7 +3,7 @@
     color="primary"
     :headers="headers"
     :items="clouds"
-    :items-per-page="5"
+    :items-per-page="10"
     class="elevation-1"
     disable-filtering
     disable-sort
@@ -38,12 +38,32 @@
           { text: 'ATEngine', value: 'atengine' },
           { text: 'Actions', value: 'action' }
         ],
-        clouds: [],
+        rawClouds: [],
       }
     },
     mounted() {
-
+      this.$api.getClouds().then(response => {
+        let arr = [];
+        let tmp = response.data.Data;
+        for (let key in tmp) {
+          arr.push(tmp[key]);
+        }
+        this.rawClouds = arr;
+      });
     },
+    computed: {
+      clouds: function() {
+        return this.rawClouds.map(function(v){
+          return {
+            id: v.id,
+            type: v.provider,
+            auth: v.auth.auth_url,
+            monitor: v.monitor.address,
+            atengine: v.atengine.address
+          }
+        });
+      }
+    }
   }
 </script>
 

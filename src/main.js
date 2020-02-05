@@ -8,6 +8,8 @@ import Api from '@/plugins/Api.js'
 Vue.config.productionTip = false
 
 axios.defaults.baseURL = 'http://localhost:8600'
+axios.defaults.headers.common['X-Request-With'] = 'XMLHttpRequest'
+axios.defaults.withCredentials = true
 
 Vue.use({
   install (Vue) {

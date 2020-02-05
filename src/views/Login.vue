@@ -69,7 +69,6 @@
             d.setTime(d.getTime() + (60*60*1000));
             let expires = "expires="+ d.toUTCString();
             document.cookie = "status=loggedIn" + ";" + expires + ";path=/";
-            document.cookie = "statuss=loggedIn" + ";" + expires + ";path=/";
             window.location.href = '/clouds'
           } else {
             alert(response.data.Err)
