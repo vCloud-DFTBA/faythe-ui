@@ -2,7 +2,7 @@
   <v-data-table
     color="primary"
     :headers="headers"
-    :items="clouds"
+    :items="healers"
     :items-per-page="10"
     class="elevation-1"
     single-expand
@@ -55,54 +55,45 @@
     data() {
       return {
         expanded: [],
-        loading: true,
+        loading: false,
         headers: [
           { text: 'ID', value: 'id' },
-          { text: 'Type', value: 'type' },
-          { text: 'Auth', value: 'auth' },
-          { text: 'Monitor', value: 'monitor' },
-          { text: 'ATEngine', value: 'atengine' },
-          { text: 'Actions', value: 'actions' }
+          { text: 'Query', value: 'query' },
+          { text: 'Receivers', value: 'receivers' },
+          { text: 'Evaluation Level', value: 'evaluation_level' },
+          { text: 'Active', value: 'active' },
+          { text: 'Actions', value: 'action' },
         ],
-        rawClouds: {},
+        rawHealers: {},
+        healers: [],
       }
     },
     mounted() {
-      this.$api.getClouds().then(response => {
-        this.rawClouds = response.data.Data
-        this.loading = false
-      });
-    },
-    methods: {
-      getCloud(id){
-        return this.rawClouds['/clouds/'+id]
-      },
-      capitalizeFLetter(s){
-        return s[0].toUpperCase() + s.slice(1)
-      },
-    },
-    computed: {
-      clouds: function() {
-        let arr = []
-        for (let key in this.rawClouds) {
-          let cloud = this.rawClouds[key]
-          arr.push({
-            id: cloud.id,
-            type: cloud.provider,
-            auth: cloud.auth.auth_url,
-            monitor: cloud.monitor.address,
-            atengine: cloud.atengine.address
-          })
-        }
-        return arr
-      }
+      this.$root.$on('fetch_child_comp', function(data){
+        let self = this
+        self.loading = true
+        let cloudid = data.split(' - ')[0]
+        this.$api.getHealers(cloudid).then(response => {
+          self.rawHealers = response.data.Data
+          let arr = []
+          for (let k in self.rawHealers) {
+            let h = self.rawHealers[k]
+            arr.push({
+              id: h.id,
+              query: h.query,
+              // receivers: h.receivers,
+              evaluation_level: h.evaluation_level,
+              // active: h.active
+            })
+          }
+          self.healers = arr
+        });
+        self.loading = false
+      })
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .v-card .v-card--raised > .v-card__title {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
+
 </style>

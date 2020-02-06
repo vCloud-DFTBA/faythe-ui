@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import CloudsTable from '@/components/tables/CloudsTable.vue'
+  import CloudsTable from '@/components/tables/CloudsTable'
 
   export default {
     name: 'clouds',

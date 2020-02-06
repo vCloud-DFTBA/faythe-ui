@@ -15,5 +15,9 @@ export default {
 
   getClouds() {
     return axios.get('/clouds')
+  },
+
+  getHealers(id) {
+    return axios.get('/healers/'+id)
   }
 }
