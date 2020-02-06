@@ -41,7 +41,7 @@
         drawer: true,
         items: [
           { title: 'Cloud Providers', icon: 'mdi-cloud', link: '/clouds' },
-          { title: 'Create Providers', icon: 'mdi-cloud-upload', link: '/clouds/create' },
+          { title: 'Create Providers', icon: 'mdi-cloud-upload', link: '/createcloud' },
           { title: 'Healers', icon: 'mdi-ambulance', link: '/healers' },
           { title: 'Scalers', icon: 'mdi-arrow-expand-all', link: '/scalers' },
           { title: 'Silencers', icon: 'mdi-volume-mute', link: '/silencers' },

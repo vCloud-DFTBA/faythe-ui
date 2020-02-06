@@ -5,23 +5,47 @@
     :items="clouds"
     :items-per-page="10"
     class="elevation-1"
+    single-expand
+    :expanded.sync="expanded"
+    show-expand
+    expand-icon="mdi-unfold-more-horizontal"
     disable-filtering
     disable-sort
+    :loading="loading"
   >
-  <template v-slot:item.action="{ item }">
+  <template v-slot:item.actions="{ item }">
       <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        mdi-lead-pencil
-      </v-icon>
-      <v-icon
-        small
         @click="deleteItem(item)"
       >
         mdi-delete
       </v-icon>
+    </template>
+    <template v-slot:expanded-item="{ item }" flat>
+      <td :colspan="headers.length">
+        <v-container>
+          <v-row class="ml-10" >
+            <template v-for="n in ['auth', 'monitor', 'atengine']">
+              <v-col lg="4" :key="n">
+                <v-card color="primary" raised>
+                  <v-card-title class="justify-center">
+                    {{ capitalizeFLetter(n) }}
+                  </v-card-title>
+                  <v-simple-table :key="n" dense>
+                    <template v-slot:default>
+                      <tbody>
+                        <tr v-for="(v, k) in getCloud(item.id)[n]" :key="`${v+k}`">
+                          <td>{{ capitalizeFLetter(k) }}</td>
+                          <td>{{ v }}</td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
+                </v-card>
+              </v-col>
+            </template>
+          </v-row>
+        </v-container>
+      </td>
     </template>
   </v-data-table>
 </template>
@@ -30,43 +54,55 @@
   export default {
     data() {
       return {
+        expanded: [],
+        loading: true,
         headers: [
           { text: 'ID', value: 'id' },
           { text: 'Type', value: 'type' },
           { text: 'Auth', value: 'auth' },
           { text: 'Monitor', value: 'monitor' },
           { text: 'ATEngine', value: 'atengine' },
-          { text: 'Actions', value: 'action' }
+          { text: 'Actions', value: 'actions' }
         ],
-        rawClouds: [],
+        rawClouds: {},
       }
     },
     mounted() {
       this.$api.getClouds().then(response => {
-        let arr = [];
-        let tmp = response.data.Data;
-        for (let key in tmp) {
-          arr.push(tmp[key]);
-        }
-        this.rawClouds = arr;
+        this.rawClouds = response.data.Data;
+        this.loading = false
       });
+    },
+    methods: {
+      getCloud(id){
+        return this.rawClouds['/clouds/'+id]
+      },
+      capitalizeFLetter(s){
+        return s[0].toUpperCase() + s.slice(1)
+      },
     },
     computed: {
       clouds: function() {
-        return this.rawClouds.map(function(v){
-          return {
-            id: v.id,
-            type: v.provider,
-            auth: v.auth.auth_url,
-            monitor: v.monitor.address,
-            atengine: v.atengine.address
-          }
-        });
+        let arr = []
+        for (let key in this.rawClouds) {
+          let cloud = this.rawClouds[key]
+          arr.push({
+            id: cloud.id,
+            type: cloud.provider,
+            auth: cloud.auth.auth_url,
+            monitor: cloud.monitor.address,
+            atengine: cloud.atengine.address
+          })
+        }
+        return arr
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-
+  .v-card .v-card--raised > .v-card__title {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 </style>

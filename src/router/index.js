@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 import Clouds from '@/views/Clouds'
 import Home from '@/views/Home'
-import CreateClouds from '@/views/CreateClouds'
+import CreateCloud from '@/views/CreateCloud'
 import Healers from '@/views/Healers'
 import Scalers from '@/views/Scalers'
 import Silencers from '@/views/Silencers'
@@ -24,9 +24,9 @@ const routes = [
         component: Clouds,
       },
       {
-        path: '/clouds/create',
-        name: 'create clouds',
-        component: CreateClouds,
+        path: '/createcloud',
+        name: 'create cloud',
+        component: CreateCloud,
       },
       {
         path: '/healers',
