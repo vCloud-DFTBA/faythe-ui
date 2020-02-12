@@ -11,19 +11,16 @@
 </template>
 
 <script>
-  import SilencersTable from '@/components/tables/SilencersTable'
-  export default {
-    name: 'silencers',
-    components: {
-      SilencersTable
-    },
-    data() {
-      return {
-      }
-    },
+import SilencersTable from "@/components/tables/SilencersTable";
+export default {
+  name: "silencers",
+  components: {
+    SilencersTable
+  },
+  data() {
+    return {};
   }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

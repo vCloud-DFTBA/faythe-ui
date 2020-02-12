@@ -1,102 +1,101 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-import Clouds from '@/views/Clouds'
-import Home from '@/views/Home'
-import CreateCloud from '@/views/CreateCloud'
-import Healers from '@/views/Healers'
-import Scalers from '@/views/Scalers'
-import Silencers from '@/views/Silencers'
-import Login from '@/views/Login'
-import NotFoundComponent from '@/views/NotFoundComponent'
+import Clouds from "@/views/Clouds";
+import Home from "@/views/Home";
+import CreateCloud from "@/views/CreateCloud";
+import Healers from "@/views/Healers";
+import Scalers from "@/views/Scalers";
+import Silencers from "@/views/Silencers";
+import Login from "@/views/Login";
+import NotFoundComponent from "@/views/NotFoundComponent";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    redirect: '/clouds',
+    path: "/",
+    redirect: "/clouds",
     component: Home,
     children: [
       {
-        path: '/clouds',
-        name: 'clouds',
-        component: Clouds,
+        path: "/clouds",
+        name: "clouds",
+        component: Clouds
       },
       {
-        path: '/createcloud',
-        name: 'create cloud',
-        component: CreateCloud,
+        path: "/createcloud",
+        name: "create cloud",
+        component: CreateCloud
       },
       {
-        path: '/healers',
-        name: 'healers',
-        component: Healers,
+        path: "/healers",
+        name: "healers",
+        component: Healers
       },
       {
-        path: '/scalers',
-        name: 'scalers',
-        component: Scalers,
+        path: "/scalers",
+        name: "scalers",
+        component: Scalers
       },
       {
-        path: '/silencers',
-        name: 'silencers',
-        component: Silencers,
-      },
+        path: "/silencers",
+        name: "silencers",
+        component: Silencers
+      }
     ],
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     }
   },
   {
-    path: '/login',
-    name: 'login',
+    path: "/login",
+    name: "login",
     component: Login,
     meta: {
       guest: true
-    },
+    }
   },
   {
-    path: '*',
-    component: NotFoundComponent,
-  },
-
-]
+    path: "*",
+    component: NotFoundComponent
+  }
+];
 
 let router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes
-})
+});
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (getCookie('status') !== 'loggedIn') {
+    if (getCookie("status") !== "loggedIn") {
       next({
-        path: '/login',
+        path: "/login",
         param: { nextUrl: to.fullPath }
-      })
+      });
     } else {
-      next()
+      next();
     }
   } else if (to.matched.some(record => record.meta.guest)) {
-    if (getCookie('status') == 'loggedIn') {
-      next('/')
+    if (getCookie("status") == "loggedIn") {
+      next("/");
     } else {
-      next()
+      next();
     }
   } else {
-    next()
+    next();
   }
-})
+});
 
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
+  var ca = decodedCookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
-    while (c.charAt(0) == ' ') {
+    while (c.charAt(0) == " ") {
       c = c.substring(1);
     }
     if (c.indexOf(name) == 0) {
@@ -106,4 +105,4 @@ function getCookie(cname) {
   return "";
 }
 
-export default router
+export default router;

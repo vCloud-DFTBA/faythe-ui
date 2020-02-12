@@ -11,19 +11,16 @@
 </template>
 
 <script>
-  import ScalersTable from '@/components/tables/ScalersTable'
-  export default {
-    name: 'scalers',
-    components: {
-      ScalersTable
-    },
-    data() {
-      return {
-      }
-    },
+import ScalersTable from "@/components/tables/ScalersTable";
+export default {
+  name: "scalers",
+  components: {
+    ScalersTable
+  },
+  data() {
+    return {};
   }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -10,15 +10,12 @@
 </template>
 
 <script>
-  export default {
-    name: 'create-clouds',
-    data() {
-      return {
-      }
-    },
+export default {
+  name: "create-clouds",
+  data() {
+    return {};
   }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

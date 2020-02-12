@@ -12,22 +12,19 @@
 </template>
 
 <script>
-  import HealersTable from '@/components/tables/HealersTable'
-  import SelectCloud from '@/components/SelectCloud'
+import HealersTable from "@/components/tables/HealersTable";
+import SelectCloud from "@/components/SelectCloud";
 
-  export default {
-    name: 'healers',
-    components: {
-      HealersTable,
-      SelectCloud
-    },
-    data() {
-      return {
-      }
-    },
+export default {
+  name: "healers",
+  components: {
+    HealersTable,
+    SelectCloud
+  },
+  data() {
+    return {};
   }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

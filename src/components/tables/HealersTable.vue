@@ -13,27 +13,45 @@
     disable-sort
     :loading="loading"
   >
-  <template v-slot:item.actions="{ item }">
-      <v-icon
-        @click="deleteItem(item)"
-      >
+    <template v-slot:item.actions="{ item }">
+      <v-icon @click="deleteItem(item)">
         mdi-delete
       </v-icon>
     </template>
-    <template v-slot:expanded-item="{ item }" flat>
+    <template v-slot:expanded-item flat>
       <td :colspan="headers.length">
         <v-container>
-          <v-row class="ml-10" >
-            <template v-for="n in ['auth', 'monitor', 'atengine']">
-              <v-col lg="4" :key="n">
+          <v-row class="ml-10">
+            <v-col lg="4">
+              <v-card color="primary" raised>
+                <v-card-title class="justify-center">
+                  Basic Info
+                </v-card-title>
+                <v-simple-table dense>
+                  <template v-slot:default>
+                    <tbody>
+                      <tr
+                        v-for="n in ['cloudid', 'interval', 'duration', 'tags']"
+                        :key="n"
+                      >
+                        <td>{{ capitalizeFLetter(n) }}</td>
+                        <td>{{ healer[n] }}</td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </v-card>
+            </v-col>
+            <template v-for="(action, key) in healer.actions">
+              <v-col lg="4" :key="`${action.type + key}`">
                 <v-card color="primary" raised>
                   <v-card-title class="justify-center">
-                    {{ capitalizeFLetter(n) }}
+                    {{ capitalizeFLetter(action.type) }}
                   </v-card-title>
-                  <v-simple-table :key="n" dense>
+                  <v-simple-table dense>
                     <template v-slot:default>
                       <tbody>
-                        <tr v-for="(v, k) in getCloud(item.id)[n]" :key="`${v+k}`">
+                        <tr v-for="(v, k) in action" :key="`${v + k}`">
                           <td>{{ capitalizeFLetter(k) }}</td>
                           <td>{{ v }}</td>
                         </tr>
@@ -51,49 +69,61 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        expanded: [],
-        loading: false,
-        headers: [
-          { text: 'ID', value: 'id' },
-          { text: 'Query', value: 'query' },
-          { text: 'Receivers', value: 'receivers' },
-          { text: 'Evaluation Level', value: 'evaluation_level' },
-          { text: 'Active', value: 'active' },
-          { text: 'Actions', value: 'action' },
-        ],
-        rawHealers: {},
-        healers: [],
+export default {
+  data() {
+    return {
+      expanded: [],
+      loading: false,
+      headers: [
+        { text: "ID", value: "id" },
+        { text: "Query", value: "query" },
+        { text: "Receivers", value: "receivers" },
+        { text: "Evaluation Level", value: "evaluation_level" },
+        { text: "Active", value: "active" },
+        { text: "Description", value: "description" },
+        { text: "Actions", value: "actions" }
+      ],
+      rawHealers: {},
+      healers: []
+    };
+  },
+  mounted() {
+    let self = this;
+    this.$root.$on("fetch_child_comp", function(data) {
+      self.loading = true;
+      let cloudid = data.split(" - ")[0];
+      this.$api.getHealers(cloudid).then(response => {
+        self.rawHealers = response.data.Data;
+        let arr = [];
+        for (let k in self.rawHealers) {
+          let h = self.rawHealers[k];
+          arr.push({
+            id: h.id,
+            query: h.query,
+            receivers: h.receivers,
+            evaluation_level: h.evaluation_level,
+            active: h.active
+          });
+        }
+        self.healers = arr;
+      });
+      self.loading = false;
+    });
+  },
+  methods: {
+    capitalizeFLetter(s) {
+      return s[0].toUpperCase() + s.slice(1);
+    }
+  },
+  computed: {
+    healer: function() {
+      for (let k in this.rawHealers) {
+        var healer = this.rawHealers[k];
       }
-    },
-    mounted() {
-      this.$root.$on('fetch_child_comp', function(data){
-        let self = this
-        self.loading = true
-        let cloudid = data.split(' - ')[0]
-        this.$api.getHealers(cloudid).then(response => {
-          self.rawHealers = response.data.Data
-          let arr = []
-          for (let k in self.rawHealers) {
-            let h = self.rawHealers[k]
-            arr.push({
-              id: h.id,
-              query: h.query,
-              // receivers: h.receivers,
-              evaluation_level: h.evaluation_level,
-              // active: h.active
-            })
-          }
-          self.healers = arr
-        });
-        self.loading = false
-      })
+      return healer;
     }
   }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

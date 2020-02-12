@@ -1,26 +1,15 @@
 <template>
-  <v-navigation-drawer
-    v-model="drawer"
-    color="primary"
-    app
-  >
-    <v-list
-      nav
-      class="py-0"
-    >
+  <v-navigation-drawer v-model="drawer" color="primary" app>
+    <v-list nav class="py-0">
       <v-list-item>
         <v-list-item-avatar tile size="100" class="mx-auto">
-          <img :src="require('@/assets/logo.png')">
+          <img :src="require('@/assets/logo.png')" />
         </v-list-item-avatar>
       </v-list-item>
 
       <v-divider></v-divider>
 
-      <v-list-item
-        v-for="item in items"
-        :key="item.title"
-        :to="item.link"
-      >
+      <v-list-item v-for="item in items" :key="item.title" :to="item.link">
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-icon>
@@ -34,19 +23,23 @@
 </template>
 
 <script>
-  export default {
-    name: 'nav-bar',
-    data () {
-      return {
-        drawer: true,
-        items: [
-          { title: 'Clouds', icon: 'mdi-cloud', link: '/clouds' },
-          { title: 'Create Cloud', icon: 'mdi-cloud-upload', link: '/createcloud' },
-          { title: 'Healers', icon: 'mdi-ambulance', link: '/healers' },
-          { title: 'Scalers', icon: 'mdi-arrow-expand-all', link: '/scalers' },
-          { title: 'Silencers', icon: 'mdi-volume-mute', link: '/silencers' },
-        ],
-      }
-    },
+export default {
+  name: "nav-bar",
+  data() {
+    return {
+      drawer: true,
+      items: [
+        { title: "Clouds", icon: "mdi-cloud", link: "/clouds" },
+        {
+          title: "Create Cloud",
+          icon: "mdi-cloud-upload",
+          link: "/createcloud"
+        },
+        { title: "Healers", icon: "mdi-ambulance", link: "/healers" },
+        { title: "Scalers", icon: "mdi-arrow-expand-all", link: "/scalers" },
+        { title: "Silencers", icon: "mdi-volume-mute", link: "/silencers" }
+      ]
+    };
   }
+};
 </script>

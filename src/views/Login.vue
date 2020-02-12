@@ -1,24 +1,11 @@
 <template>
   <v-app id="login">
     <v-content>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col
-            cols="12"
-            sm="8"
-            md="4"
-          >
+      <v-container class="fill-height" fluid>
+        <v-row align="center" justify="center">
+          <v-col cols="12" sm="8" md="4">
             <v-card class="elevation-12">
-              <v-toolbar
-                color="primary"
-                flat
-              >
+              <v-toolbar color="primary" flat>
                 <v-toolbar-title>Login</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
@@ -54,27 +41,27 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        username: '',
-        password: '',
-      }
-    },
-    methods: {
-      Submit() {
-        this.$api.login(this.username, this.password).then(function(response){
-          if (response.data.Status == 'OK') {
-            let d = new Date();                
-            d.setTime(d.getTime() + (60*60*1000));
-            let expires = "expires="+ d.toUTCString();
-            document.cookie = "status=loggedIn" + ";" + expires + ";path=/";
-            window.location.href = '/clouds'
-          } else {
-            alert(response.data.Err)
-          }
-        })
-      }
+export default {
+  data() {
+    return {
+      username: "",
+      password: ""
+    };
+  },
+  methods: {
+    Submit() {
+      this.$api.login(this.username, this.password).then(function(response) {
+        if (response.data.Status == "OK") {
+          let d = new Date();
+          d.setTime(d.getTime() + 60 * 60 * 1000);
+          let expires = "expires=" + d.toUTCString();
+          document.cookie = "status=loggedIn" + ";" + expires + ";path=/";
+          window.location.href = "/clouds";
+        } else {
+          alert(response.data.Err);
+        }
+      });
     }
   }
+};
 </script>

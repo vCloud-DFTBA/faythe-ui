@@ -11,21 +11,17 @@
 </template>
 
 <script>
-  import CloudsTable from '@/components/tables/CloudsTable'
+import CloudsTable from "@/components/tables/CloudsTable";
 
-  export default {
-    name: 'clouds',
-    components: {
-      CloudsTable
-    },
-    data() {
-      return {
-        
-      }
-    },
+export default {
+  name: "clouds",
+  components: {
+    CloudsTable
+  },
+  data() {
+    return {};
   }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
