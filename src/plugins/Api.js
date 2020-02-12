@@ -16,5 +16,9 @@ export default {
 
   getHealers(id) {
     return axios.get("/healers/" + id);
+  },
+
+  getScalers(id) {
+    return axios.get("/scalers/" + id);
   }
 };

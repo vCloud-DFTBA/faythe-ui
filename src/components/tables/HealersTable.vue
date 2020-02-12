@@ -22,26 +22,6 @@
       <td :colspan="headers.length">
         <v-container>
           <v-row class="ml-10">
-            <v-col lg="4">
-              <v-card color="primary" raised>
-                <v-card-title class="justify-center">
-                  Basic Info
-                </v-card-title>
-                <v-simple-table dense>
-                  <template v-slot:default>
-                    <tbody>
-                      <tr
-                        v-for="n in ['cloudid', 'interval', 'duration', 'tags']"
-                        :key="n"
-                      >
-                        <td>{{ capitalizeFLetter(n) }}</td>
-                        <td>{{ healer[n] }}</td>
-                      </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
-              </v-card>
-            </v-col>
             <template v-for="(action, key) in healer.actions">
               <v-col lg="4" :key="`${action.type + key}`">
                 <v-card color="primary" raised>
@@ -77,10 +57,13 @@ export default {
       headers: [
         { text: "ID", value: "id" },
         { text: "Query", value: "query" },
+        { text: "Interval", value: "interval" },
+        { text: "Duration", value: "duration" },
         { text: "Receivers", value: "receivers" },
         { text: "Evaluation Level", value: "evaluation_level" },
         { text: "Active", value: "active" },
         { text: "Description", value: "description" },
+        { text: "Tags", value: "tags" },
         { text: "Actions", value: "actions" }
       ],
       rawHealers: {},
@@ -100,8 +83,12 @@ export default {
           arr.push({
             id: h.id,
             query: h.query,
+            interval: h.interval,
+            duration: h.duration,
             receivers: h.receivers,
             evaluation_level: h.evaluation_level,
+            description: h.description,
+            tags: h.tags,
             active: h.active
           });
         }
@@ -126,4 +113,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-card .v-card--raised > .v-card__title {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+</style>
