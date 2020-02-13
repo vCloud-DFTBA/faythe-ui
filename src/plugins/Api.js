@@ -20,5 +20,9 @@ export default {
 
   getScalers(id) {
     return axios.get("/scalers/" + id);
+  },
+
+  getSilences(id) {
+    return axios.get("/silences/" + id);
   }
 };
