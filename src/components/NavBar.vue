@@ -55,9 +55,18 @@ export default {
             link: "/createcloud"
           }
         ],
-        healers: [{ title: "Healers", link: "/healers" }],
-        scalers: [{ title: "Scalers", link: "/scalers" }],
-        silencers: [{ title: "Silencers", link: "/silencers" }]
+        healers: [
+          { title: "Healers", link: "/healers" },
+          { title: "Create Healer", link: "/createhealer" }
+        ],
+        scalers: [
+          { title: "Scalers", link: "/scalers" },
+          { title: "Create Scaler", link: "/createscaler" }
+        ],
+        silencers: [
+          { title: "Silencers", link: "/silencers" },
+          { title: "Create Silencer", link: "/createsilencer" }
+        ]
       }
     };
   }

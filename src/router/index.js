@@ -7,6 +7,9 @@ import CreateCloud from "@/views/CreateCloud";
 import Healers from "@/views/Healers";
 import Scalers from "@/views/Scalers";
 import Silencers from "@/views/Silencers";
+import CreateHealer from "@/views/CreateHealer";
+import CreateScaler from "@/views/CreateScaler";
+import CreateSilencer from "@/views/CreateSilencer";
 import Login from "@/views/Login";
 import NotFoundComponent from "@/views/NotFoundComponent";
 
@@ -34,14 +37,29 @@ const routes = [
         component: Healers
       },
       {
+        path: "/createhealer",
+        name: "create healer",
+        component: CreateHealer
+      },
+      {
         path: "/scalers",
         name: "scalers",
         component: Scalers
       },
       {
+        path: "/createscaler",
+        name: "create scalers",
+        component: CreateScaler
+      },
+      {
         path: "/silencers",
         name: "silencers",
         component: Silencers
+      },
+      {
+        path: "/createsilencer",
+        name: "create silencer",
+        component: CreateSilencer
       }
     ],
     meta: {
