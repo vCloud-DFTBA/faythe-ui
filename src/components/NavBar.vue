@@ -20,10 +20,10 @@
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
-      color="light-green darken-1"
       hide-overlay
       app
       clipped
+      :src="require('@/assets/background.jpg')"
     >
       <v-list nav class="py-0">
         <v-list-item>

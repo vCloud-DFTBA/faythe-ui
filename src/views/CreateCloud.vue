@@ -1,17 +1,14 @@
 <template>
-  <v-container>
-    <v-card class="mt-6">
-      <v-toolbar flat color="primary">
-        <v-toolbar-title>Create Cloud</v-toolbar-title>
-      </v-toolbar>
-      <v-divider class="my-6"></v-divider>
-    </v-card>
-  </v-container>
+  <create-cloud></create-cloud>
 </template>
 
 <script>
+import CreateCloud from "@/components/cards/CreateCloud";
 export default {
   name: "create-clouds",
+  components: {
+    CreateCloud
+  },
   data() {
     return {};
   }
