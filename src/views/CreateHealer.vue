@@ -1,16 +1,14 @@
 <template>
-  <v-container>
-    <v-card class="mt-6">
-      <v-toolbar flat color="primary">
-        <v-toolbar-title>Create Healer</v-toolbar-title>
-      </v-toolbar>
-      <v-divider class="my-6"></v-divider>
-    </v-card>
-  </v-container>
+  <create-healer></create-healer>
 </template>
 
 <script>
-export default {};
+import CreateHealer from "@/components/cards/CreateHealer";
+export default {
+  components: {
+    CreateHealer
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

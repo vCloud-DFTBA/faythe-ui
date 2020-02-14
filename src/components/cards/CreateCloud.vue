@@ -21,6 +21,7 @@
               label="Tags"
               multiple
               outlined
+              single-line
             >
               <template v-slot:selection="{ attrs, item, select, selected }">
                 <v-chip

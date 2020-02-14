@@ -1,16 +1,14 @@
 <template>
-  <v-container>
-    <v-card class="mt-6">
-      <v-toolbar flat color="primary">
-        <v-toolbar-title>Create Silencer</v-toolbar-title>
-      </v-toolbar>
-      <v-divider class="my-6"></v-divider>
-    </v-card>
-  </v-container>
+  <create-silencer></create-silencer>
 </template>
 
 <script>
-export default {};
+import CreateSilencer from "@/components/cards/CreateSilencer";
+export default {
+  components: {
+    CreateSilencer
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>
