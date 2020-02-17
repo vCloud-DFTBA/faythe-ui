@@ -15,15 +15,17 @@
                     label="Username"
                     v-model="username"
                     type="text"
-                    solo
+                    prepend-icon="mdi-account"
+                    color="black"
                   />
 
                   <v-text-field
                     id="password"
                     label="Password"
                     v-model="password"
+                    prepend-icon="mdi-lock"
                     type="password"
-                    solo
+                    color="black"
                   />
                 </v-form>
               </v-card-text>

@@ -28,6 +28,7 @@
                   <v-card-title class="justify-center">
                     {{ capitalizeFLetter(n) }}
                   </v-card-title>
+                  <v-divider></v-divider>
                   <v-simple-table :key="n" dense>
                     <template v-slot:default>
                       <tbody>

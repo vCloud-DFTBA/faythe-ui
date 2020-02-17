@@ -16,14 +16,14 @@
                     :items="clouds"
                     v-model="cloud"
                     label="Cloud *"
-                    solo
+                    color="black"
                     :rules="[rules.required]"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" lg="6">
                   <v-text-field
                     label="Name *"
-                    solo
+                    color="black"
                     :rules="[rules.required]"
                     v-model="name"
                   ></v-text-field>
@@ -33,7 +33,7 @@
                 <v-col cols="12" lg="6">
                   <v-text-field
                     label="Pattern *"
-                    solo
+                    color="black"
                     :rules="[rules.required]"
                     v-model="pattern"
                   ></v-text-field>
@@ -41,7 +41,7 @@
                 <v-col cols="12" lg="6">
                   <v-text-field
                     label="TTL *"
-                    solo
+                    color="black"
                     :rules="[rules.required]"
                     v-model="ttl"
                   ></v-text-field>
@@ -55,7 +55,7 @@
                     clearable
                     label="Tags"
                     multiple
-                    solo
+                    color="black"
                     single-line
                   >
                     <template
@@ -76,7 +76,7 @@
                 <v-col cols="12" lg="6">
                   <v-text-field
                     label="Description"
-                    solo
+                    color="black"
                     v-model="description"
                   ></v-text-field>
                 </v-col>

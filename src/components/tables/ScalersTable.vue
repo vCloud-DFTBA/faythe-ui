@@ -28,6 +28,7 @@
                   <v-card-title class="justify-center">
                     {{ capitalizeFLetter(action.type) }}
                   </v-card-title>
+                  <v-divider></v-divider>
                   <v-simple-table dense>
                     <template v-slot:default>
                       <tbody>

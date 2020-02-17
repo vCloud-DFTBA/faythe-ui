@@ -14,7 +14,7 @@
                 :items="providers"
                 v-model="provider"
                 label="Cloud Provider *"
-                solo
+                color="black"
                 :rules="[rules.required]"
               ></v-select>
               <v-combobox
@@ -23,7 +23,7 @@
                 clearable
                 label="Tags"
                 multiple
-                solo
+                color="black"
                 single-line
               >
                 <template v-slot:selection="{ attrs, item, select, selected }">
@@ -53,18 +53,18 @@
                 :items="monitors"
                 v-model="monitor.backend"
                 label="Monitor Backend *"
-                solo
+                color="black"
                 :rules="[rules.required]"
               ></v-select>
               <v-text-field
                 label="Address *"
-                solo
+                color="black"
                 :rules="[rules.required]"
                 v-model="monitor.address"
               ></v-text-field>
               <v-text-field
                 label="Username *"
-                solo
+                color="black"
                 :rules="[rules.required]"
                 v-model="monitor.username"
               ></v-text-field>
@@ -75,7 +75,7 @@
                 label="Password *"
                 @click:append="showPassword.monitor = !showPassword.monitor"
                 :rules="[rules.required]"
-                solo
+                color="black"
               ></v-text-field>
             </v-container>
           </v-card>
@@ -89,13 +89,13 @@
             <v-container class="my-2">
               <v-text-field
                 label="Authentication URL *"
-                solo
+                color="black"
                 :rules="[rules.required]"
                 v-model="auth.auth_url"
               ></v-text-field>
               <v-text-field
                 label="Username *"
-                solo
+                color="black"
                 :rules="[rules.required]"
                 v-model="auth.username"
               ></v-text-field>
@@ -106,22 +106,22 @@
                 label="Password *"
                 @click:append="showPassword.auth = !showPassword.auth"
                 :rules="[rules.required]"
-                solo
+                color="black"
               ></v-text-field>
               <v-text-field
                 label="Project *"
-                solo
+                color="black"
                 :rules="[rules.required]"
                 v-model="auth.project"
               ></v-text-field>
               <v-text-field
                 label="Domain"
-                solo
+                color="black"
                 v-model="auth.domain"
               ></v-text-field>
               <v-text-field
                 label="Region"
-                solo
+                color="black"
                 v-model="auth.region"
               ></v-text-field>
             </v-container>
@@ -139,12 +139,12 @@
                 :items="atengines"
                 v-model="atengine.backend"
                 label="Automation Backend *"
-                solo
+                color="black"
                 :rules="[rules.required]"
               ></v-select>
               <v-text-field
                 label="Address *"
-                solo
+                color="black"
                 :rules="[rules.required]"
                 v-model="atengine.address"
               ></v-text-field>
@@ -155,7 +155,7 @@
                 label="API Key *"
                 @click:append="showPassword.atengine = !showPassword.atengine"
                 :rules="[rules.required]"
-                solo
+                color="black"
               ></v-text-field>
             </v-container>
           </v-card>
