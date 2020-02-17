@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form @submit.prevent="submit" ref="silenceForm" v-model="valid">
+    <v-form @submit.prevent="submit" v-model="valid">
       <v-card class="mt-6">
         <v-row>
           <v-col cols="12" class="py-0">
@@ -100,14 +100,14 @@
           >Submit</v-btn
         >
       </v-row>
-      <preview-data
-        v-bind:dialog="openDialog"
-        v-bind:dialog_data="data"
-      ></preview-data>
     </v-form>
+    <preview-data
+      v-bind:dialog="openDialog"
+      v-bind:dialog_data="data"
+    ></preview-data>
     <v-snackbar
       v-model="snackbar"
-      color="success"
+      :color="snackcolor"
       multi-line
       :timeout="5000"
       bottom
@@ -131,6 +131,7 @@ export default {
       valid: false,
       snacktext: "",
       snackbar: false,
+      snackcolor: "",
       clouds: [],
       cloud: "",
       name: "",
@@ -176,14 +177,24 @@ export default {
       let self = this;
       let cid = this.cloud.split(" - ", 2)[0];
       let data = this.formData();
-      this.$api.createSilencer(cid, data).then(function(response) {
-        if (response.data.Err != "") {
-          alert(response.data.Err);
-        } else {
-          self.snacktext = "Silence registered!";
+      this.$api
+        .createSilencer(cid, data)
+        .then(function(response) {
+          if (response.data.Err != "") {
+            self.snackcolor = "error";
+            self.snacktext = response.data.Err;
+            self.snackbar = true;
+          } else {
+            self.snackcolor = "success";
+            self.snacktext = "Silence registered!";
+            self.snackbar = true;
+          }
+        })
+        .catch(function(e) {
+          self.snackcolor = "error";
+          self.snacktext = e;
           self.snackbar = true;
-        }
-      });
+        });
     }
   },
   computed: {

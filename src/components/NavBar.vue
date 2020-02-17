@@ -58,7 +58,7 @@
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
-    <v-footer padless fixed tile>
+    <v-footer padless fixed tile class="hidden-sm-and-down">
       <v-col class="text-center" cols="12">
         {{ new Date().getFullYear() }} — <strong>CloudTeam</strong>
         <v-icon class="ml-2 mt-n2">mdi-account-group</v-icon>

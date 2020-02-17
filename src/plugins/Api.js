@@ -26,8 +26,8 @@ export default {
     return axios.get("/silences/" + id);
   },
 
-  createCloud(id, data) {
-    return axios.post("/clouds/" + id, data);
+  createCloud(provider, data) {
+    return axios.post("/clouds/" + provider, data);
   },
 
   createHealer(id, data) {
