@@ -17,4 +17,8 @@
 export default {};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-sheet--tile {
+  border-radius: 4px;
+}
+</style>

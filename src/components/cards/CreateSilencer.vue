@@ -2,11 +2,11 @@
   <v-container>
     <v-card class="mt-6">
       <v-row>
-        <v-col cols="12">
+        <v-col cols="12" class="py-0">
           <v-toolbar flat color="primary">
             <v-toolbar-title>Create Silencer</v-toolbar-title>
           </v-toolbar>
-          <v-container class="my-2">
+          <v-container>
             <v-row>
               <v-col cols="12" lg="6">
                 <v-select
@@ -82,11 +82,29 @@
         </v-col>
       </v-row>
     </v-card>
+    <v-row justify="center" class="mt-5">
+      <v-btn
+        x-large
+        color="success"
+        class="mx-3"
+        @click="openDialog = !openDialog"
+        >Preview</v-btn
+      >
+      <v-btn x-large color="primary" class="mx-3">Submit</v-btn>
+    </v-row>
+    <preview-data
+      v-bind:dialog="openDialog"
+      v-bind:dialog_data="data"
+    ></preview-data>
   </v-container>
 </template>
 
 <script>
+import PreviewData from "@/components/PreviewData";
 export default {
+  components: {
+    PreviewData
+  },
   data() {
     return {
       clouds: [],
@@ -98,7 +116,8 @@ export default {
       description: "",
       rules: {
         required: value => !!value || "Required."
-      }
+      },
+      openDialog: false
     };
   },
   mounted() {
@@ -111,14 +130,35 @@ export default {
       }
       self.clouds = arr;
     });
+    this.$root.$on("close_preview_data", function(data) {
+      self.openDialog = data;
+    });
   },
   methods: {
     remove(item) {
       this.tags.splice(this.tags.indexOf(item), 1);
       this.tags = [...this.tags];
+    },
+    formData() {
+      return {
+        name: this.name,
+        pattern: this.pattern,
+        ttl: this.ttl,
+        description: this.description,
+        tags: this.tags
+      };
+    }
+  },
+  computed: {
+    data: function() {
+      return this.formData();
     }
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-sheet--tile {
+  border-radius: 4px;
+}
+</style>
