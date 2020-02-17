@@ -7,21 +7,23 @@
             <v-toolbar flat color="primary">
               <v-toolbar-title>Create Silencer</v-toolbar-title>
             </v-toolbar>
+            <v-divider></v-divider>
             <v-container>
               <v-row>
                 <v-col cols="12" lg="6">
                   <v-select
+                    item-color="grey darken-3"
                     :items="clouds"
                     v-model="cloud"
                     label="Cloud *"
-                    outlined
+                    solo
                     :rules="[rules.required]"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" lg="6">
                   <v-text-field
                     label="Name *"
-                    outlined
+                    solo
                     :rules="[rules.required]"
                     v-model="name"
                   ></v-text-field>
@@ -31,7 +33,7 @@
                 <v-col cols="12" lg="6">
                   <v-text-field
                     label="Pattern *"
-                    outlined
+                    solo
                     :rules="[rules.required]"
                     v-model="pattern"
                   ></v-text-field>
@@ -39,7 +41,7 @@
                 <v-col cols="12" lg="6">
                   <v-text-field
                     label="TTL *"
-                    outlined
+                    solo
                     :rules="[rules.required]"
                     v-model="ttl"
                   ></v-text-field>
@@ -53,7 +55,7 @@
                     clearable
                     label="Tags"
                     multiple
-                    outlined
+                    solo
                     single-line
                   >
                     <template
@@ -74,7 +76,7 @@
                 <v-col cols="12" lg="6">
                   <v-text-field
                     label="Description"
-                    outlined
+                    solo
                     v-model="description"
                   ></v-text-field>
                 </v-col>
@@ -86,17 +88,19 @@
       <v-row justify="center" class="mt-5">
         <v-btn
           x-large
-          color="success"
-          class="mx-3"
+          color="info"
+          class="mx-3 elevation-3"
           @click="openDialog = !openDialog"
+          text
           >Preview</v-btn
         >
         <v-btn
           x-large
-          color="primary"
-          class="mx-3"
+          color="success"
+          class="mx-3 elevation-3"
           type="submit"
           :disabled="!valid"
+          text
           >Submit</v-btn
         >
       </v-row>

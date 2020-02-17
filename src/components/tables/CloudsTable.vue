@@ -23,7 +23,7 @@
         <v-container>
           <v-row class="ml-10">
             <template v-for="n in ['auth', 'monitor', 'atengine']">
-              <v-col lg="4" :key="n">
+              <v-col cols="12" lg="4" :key="n">
                 <v-card color="primary" raised>
                   <v-card-title class="justify-center">
                     {{ capitalizeFLetter(n) }}

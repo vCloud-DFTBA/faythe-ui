@@ -4,7 +4,7 @@
       <v-toolbar flat color="primary">
         <v-toolbar-title>Clouds</v-toolbar-title>
       </v-toolbar>
-      <v-divider class="my-6"></v-divider>
+      <v-divider></v-divider>
       <clouds-table></clouds-table>
     </v-card>
   </v-container>

@@ -4,7 +4,7 @@
       <v-toolbar flat color="primary">
         <v-toolbar-title>Scalers</v-toolbar-title>
       </v-toolbar>
-      <v-divider class="my-6"></v-divider>
+      <v-divider></v-divider>
       <select-cloud></select-cloud>
       <scalers-table></scalers-table>
     </v-card>

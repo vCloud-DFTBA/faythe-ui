@@ -7,12 +7,14 @@
             <v-toolbar flat color="primary">
               <v-toolbar-title>Cloud Provider</v-toolbar-title>
             </v-toolbar>
+            <v-divider></v-divider>
             <v-container class="my-2">
               <v-select
+                item-color="grey darken-3"
                 :items="providers"
                 v-model="provider"
                 label="Cloud Provider *"
-                outlined
+                solo
                 :rules="[rules.required]"
               ></v-select>
               <v-combobox
@@ -21,7 +23,7 @@
                 clearable
                 label="Tags"
                 multiple
-                outlined
+                solo
                 single-line
               >
                 <template v-slot:selection="{ attrs, item, select, selected }">
@@ -44,23 +46,25 @@
             <v-toolbar flat color="primary">
               <v-toolbar-title>Monitor</v-toolbar-title>
             </v-toolbar>
+            <v-divider></v-divider>
             <v-container class="my-2">
               <v-select
+                item-color="grey darken-3"
                 :items="monitors"
                 v-model="monitor.backend"
                 label="Monitor Backend *"
-                outlined
+                solo
                 :rules="[rules.required]"
               ></v-select>
               <v-text-field
                 label="Address *"
-                outlined
+                solo
                 :rules="[rules.required]"
                 v-model="monitor.address"
               ></v-text-field>
               <v-text-field
                 label="Username *"
-                outlined
+                solo
                 :rules="[rules.required]"
                 v-model="monitor.username"
               ></v-text-field>
@@ -71,7 +75,7 @@
                 label="Password *"
                 @click:append="showPassword.monitor = !showPassword.monitor"
                 :rules="[rules.required]"
-                outlined
+                solo
               ></v-text-field>
             </v-container>
           </v-card>
@@ -81,16 +85,17 @@
             <v-toolbar flat color="primary">
               <v-toolbar-title>Authentication</v-toolbar-title>
             </v-toolbar>
+            <v-divider></v-divider>
             <v-container class="my-2">
               <v-text-field
                 label="Authentication URL *"
-                outlined
+                solo
                 :rules="[rules.required]"
                 v-model="auth.auth_url"
               ></v-text-field>
               <v-text-field
                 label="Username *"
-                outlined
+                solo
                 :rules="[rules.required]"
                 v-model="auth.username"
               ></v-text-field>
@@ -101,22 +106,22 @@
                 label="Password *"
                 @click:append="showPassword.auth = !showPassword.auth"
                 :rules="[rules.required]"
-                outlined
+                solo
               ></v-text-field>
               <v-text-field
                 label="Project *"
-                outlined
+                solo
                 :rules="[rules.required]"
                 v-model="auth.project"
               ></v-text-field>
               <v-text-field
                 label="Domain"
-                outlined
+                solo
                 v-model="auth.domain"
               ></v-text-field>
               <v-text-field
                 label="Region"
-                outlined
+                solo
                 v-model="auth.region"
               ></v-text-field>
             </v-container>
@@ -127,17 +132,19 @@
             <v-toolbar flat color="primary">
               <v-toolbar-title>Automation Engine</v-toolbar-title>
             </v-toolbar>
+            <v-divider></v-divider>
             <v-container class="my-2">
               <v-select
+                item-color="grey darken-3"
                 :items="atengines"
                 v-model="atengine.backend"
                 label="Automation Backend *"
-                outlined
+                solo
                 :rules="[rules.required]"
               ></v-select>
               <v-text-field
                 label="Address *"
-                outlined
+                solo
                 :rules="[rules.required]"
                 v-model="atengine.address"
               ></v-text-field>
@@ -148,7 +155,7 @@
                 label="API Key *"
                 @click:append="showPassword.atengine = !showPassword.atengine"
                 :rules="[rules.required]"
-                outlined
+                solo
               ></v-text-field>
             </v-container>
           </v-card>
@@ -157,17 +164,19 @@
       <v-row justify="center" class="mt-5">
         <v-btn
           x-large
-          color="success"
-          class="mx-3"
+          color="info"
+          class="mx-3 elevation-3"
           @click="openDialog = !openDialog"
+          text
           >Preview</v-btn
         >
         <v-btn
           x-large
-          color="primary"
-          class="mx-3"
+          color="success"
+          class="mx-3 elevation-3"
           type="submit"
           :disabled="!valid"
+          text
           >Submit</v-btn
         >
       </v-row>

@@ -18,13 +18,7 @@
         contain
       ></v-img>
     </v-app-bar>
-    <v-navigation-drawer
-      v-model="drawer"
-      hide-overlay
-      app
-      clipped
-      :src="require('@/assets/background.jpg')"
-    >
+    <v-navigation-drawer v-model="drawer" hide-overlay app clipped>
       <v-list nav class="py-0">
         <v-list-item>
           <v-list-item-avatar tile size="100" class="mx-auto">

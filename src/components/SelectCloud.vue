@@ -4,6 +4,8 @@
     label="Cloud"
     class="ma-6"
     v-model="selected"
+    solo
+    item-color="grey darken-3"
   ></v-select>
 </template>
 
