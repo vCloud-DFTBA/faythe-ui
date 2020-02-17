@@ -8,33 +8,44 @@
               <v-toolbar color="primary" flat>
                 <v-toolbar-title>Login</v-toolbar-title>
               </v-toolbar>
+              <v-divider></v-divider>
               <v-card-text>
-                <v-form>
+                <v-form v-model="valid">
                   <v-text-field
                     label="Username"
                     v-model="username"
-                    prepend-icon="mdi-account"
                     type="text"
-                    required
+                    solo
                   />
 
                   <v-text-field
                     id="password"
                     label="Password"
                     v-model="password"
-                    prepend-icon="mdi-lock"
                     type="password"
-                    required
+                    solo
                   />
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn @click="Submit" color="primary">Login</v-btn>
+                <v-btn
+                  class="mx-3 elevation-3"
+                  @click="Submit"
+                  :disabled="!valid"
+                  text
+                  >Login</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
+        <v-snackbar v-model="snackbar" multi-line :timeout="5000" bottom>
+          {{ snacktext }}
+          <v-btn dark text @click="snackbar = false">
+            Close
+          </v-btn>
+        </v-snackbar>
       </v-container>
     </v-content>
   </v-app>
@@ -45,11 +56,15 @@ export default {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
+      snackbar: false,
+      snacktext: "",
+      valid: false
     };
   },
   methods: {
     Submit() {
+      let self = this;
       this.$api.login(this.username, this.password).then(function(response) {
         if (response.data.Status == "OK") {
           let d = new Date();
@@ -58,7 +73,8 @@ export default {
           document.cookie = "status=loggedIn" + ";" + expires + ";path=/";
           window.location.href = "/clouds";
         } else {
-          alert(response.data.Err);
+          self.snacktext = "Invalid username/password!";
+          self.snackbar = true;
         }
       });
     }

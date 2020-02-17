@@ -88,7 +88,6 @@
       <v-row justify="center" class="mt-5">
         <v-btn
           x-large
-          color="info"
           class="mx-3 elevation-3"
           @click="openDialog = !openDialog"
           text
@@ -96,7 +95,6 @@
         >
         <v-btn
           x-large
-          color="success"
           class="mx-3 elevation-3"
           type="submit"
           :disabled="!valid"
@@ -109,13 +107,7 @@
       v-bind:dialog="openDialog"
       v-bind:dialog_data="data"
     ></preview-data>
-    <v-snackbar
-      v-model="snackbar"
-      :color="snackcolor"
-      multi-line
-      :timeout="5000"
-      bottom
-    >
+    <v-snackbar v-model="snackbar" multi-line :timeout="5000" bottom>
       {{ snacktext }}
       <v-btn dark text @click="snackbar = false">
         Close
@@ -135,7 +127,6 @@ export default {
       valid: false,
       snacktext: "",
       snackbar: false,
-      snackcolor: "",
       clouds: [],
       cloud: "",
       name: "",
@@ -185,17 +176,14 @@ export default {
         .createSilencer(cid, data)
         .then(function(response) {
           if (response.data.Err != "") {
-            self.snackcolor = "error";
             self.snacktext = response.data.Err;
             self.snackbar = true;
           } else {
-            self.snackcolor = "success";
             self.snacktext = "Silence registered!";
             self.snackbar = true;
           }
         })
         .catch(function(e) {
-          self.snackcolor = "error";
           self.snacktext = e;
           self.snackbar = true;
         });
