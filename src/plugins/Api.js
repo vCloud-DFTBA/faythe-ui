@@ -24,5 +24,37 @@ export default {
 
   getSilences(id) {
     return axios.get("/silences/" + id);
+  },
+
+  createCloud(id, data) {
+    return axios.post("/clouds/" + id, data);
+  },
+
+  createHealer(id, data) {
+    return axios.post("/healers/" + id, data);
+  },
+
+  createScaler(id, data) {
+    return axios.post("/scalers/" + id, data);
+  },
+
+  createSilencer(id, data) {
+    return axios.post("/silencers/" + id, data);
+  },
+
+  deleteCloud(...ids) {
+    return axios.delete("/clouds/" + ids.join("/"));
+  },
+
+  deleteHealer(...ids) {
+    return axios.delete("/healers/" + ids.join("/"));
+  },
+
+  deleteScaler(...ids) {
+    return axios.delete("/scalers/" + ids.join("/"));
+  },
+
+  deleteSilencer(...ids) {
+    return axios.delete("/silencers/" + ids.join("/"));
   }
 };

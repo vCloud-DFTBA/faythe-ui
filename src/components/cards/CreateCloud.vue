@@ -153,16 +153,34 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row justify="center" class="mt-5">
+      <v-btn
+        x-large
+        color="success"
+        class="mx-3"
+        @click="openDialog = !openDialog"
+        >Preview</v-btn
+      >
+      <v-btn x-large color="primary" class="mx-3">Submit</v-btn>
+    </v-row>
+    <preview-data
+      v-bind:dialog="openDialog"
+      v-bind:dialog_data="data"
+    ></preview-data>
   </v-container>
 </template>
 
 <script>
+import PreviewData from "@/components/PreviewData";
 export default {
+  components: {
+    PreviewData
+  },
   data() {
     return {
-      providers: ["Openstack"],
-      monitors: ["Prometheus"],
-      atengines: ["Stackstorm"],
+      providers: ["openstack"],
+      monitors: ["prometheus"],
+      atengines: ["stackstorm"],
       monitor: {
         backend: "",
         address: "",
@@ -188,17 +206,37 @@ export default {
         auth: false,
         atengine: false
       },
-      password: "",
       rules: {
         required: value => !!value || "Required."
       },
-      tags: []
+      tags: [],
+      openDialog: false
     };
+  },
+  mounted() {
+    let self = this;
+    this.$root.$on("close_preview_data", function(data) {
+      self.openDialog = data;
+    });
   },
   methods: {
     remove(item) {
       this.tags.splice(this.tags.indexOf(item), 1);
       this.tags = [...this.tags];
+    },
+    formData() {
+      return {
+        auth: this.auth,
+        atengine: this.atengine,
+        monitor: this.monitor,
+        provider: this.provider,
+        tags: this.tags
+      };
+    }
+  },
+  computed: {
+    data: function() {
+      return this.formData();
     }
   }
 };
