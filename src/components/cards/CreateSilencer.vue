@@ -1,101 +1,122 @@
 <template>
   <v-container>
-    <v-card class="mt-6">
-      <v-row>
-        <v-col cols="12" class="py-0">
-          <v-toolbar flat color="primary">
-            <v-toolbar-title>Create Silencer</v-toolbar-title>
-          </v-toolbar>
-          <v-container>
-            <v-row>
-              <v-col cols="12" lg="6">
-                <v-select
-                  :items="clouds"
-                  v-model="cloud"
-                  label="Cloud *"
-                  outlined
-                  :rules="[rules.required]"
-                ></v-select>
-              </v-col>
-              <v-col cols="12" lg="6">
-                <v-text-field
-                  label="Name *"
-                  outlined
-                  :rules="[rules.required]"
-                  v-model="name"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" lg="6">
-                <v-text-field
-                  label="Pattern *"
-                  outlined
-                  :rules="[rules.required]"
-                  v-model="pattern"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" lg="6">
-                <v-text-field
-                  label="TTL *"
-                  outlined
-                  :rules="[rules.required]"
-                  v-model="ttl"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" lg="6">
-                <v-combobox
-                  v-model="tags"
-                  chips
-                  clearable
-                  label="Tags"
-                  multiple
-                  outlined
-                  single-line
-                >
-                  <template
-                    v-slot:selection="{ attrs, item, select, selected }"
+    <v-form @submit.prevent="submit" ref="silenceForm" v-model="valid">
+      <v-card class="mt-6">
+        <v-row>
+          <v-col cols="12" class="py-0">
+            <v-toolbar flat color="primary">
+              <v-toolbar-title>Create Silencer</v-toolbar-title>
+            </v-toolbar>
+            <v-container>
+              <v-row>
+                <v-col cols="12" lg="6">
+                  <v-select
+                    :items="clouds"
+                    v-model="cloud"
+                    label="Cloud *"
+                    outlined
+                    :rules="[rules.required]"
+                  ></v-select>
+                </v-col>
+                <v-col cols="12" lg="6">
+                  <v-text-field
+                    label="Name *"
+                    outlined
+                    :rules="[rules.required]"
+                    v-model="name"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" lg="6">
+                  <v-text-field
+                    label="Pattern *"
+                    outlined
+                    :rules="[rules.required]"
+                    v-model="pattern"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" lg="6">
+                  <v-text-field
+                    label="TTL *"
+                    outlined
+                    :rules="[rules.required]"
+                    v-model="ttl"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" lg="6">
+                  <v-combobox
+                    v-model="tags"
+                    chips
+                    clearable
+                    label="Tags"
+                    multiple
+                    outlined
+                    single-line
                   >
-                    <v-chip
-                      v-bind="attrs"
-                      :input-value="selected"
-                      close
-                      @click="select"
-                      @click:close="remove(item)"
+                    <template
+                      v-slot:selection="{ attrs, item, select, selected }"
                     >
-                      {{ item }}
-                    </v-chip>
-                  </template>
-                </v-combobox>
-              </v-col>
-              <v-col cols="12" lg="6">
-                <v-text-field
-                  label="Description"
-                  outlined
-                  v-model="description"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-col>
+                      <v-chip
+                        v-bind="attrs"
+                        :input-value="selected"
+                        close
+                        @click="select"
+                        @click:close="remove(item)"
+                      >
+                        {{ item }}
+                      </v-chip>
+                    </template>
+                  </v-combobox>
+                </v-col>
+                <v-col cols="12" lg="6">
+                  <v-text-field
+                    label="Description"
+                    outlined
+                    v-model="description"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-col>
+        </v-row>
+      </v-card>
+      <v-row justify="center" class="mt-5">
+        <v-btn
+          x-large
+          color="success"
+          class="mx-3"
+          @click="openDialog = !openDialog"
+          >Preview</v-btn
+        >
+        <v-btn
+          x-large
+          color="primary"
+          class="mx-3"
+          type="submit"
+          :disabled="!valid"
+          >Submit</v-btn
+        >
       </v-row>
-    </v-card>
-    <v-row justify="center" class="mt-5">
-      <v-btn
-        x-large
-        color="success"
-        class="mx-3"
-        @click="openDialog = !openDialog"
-        >Preview</v-btn
-      >
-      <v-btn x-large color="primary" class="mx-3">Submit</v-btn>
-    </v-row>
-    <preview-data
-      v-bind:dialog="openDialog"
-      v-bind:dialog_data="data"
-    ></preview-data>
+      <preview-data
+        v-bind:dialog="openDialog"
+        v-bind:dialog_data="data"
+      ></preview-data>
+    </v-form>
+    <v-snackbar
+      v-model="snackbar"
+      color="success"
+      multi-line
+      :timeout="5000"
+      bottom
+    >
+      {{ snacktext }}
+      <v-btn dark text @click="snackbar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -107,6 +128,9 @@ export default {
   },
   data() {
     return {
+      valid: false,
+      snacktext: "",
+      snackbar: false,
       clouds: [],
       cloud: "",
       name: "",
@@ -147,6 +171,19 @@ export default {
         description: this.description,
         tags: this.tags
       };
+    },
+    submit() {
+      let self = this;
+      let cid = this.cloud.split(" - ", 2)[0];
+      let data = this.formData();
+      this.$api.createSilencer(cid, data).then(function(response) {
+        if (response.data.Err != "") {
+          alert(response.data.Err);
+        } else {
+          self.snacktext = "Silence registered!";
+          self.snackbar = true;
+        }
+      });
     }
   },
   computed: {

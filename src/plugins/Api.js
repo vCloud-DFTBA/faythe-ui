@@ -39,7 +39,7 @@ export default {
   },
 
   createSilencer(id, data) {
-    return axios.post("/silencers/" + id, data);
+    return axios.post("/silences/" + id, data);
   },
 
   deleteCloud(...ids) {
@@ -55,6 +55,6 @@ export default {
   },
 
   deleteSilencer(...ids) {
-    return axios.delete("/silencers/" + ids.join("/"));
+    return axios.delete("/silences/" + ids.join("/"));
   }
 };
