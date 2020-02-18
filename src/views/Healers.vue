@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card class="mt-6">
-      <v-toolbar flat color="primary">
+      <v-toolbar flat>
         <v-toolbar-title>Healers</v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>

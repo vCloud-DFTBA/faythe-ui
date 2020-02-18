@@ -4,7 +4,7 @@
       <v-card class="mt-6">
         <v-row>
           <v-col cols="12" class="py-0">
-            <v-toolbar flat color="primary">
+            <v-toolbar flat>
               <v-toolbar-title>Create Silencer</v-toolbar-title>
             </v-toolbar>
             <v-divider></v-divider>
@@ -56,7 +56,8 @@
                     label="Tags"
                     multiple
                     color="black"
-                    single-line
+                    append-icon=""
+                    small-chips
                   >
                     <template
                       v-slot:selection="{ attrs, item, select, selected }"
@@ -91,16 +92,18 @@
           class="mx-3 elevation-3"
           @click="openDialog = !openDialog"
           text
-          >Preview</v-btn
         >
+          Preview
+        </v-btn>
         <v-btn
           x-large
           class="mx-3 elevation-3"
           type="submit"
           :disabled="!valid"
           text
-          >Submit</v-btn
         >
+          Submit
+        </v-btn>
       </v-row>
     </v-form>
     <preview-data

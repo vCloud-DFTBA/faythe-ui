@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="12" lg="3">
           <v-card>
-            <v-toolbar flat color="primary">
+            <v-toolbar flat>
               <v-toolbar-title>Cloud Provider</v-toolbar-title>
             </v-toolbar>
             <v-divider></v-divider>
@@ -24,7 +24,8 @@
                 label="Tags"
                 multiple
                 color="black"
-                single-line
+                small-chips
+                append-icon=""
               >
                 <template v-slot:selection="{ attrs, item, select, selected }">
                   <v-chip
@@ -43,7 +44,7 @@
         </v-col>
         <v-col cols="12" lg="3">
           <v-card>
-            <v-toolbar flat color="primary">
+            <v-toolbar flat>
               <v-toolbar-title>Monitor</v-toolbar-title>
             </v-toolbar>
             <v-divider></v-divider>
@@ -82,7 +83,7 @@
         </v-col>
         <v-col cols="12" lg="3">
           <v-card>
-            <v-toolbar flat color="primary">
+            <v-toolbar flat>
               <v-toolbar-title>Authentication</v-toolbar-title>
             </v-toolbar>
             <v-divider></v-divider>
@@ -129,7 +130,7 @@
         </v-col>
         <v-col cols="12" lg="3">
           <v-card>
-            <v-toolbar flat color="primary">
+            <v-toolbar flat>
               <v-toolbar-title>Automation Engine</v-toolbar-title>
             </v-toolbar>
             <v-divider></v-divider>
@@ -167,16 +168,18 @@
           class="mx-3 elevation-3"
           @click="openDialog = !openDialog"
           text
-          >Preview</v-btn
         >
+          Preview
+        </v-btn>
         <v-btn
           x-large
           class="mx-3 elevation-3"
           type="submit"
           :disabled="!valid"
           text
-          >Submit</v-btn
         >
+          Submit
+        </v-btn>
       </v-row>
     </v-form>
     <preview-data

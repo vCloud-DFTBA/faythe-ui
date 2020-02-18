@@ -1,6 +1,5 @@
 <template>
   <v-data-table
-    color="primary"
     :headers="headers"
     :items="silences"
     :items-per-page="10"

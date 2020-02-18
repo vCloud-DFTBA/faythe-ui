@@ -5,7 +5,7 @@
         <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="4">
             <v-card class="elevation-12">
-              <v-toolbar color="primary" flat>
+              <v-toolbar flat>
                 <v-toolbar-title>Login</v-toolbar-title>
               </v-toolbar>
               <v-divider></v-divider>
@@ -36,8 +36,9 @@
                   @click="Submit"
                   :disabled="!valid"
                   text
-                  >Login</v-btn
                 >
+                  Login
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-col>

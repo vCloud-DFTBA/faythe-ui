@@ -1,6 +1,5 @@
 <template>
   <v-data-table
-    color="primary"
     :headers="headers"
     :items="scalers"
     :items-per-page="10"
@@ -19,21 +18,21 @@
       </v-icon>
     </template>
     <template v-slot:expanded-item="{ item }" flat>
-      <td :colspan="headers.length">
+      <td colspan="12">
         <v-container>
-          <v-row class="ml-10">
+          <v-row>
             <template v-for="(action, key) in getScaler(item.id).actions">
               <v-col lg="4" :key="`${action.url + key}`">
-                <v-card color="primary" raised>
-                  <v-card-title class="justify-center">
-                    {{ capitalizeFLetter(action.type) }}
+                <v-card raised>
+                  <v-card-title class="justify-center text-capitalize">
+                    {{ action.type }}
                   </v-card-title>
                   <v-divider></v-divider>
                   <v-simple-table dense>
                     <template v-slot:default>
                       <tbody>
                         <tr v-for="(v, k) in action" :key="`${v + k}`">
-                          <td>{{ capitalizeFLetter(k) }}</td>
+                          <td class="text-capitalize">{{ k }}</td>
                           <td>{{ v }}</td>
                         </tr>
                       </tbody>
@@ -99,9 +98,6 @@ export default {
     });
   },
   methods: {
-    capitalizeFLetter(s) {
-      return s[0].toUpperCase() + s.slice(1);
-    },
     getScaler(id) {
       return this.rawScalers[id];
     }

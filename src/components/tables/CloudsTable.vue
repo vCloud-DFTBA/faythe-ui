@@ -1,6 +1,5 @@
 <template>
   <v-data-table
-    color="primary"
     :headers="headers"
     :items="clouds"
     :items-per-page="10"
@@ -19,14 +18,14 @@
       </v-icon>
     </template>
     <template v-slot:expanded-item="{ item }" flat>
-      <td :colspan="headers.length">
+      <td colspan="12">
         <v-container>
-          <v-row class="ml-10">
+          <v-row>
             <template v-for="n in ['auth', 'monitor', 'atengine']">
               <v-col cols="12" lg="4" :key="n">
-                <v-card color="primary" raised>
-                  <v-card-title class="justify-center">
-                    {{ capitalizeFLetter(n) }}
+                <v-card raised>
+                  <v-card-title class="justify-center text-capitalize">
+                    {{ n }}
                   </v-card-title>
                   <v-divider></v-divider>
                   <v-simple-table :key="n" dense>
@@ -36,7 +35,7 @@
                           v-for="(v, k) in getCloud(item.id)[n]"
                           :key="`${v + k}`"
                         >
-                          <td>{{ capitalizeFLetter(k) }}</td>
+                          <td class="text-capitalize">{{ k }}</td>
                           <td>{{ v }}</td>
                         </tr>
                       </tbody>
@@ -78,9 +77,6 @@ export default {
   methods: {
     getCloud(id) {
       return this.rawClouds["/clouds/" + id];
-    },
-    capitalizeFLetter(s) {
-      return s[0].toUpperCase() + s.slice(1);
     }
   },
   computed: {
