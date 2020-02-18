@@ -384,6 +384,7 @@ export default {
         query: this.query,
         receivers: this.receivers,
         tags: this.tags,
+        active: this.active,
         interval: this.interval,
         duration: this.duration,
         evaluation_level: this.evaluation_level,
@@ -423,8 +424,5 @@ export default {
 <style lang="scss" scoped>
 .v-sheet--tile {
   border-radius: 4px;
-}
-.mdi-menu-down {
-  display: none !important;
 }
 </style>
