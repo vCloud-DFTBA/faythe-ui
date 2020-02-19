@@ -116,6 +116,7 @@ export default {
           let id = k.split("/")[3];
           self.rawScalers[id] = s;
           arr.push({
+            cloudid: cloudid,
             id: s.id,
             query: s.query,
             interval: s.interval,
@@ -134,6 +135,41 @@ export default {
   methods: {
     getScaler(id) {
       return this.rawScalers[id];
+    },
+    confirmDelete() {
+      let self = this;
+      this.$api
+        .deleteScaler(this.selectedForDelete)
+        .then(function(response) {
+          if (response.data.Err != "") {
+            self.snacktext = response.data.Err;
+            self.snackbar = true;
+          } else {
+            self.snacktext = "Scaler deleted!";
+            self.snackbar = true;
+            self.openDialog = false;
+            self.scalers = self.scalers.filter(function(value) {
+              return value.id != self.selectedForDelete[1];
+            });
+            delete self.rawScalers[
+              "/scalers/" + self.selectedForDelete.join("/")
+            ];
+            self.selectedForDelete = [];
+          }
+        })
+        .catch(function(e) {
+          self.snacktext = e;
+          self.snackbar = true;
+        });
+    },
+    deleteScaler(scaler) {
+      this.selectedForDelete.push(scaler.cloudid);
+      this.selectedForDelete.push(scaler.id);
+      this.openDialog = true;
+    },
+    onDismiss() {
+      this.openDialog = false;
+      this.selectedForDelete = [];
     }
   }
 };

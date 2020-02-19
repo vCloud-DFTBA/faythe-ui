@@ -250,7 +250,7 @@ export default {
       duration: "",
       cooldown: "600ms",
       query: "",
-      tags: "",
+      tags: [],
       description: "",
       actions: [
         {
