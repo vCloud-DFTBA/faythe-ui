@@ -90,6 +90,7 @@ export default {
       snacktext: "",
       openDialog: false,
       loading: true,
+      clouds: [],
       selectedForDelete: "",
       headers: [
         { text: "ID", value: "id" },
@@ -103,9 +104,20 @@ export default {
     };
   },
   mounted() {
+    let self = this;
     this.$api.getClouds().then(response => {
-      this.rawClouds = response.data.Data;
-      this.loading = false;
+      self.rawClouds = response.data.Data;
+      for (let key in self.rawClouds) {
+        let cloud = self.rawClouds[key];
+        self.clouds.push({
+          id: cloud.id,
+          type: cloud.provider,
+          auth: cloud.auth.auth_url,
+          monitor: cloud.monitor.address,
+          atengine: cloud.atengine.address
+        });
+      }
+      self.loading = false;
     });
   },
   methods: {
@@ -127,6 +139,7 @@ export default {
             self.clouds = self.clouds.filter(function(value) {
               return value.id != self.selectedForDelete;
             });
+            delete self.rawClouds["/clouds/" + self.selectedForDelete];
             self.selectedForDelete = null;
           }
         })
@@ -138,22 +151,6 @@ export default {
     deleteCloud(cloud) {
       this.selectedForDelete = cloud.id;
       this.openDialog = true;
-    }
-  },
-  computed: {
-    clouds: function() {
-      let arr = [];
-      for (let key in this.rawClouds) {
-        let cloud = this.rawClouds[key];
-        arr.push({
-          id: cloud.id,
-          type: cloud.provider,
-          auth: cloud.auth.auth_url,
-          monitor: cloud.monitor.address,
-          atengine: cloud.atengine.address
-        });
-      }
-      return arr;
     }
   }
 };
