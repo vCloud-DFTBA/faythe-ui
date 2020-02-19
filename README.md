@@ -1,24 +1,15 @@
 # faythe-ui
 
-## Project setup
-```
-yarn install
+## Start with docker
+
+### Build
+
+```bash
+docker build --build-arg VUE_APP_FAYTHE_URL=http://localhost:8600 . -t faythe-ui:v0.2
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+### Run
 
-### Compiles and minifies for production
+```bash
+docker run -d -it --name faythe-ui -p 8080:80 --restart always faythe-ui:v0.2
 ```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
