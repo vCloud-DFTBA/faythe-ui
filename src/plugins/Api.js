@@ -42,19 +42,19 @@ export default {
     return axios.post("/silences/" + id, data);
   },
 
-  deleteCloud(...ids) {
+  deleteCloud(ids) {
     return axios.delete("/clouds/" + ids.join("/"));
   },
 
-  deleteHealer(...ids) {
+  deleteHealer(ids) {
     return axios.delete("/healers/" + ids.join("/"));
   },
 
-  deleteScaler(...ids) {
+  deleteScaler(ids) {
     return axios.delete("/scalers/" + ids.join("/"));
   },
 
-  deleteSilencer(...ids) {
+  deleteSilencer(ids) {
     return axios.delete("/silences/" + ids.join("/"));
   }
 };

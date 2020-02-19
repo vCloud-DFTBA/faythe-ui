@@ -68,7 +68,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn text @click="openDialog = false">
+          <v-btn text @click="onDismiss()">
             Disagree
           </v-btn>
 
@@ -151,6 +151,10 @@ export default {
     deleteCloud(cloud) {
       this.selectedForDelete = cloud.id;
       this.openDialog = true;
+    },
+    onDismiss() {
+      this.openDialog = false;
+      this.selectedForDelete = "";
     }
   }
 };
