@@ -1,51 +1,81 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="scalers"
-    :items-per-page="10"
-    class="elevation-1"
-    single-expand
-    :expanded.sync="expanded"
-    show-expand
-    expand-icon="mdi-unfold-more-horizontal"
-    disable-filtering
-    disable-sort
-    :loading="loading"
-  >
-    <template v-slot:item.actions="{ item }">
-      <v-icon @click="deleteItem(item)">
-        mdi-delete
-      </v-icon>
-    </template>
-    <template v-slot:expanded-item="{ item }" flat>
-      <td colspan="12">
-        <v-container>
-          <v-row>
-            <template v-for="(action, key) in getScaler(item.id).actions">
-              <v-col lg="4" :key="`${action.url + key}`">
-                <v-card raised>
-                  <v-card-title class="justify-center text-capitalize">
-                    {{ action.type }}
-                  </v-card-title>
-                  <v-divider></v-divider>
-                  <v-simple-table dense>
-                    <template v-slot:default>
-                      <tbody>
-                        <tr v-for="(v, k) in action" :key="`${v + k}`">
-                          <td class="text-capitalize">{{ k }}</td>
-                          <td>{{ v }}</td>
-                        </tr>
-                      </tbody>
-                    </template>
-                  </v-simple-table>
-                </v-card>
-              </v-col>
-            </template>
-          </v-row>
-        </v-container>
-      </td>
-    </template>
-  </v-data-table>
+  <div>
+    <v-data-table
+      :headers="headers"
+      :items="scalers"
+      :items-per-page="10"
+      class="elevation-1"
+      single-expand
+      :expanded.sync="expanded"
+      show-expand
+      expand-icon="mdi-unfold-more-horizontal"
+      disable-filtering
+      disable-sort
+      :loading="loading"
+    >
+      <template v-slot:item.actions="{ item }">
+        <v-icon @click="deleteScaler(item)">
+          mdi-delete
+        </v-icon>
+      </template>
+      <template v-slot:expanded-item="{ item }" flat>
+        <td colspan="12">
+          <v-container>
+            <v-row>
+              <template v-for="(action, key) in getScaler(item.id).actions">
+                <v-col lg="4" :key="`${action.url + key}`">
+                  <v-card raised>
+                    <v-card-title class="justify-center text-capitalize">
+                      {{ action.type }}
+                    </v-card-title>
+                    <v-divider></v-divider>
+                    <v-simple-table dense>
+                      <template v-slot:default>
+                        <tbody>
+                          <tr v-for="(v, k) in action" :key="`${v + k}`">
+                            <td class="text-capitalize">{{ k }}</td>
+                            <td>{{ v }}</td>
+                          </tr>
+                        </tbody>
+                      </template>
+                    </v-simple-table>
+                  </v-card>
+                </v-col>
+              </template>
+            </v-row>
+          </v-container>
+        </td>
+      </template>
+    </v-data-table>
+    <v-snackbar v-model="snackbar" multi-line :timeout="5000" bottom>
+      {{ snacktext }}
+      <v-btn dark text @click="snackbar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
+    <v-dialog v-model="openDialog" max-width="300">
+      <v-card>
+        <v-card-title class="headline"> Delete scaler? </v-card-title>
+
+        <v-card-text>
+          Deleting scaler might seriously affect your services. Do you still
+          want to delete this scaler?
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn text @click="onDismiss()">
+            Disagree
+          </v-btn>
+
+          <v-btn text @click.native="confirmDelete()">
+            Agree
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
@@ -54,6 +84,10 @@ export default {
     return {
       expanded: [],
       loading: false,
+      snackbar: false,
+      snacktext: "",
+      openDialog: false,
+      selectedForDelete: [],
       headers: [
         { text: "ID", value: "id" },
         { text: "Query", value: "query" },
