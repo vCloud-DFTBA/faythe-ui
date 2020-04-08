@@ -1,5 +1,7 @@
 # faythe-ui
 
+**NOTE**: this only works with faythe v0.2.3 and above.
+
 ## Start with docker
 
 ### Build
