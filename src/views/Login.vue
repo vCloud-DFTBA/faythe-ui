@@ -10,7 +10,10 @@
               </v-toolbar>
               <v-divider></v-divider>
               <v-card-text>
-                <v-form v-model="valid">
+                <v-form
+                  v-model="valid"
+                  @keyup.native.enter="valid && Submit($event)"
+                >
                   <v-text-field
                     label="Username"
                     v-model="username"
@@ -31,12 +34,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn
-                  class="mx-3 elevation-3"
-                  @click="Submit"
-                  :disabled="!valid"
-                  text
-                >
+                <v-btn class="mx-3 elevation-3" submit :disabled="!valid" text>
                   Login
                 </v-btn>
               </v-card-actions>
