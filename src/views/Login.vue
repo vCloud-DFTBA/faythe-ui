@@ -34,7 +34,12 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn class="mx-3 elevation-3" submit :disabled="!valid" text>
+                <v-btn
+                  class="mx-3 elevation-3"
+                  @click="Submit"
+                  :disabled="!valid"
+                  text
+                >
                   Login
                 </v-btn>
               </v-card-actions>
