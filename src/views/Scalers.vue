@@ -5,7 +5,7 @@
         <v-toolbar-title>Scalers</v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>
-      <select-cloud></select-cloud>
+      <select-cloud key="scaler"></select-cloud>
       <scalers-table></scalers-table>
     </v-card>
   </v-container>

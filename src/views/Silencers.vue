@@ -5,7 +5,7 @@
         <v-toolbar-title>Silencers</v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>
-      <select-cloud></select-cloud>
+      <select-cloud key="silencer"></select-cloud>
       <silencers-table></silencers-table>
     </v-card>
   </v-container>

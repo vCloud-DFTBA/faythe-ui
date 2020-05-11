@@ -5,7 +5,7 @@
         <v-toolbar-title>Healers</v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>
-      <select-cloud></select-cloud>
+      <select-cloud key="healer"></select-cloud>
       <healers-table></healers-table>
     </v-card>
   </v-container>

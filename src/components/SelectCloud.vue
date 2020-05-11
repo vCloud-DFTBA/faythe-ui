@@ -1,7 +1,7 @@
 <template>
   <v-select
     :items="clouds"
-    label="Cloud"
+    label="Choose Cloud here!"
     class="ma-6"
     v-model="selected"
     color="black"

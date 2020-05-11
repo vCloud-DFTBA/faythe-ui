@@ -10,7 +10,10 @@
               </v-toolbar>
               <v-divider></v-divider>
               <v-card-text>
-                <v-form v-model="valid">
+                <v-form
+                  v-model="valid"
+                  @keyup.native.enter="valid && Submit($event)"
+                >
                   <v-text-field
                     label="Username"
                     v-model="username"
