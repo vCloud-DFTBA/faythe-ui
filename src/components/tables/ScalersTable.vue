@@ -141,10 +141,7 @@ export default {
       this.$api
         .deleteScaler(this.selectedForDelete)
         .then(function(response) {
-          if (response.data.Err != "") {
-            self.snacktext = response.data.Err;
-            self.snackbar = true;
-          } else {
+          if (response.data.Status == "OK") {
             self.snacktext = "Scaler deleted!";
             self.snackbar = true;
             self.openDialog = false;
@@ -158,8 +155,13 @@ export default {
           }
         })
         .catch(function(e) {
-          self.snacktext = e;
-          self.snackbar = true;
+          if (e.response.data.Err) {
+            self.snacktext = e.response.data.Err;
+            self.snackbar = true;
+          } else {
+            self.snacktext = e;
+            self.snackbar = true;
+          }
         });
     },
     deleteScaler(scaler) {

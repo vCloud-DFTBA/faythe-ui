@@ -178,17 +178,19 @@ export default {
       this.$api
         .createSilencer(cid, data)
         .then(function(response) {
-          if (response.data.Err != "") {
-            self.snacktext = response.data.Err;
-            self.snackbar = true;
-          } else {
+          if (response.data.Status == "OK") {
             self.snacktext = "Silence registered!";
             self.snackbar = true;
           }
         })
         .catch(function(e) {
-          self.snacktext = e;
-          self.snackbar = true;
+          if (e.response.data.Err) {
+            self.snacktext = e.response.data.Err;
+            self.snackbar = true;
+          } else {
+            self.snacktext = e;
+            self.snackbar = true;
+          }
         });
     }
   },

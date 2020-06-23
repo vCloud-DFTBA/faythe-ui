@@ -138,10 +138,7 @@ export default {
       this.$api
         .deleteHealer(this.selectedForDelete)
         .then(function(response) {
-          if (response.data.Err != "") {
-            self.snacktext = response.data.Err;
-            self.snackbar = true;
-          } else {
+          if (response.data.Status == "OK") {
             self.snacktext = "Healer deleted!";
             self.snackbar = true;
             self.openDialog = false;
@@ -151,6 +148,10 @@ export default {
           }
         })
         .catch(function(e) {
+          if (e.response.data.Err) {
+            self.snacktext = e.response.data.Err;
+            self.snackbar = true;
+          }
           self.snacktext = e;
           self.snackbar = true;
         });

@@ -267,17 +267,19 @@ export default {
       this.$api
         .createCloud(self.provider, data)
         .then(function(response) {
-          if (response.data.Err != "") {
-            self.snacktext = response.data.Err;
-            self.snackbar = true;
-          } else {
+          if (response.data.Status == "OK") {
             self.snacktext = "Cloud registered!";
             self.snackbar = true;
           }
         })
         .catch(function(e) {
-          this.snacktext = e;
-          this.snackbar = true;
+          if (e.response.data.Err) {
+            self.snacktext = e.response.data.Err;
+            self.snackbar = true;
+          } else {
+            this.snacktext = e;
+            this.snackbar = true;
+          }
         });
     }
   },
