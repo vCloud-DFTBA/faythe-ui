@@ -7,6 +7,8 @@ import CreateCloud from "@/views/CreateCloud";
 import Healers from "@/views/Healers";
 import Scalers from "@/views/Scalers";
 import Silencers from "@/views/Silencers";
+import Users from "@/views/Users";
+import CreateUser from "@/views/CreateUser";
 import CreateHealer from "@/views/CreateHealer";
 import CreateScaler from "@/views/CreateScaler";
 import CreateSilencer from "@/views/CreateSilencer";
@@ -61,6 +63,16 @@ const routes = [
         path: "/createsilencer",
         name: "create silencer",
         component: CreateSilencer
+      },
+      {
+        path: "/users",
+        name: "users",
+        component: Users
+      },
+      {
+        path: "/createuser",
+        name: "create user",
+        component: CreateUser
       }
     ],
     meta: {

@@ -87,6 +87,10 @@ export default {
     return getRequest("/silences/" + id);
   },
 
+  getUsers() {
+    return getRequest("/users");
+  },
+
   createCloud(provider, data) {
     return postRequest("/clouds/" + provider, data);
   },
@@ -103,6 +107,10 @@ export default {
     return postRequest("/silences/" + id, data);
   },
 
+  createUser(data) {
+    return postRequest("/users", data);
+  },
+
   deleteCloud(ids) {
     return deleteRequest("/clouds/" + ids.join("/"));
   },
@@ -117,5 +125,9 @@ export default {
 
   deleteSilencer(ids) {
     return deleteRequest("/silences/" + ids.join("/"));
+  },
+
+  deleteUser(ids) {
+    return deleteRequest("/users/" + ids.join("/"));
   }
 };
