@@ -71,18 +71,26 @@ export default {
   methods: {
     Submit() {
       let self = this;
-      this.$api.login(this.username, this.password).then(function(response) {
-        if (response.data.Status == "OK") {
-          let d = new Date();
-          d.setTime(d.getTime() + 60 * 60 * 1000);
-          let expires = "expires=" + d.toUTCString();
-          document.cookie = "status=loggedIn" + ";" + expires + ";path=/";
-          window.location.href = "/clouds";
-        } else {
-          self.snacktext = "Invalid username/password!";
-          self.snackbar = true;
-        }
-      });
+      this.$api
+        .login(this.username, this.password)
+        .then(function(response) {
+          if (response.data.Status == "OK") {
+            if (response.headers["authorization"]) {
+              document.cookie =
+                "Authorization=" + response.headers["authorization"];
+            }
+            window.location.href = "/clouds";
+          }
+        })
+        .catch(function(error) {
+          if (error.response.data.Err) {
+            self.snacktext = error.response.data.Err;
+            self.snackbar = true;
+          } else {
+            self.snackbar = "There was something wrong!";
+            self.snackbar = true;
+          }
+        });
     }
   }
 };

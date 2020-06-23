@@ -1,60 +1,121 @@
 import axios from "axios";
 
-export default {
-  login(user, pass) {
-    return axios.get("/public/login", {
-      auth: {
-        username: user,
-        password: pass
+import helpers from "./helpers";
+
+function getRequest(endpoint) {
+  return axios
+    .get(endpoint, {
+      headers: {
+        authorization: helpers.getCookie("Authorization")
+      }
+    })
+    .catch(function(error) {
+      if (error.response.status == 401) {
+        if (helpers.getCookie("Authorization")) {
+          helpers.deleteCookie("Authorization");
+          window.location.href = "/";
+        } else {
+          throw error;
+        }
       }
     });
+}
+function deleteRequest(endpoint) {
+  return axios
+    .delete(endpoint, {
+      headers: {
+        authorization: helpers.getCookie("Authorization")
+      }
+    })
+    .catch(function(error) {
+      if (error.response.status == 401) {
+        if (helpers.getCookie("Authorization")) {
+          helpers.deleteCookie("Authorization");
+          window.location.href = "/";
+        } else {
+          throw error;
+        }
+      }
+    });
+}
+function postRequest(endpoint, data) {
+  return axios
+    .post(endpoint, data, {
+      headers: {
+        authorization: helpers.getCookie("Authorization")
+      }
+    })
+    .catch(function(error) {
+      if (error.response.status == 401) {
+        if (helpers.getCookie("Authorization")) {
+          helpers.deleteCookie("Authorization");
+          window.location.href = "/";
+        } else {
+          throw error;
+        }
+      }
+    });
+}
+
+export default {
+  login(user, pass) {
+    return axios.post(
+      "/public/tokens",
+      {},
+      {
+        auth: {
+          username: user,
+          password: pass
+        }
+      }
+    );
   },
 
   getClouds() {
-    return axios.get("/clouds");
+    return getRequest("/clouds");
   },
 
   getHealers(id) {
-    return axios.get("/healers/" + id);
+    return getRequest("/healers/" + id);
   },
 
   getScalers(id) {
-    return axios.get("/scalers/" + id);
+    return getRequest("/scalers/" + id);
   },
 
   getSilences(id) {
-    return axios.get("/silences/" + id);
+    return getRequest("/silences/" + id);
   },
 
   createCloud(provider, data) {
-    return axios.post("/clouds/" + provider, data);
+    return postRequest("/clouds/" + provider, data);
   },
 
   createHealer(id, data) {
-    return axios.post("/healers/" + id, data);
+    return postRequest("/healers/" + id, data);
   },
 
   createScaler(id, data) {
-    return axios.post("/scalers/" + id, data);
+    return postRequest("/scalers/" + id, data);
   },
 
   createSilencer(id, data) {
-    return axios.post("/silences/" + id, data);
+    return postRequest("/silences/" + id, data);
   },
 
   deleteCloud(ids) {
-    return axios.delete("/clouds/" + ids.join("/"));
+    return deleteRequest("/clouds/" + ids.join("/"));
   },
 
   deleteHealer(ids) {
-    return axios.delete("/healers/" + ids.join("/"));
+    return deleteRequest("/healers/" + ids.join("/"));
   },
 
   deleteScaler(ids) {
-    return axios.delete("/scalers/" + ids.join("/"));
+    return deleteRequest("/scalers/" + ids.join("/"));
   },
 
   deleteSilencer(ids) {
-    return axios.delete("/silences/" + ids.join("/"));
+    return deleteRequest("/silences/" + ids.join("/"));
   }
 };
