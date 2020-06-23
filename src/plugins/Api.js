@@ -14,9 +14,9 @@ function getRequest(endpoint) {
         if (helpers.getCookie("Authorization")) {
           helpers.deleteCookie("Authorization");
           window.location.href = "/";
-        } else {
-          throw error;
         }
+      } else {
+        throw error;
       }
     });
 }
@@ -32,9 +32,9 @@ function deleteRequest(endpoint) {
         if (helpers.getCookie("Authorization")) {
           helpers.deleteCookie("Authorization");
           window.location.href = "/";
-        } else {
-          throw error;
         }
+      } else {
+        throw error;
       }
     });
 }
@@ -50,9 +50,9 @@ function postRequest(endpoint, data) {
         if (helpers.getCookie("Authorization")) {
           helpers.deleteCookie("Authorization");
           window.location.href = "/";
-        } else {
-          throw error;
         }
+      } else {
+        throw error;
       }
     });
 }
