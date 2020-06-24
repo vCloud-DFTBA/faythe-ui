@@ -11,9 +11,18 @@
       :loading="loading"
     >
       <template v-slot:item.actions="{ item }">
-        <v-icon @click="deleteUser(item)">
-          mdi-delete
-        </v-icon>
+        <v-row>
+          <v-col cols="12" lg="2">
+            <v-icon @click="deleteUser(item)">
+              mdi-account-remove
+            </v-icon>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-icon @click="revokePolicy(item)">
+              mdi-delete
+            </v-icon>
+          </v-col>
+        </v-row>
       </template>
     </v-data-table>
     <v-snackbar v-model="snackbar" multi-line :timeout="5000" bottom>
@@ -24,7 +33,9 @@
     </v-snackbar>
     <v-dialog v-model="openDialog" max-width="300">
       <v-card>
-        <v-card-title class="headline"> Delete user? </v-card-title>
+        <v-card-title class="headline">
+          Delete {{ type_delete }}?
+        </v-card-title>
 
         <v-card-text>
           Please recheck!
@@ -54,9 +65,10 @@ export default {
       snackbar: false,
       snacktext: "",
       openDialog: false,
+      type_delete: "",
       selectedForDelete: [],
       headers: [
-        { text: "ID", value: "id" },
+        { text: "Name", value: "name" },
         { text: "Path", value: "path" },
         { text: "Policies", value: "policies" },
         { text: "Actions", value: "actions" }
@@ -71,14 +83,21 @@ export default {
       let arr = [];
       for (let k in response.data.Data) {
         let u = response.data.Data[k];
-        u.forEach((element, i) => {
+        if (u.length == 0) {
           arr.push({
-            id: k,
-            path: element[0],
-            policies: element[1],
-            index: i
+            name: k,
+            path: "",
+            policies: ""
           });
-        });
+        } else {
+          u.forEach(element => {
+            arr.push({
+              name: k,
+              path: element[0],
+              policies: element[1]
+            });
+          });
+        }
       }
       self.users = arr;
     });
@@ -87,35 +106,72 @@ export default {
   methods: {
     confirmDelete() {
       let self = this;
-      this.$api
-        .deleteUser(this.selectedForDelete)
-        .then(function(response) {
-          if (response.data.Status == "OK") {
-            self.snacktext = "User deleted!";
-            self.snackbar = true;
-            self.openDialog = false;
-            self.users = self.users.filter(function(value) {
-              return value.id != self.selectedForDelete[0];
-            });
-            self.selectedForDelete = [];
-          }
-        })
-        .catch(function(e) {
-          if (e.response.data.Err) {
-            self.snacktext = e.response.data.Err;
-            self.snackbar = true;
-          } else {
-            self.snacktext = e;
-            self.snackbar = true;
-          }
-        });
+      if (this.type_delete == "Policy") {
+        this.$api
+          .deletePolicy(this.selectedForDelete[0].name, [
+            {
+              path: this.selectedForDelete[0].path,
+              method: this.selectedForDelete[0].policies
+            }
+          ])
+          .then(function(response) {
+            if (response.data.Status == "OK") {
+              self.snacktext = "Policy deleted!";
+              self.snackbar = true;
+              self.openDialog = false;
+              self.users = self.users.filter(function(value) {
+                return value != self.selectedForDelete[0];
+              });
+              self.selectedForDelete = [];
+            }
+          })
+          .catch(function(e) {
+            if (e.response.data.Err) {
+              self.snacktext = e.response.data.Err;
+              self.snackbar = true;
+            } else {
+              self.snacktext = e;
+              self.snackbar = true;
+            }
+          });
+      } else {
+        this.$api
+          .deleteUser(this.selectedForDelete)
+          .then(function(response) {
+            if (response.data.Status == "OK") {
+              self.snacktext = "User deleted!";
+              self.snackbar = true;
+              self.openDialog = false;
+              self.users = self.users.filter(function(value) {
+                return value.name != self.selectedForDelete[0];
+              });
+              self.selectedForDelete = [];
+            }
+          })
+          .catch(function(e) {
+            if (e.response.data.Err) {
+              self.snacktext = e.response.data.Err;
+              self.snackbar = true;
+            } else {
+              self.snacktext = e;
+              self.snackbar = true;
+            }
+          });
+      }
     },
     deleteUser(user) {
-      this.selectedForDelete.push(user.id);
+      this.selectedForDelete.push(user.name);
+      this.type_delete = "User";
+      this.openDialog = true;
+    },
+    revokePolicy(item) {
+      this.selectedForDelete.push(item);
+      this.type_delete = "Policy";
       this.openDialog = true;
     },
     onDismiss() {
       this.openDialog = false;
+      this.type_delete = "";
       this.selectedForDelete = [];
     }
   }

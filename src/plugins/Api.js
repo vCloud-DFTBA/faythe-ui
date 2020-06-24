@@ -20,12 +20,13 @@ function getRequest(endpoint) {
       }
     });
 }
-function deleteRequest(endpoint) {
+function deleteRequest(endpoint, data) {
   return axios
     .delete(endpoint, {
       headers: {
         authorization: helpers.getCookie("Authorization")
-      }
+      },
+      data: data
     })
     .catch(function(error) {
       if (error.response.status == 401) {
@@ -111,23 +112,31 @@ export default {
     return postRequest("/users", data);
   },
 
+  applyPolicies(user, data) {
+    return postRequest("/policies/" + user, data);
+  },
+
   deleteCloud(ids) {
-    return deleteRequest("/clouds/" + ids.join("/"));
+    return deleteRequest("/clouds/" + ids.join("/"), {});
   },
 
   deleteHealer(ids) {
-    return deleteRequest("/healers/" + ids.join("/"));
+    return deleteRequest("/healers/" + ids.join("/"), {});
   },
 
   deleteScaler(ids) {
-    return deleteRequest("/scalers/" + ids.join("/"));
+    return deleteRequest("/scalers/" + ids.join("/"), {});
   },
 
   deleteSilencer(ids) {
-    return deleteRequest("/silences/" + ids.join("/"));
+    return deleteRequest("/silences/" + ids.join("/"), {});
   },
 
   deleteUser(ids) {
-    return deleteRequest("/users/" + ids.join("/"));
+    return deleteRequest("/users/" + ids.join("/"), {});
+  },
+
+  deletePolicy(user, data) {
+    return deleteRequest("/policies/" + user, data);
   }
 };

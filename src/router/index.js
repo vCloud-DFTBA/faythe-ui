@@ -12,6 +12,7 @@ import CreateUser from "@/views/CreateUser";
 import CreateHealer from "@/views/CreateHealer";
 import CreateScaler from "@/views/CreateScaler";
 import CreateSilencer from "@/views/CreateSilencer";
+import ApplyPolicies from "@/views/ApplyPolicies";
 import Login from "@/views/Login";
 import NotFoundComponent from "@/views/NotFoundComponent";
 
@@ -73,6 +74,11 @@ const routes = [
         path: "/createuser",
         name: "create user",
         component: CreateUser
+      },
+      {
+        path: "/applypolicies",
+        name: "applu policies",
+        component: ApplyPolicies
       }
     ],
     meta: {

@@ -96,7 +96,8 @@ export default {
         ],
         users: [
           { title: "Users", link: "/users" },
-          { title: "Create User", link: "/createuser" }
+          { title: "Create User", link: "/createuser" },
+          { title: "Apply Policies", link: "/applypolicies" }
         ]
       }
     };
