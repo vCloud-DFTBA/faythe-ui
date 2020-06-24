@@ -76,8 +76,12 @@ export default {
         .then(function(response) {
           if (response.data.Status == "OK") {
             if (response.headers["authorization"]) {
-              document.cookie =
-                "Authorization=" + response.headers["authorization"];
+              // document.cookie =
+              //   "Authorization=" + response.headers["authorization"];
+              localStorage.setItem(
+                "authorization",
+                response.headers["authorization"]
+              );
             }
             window.location.href = "/clouds";
           }

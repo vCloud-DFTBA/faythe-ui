@@ -1,10 +1,8 @@
 <script>
-import helpers from "@/plugins/helpers.js";
-
 export default {
   mounted() {
-    if (helpers.getCookie("Authorization")) {
-      helpers.deleteCookie("Authorization");
+    if (localStorage.getItem("authorization")) {
+      localStorage.removeItem("authorization");
       window.location.href = "/login";
     }
   }

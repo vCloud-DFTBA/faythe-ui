@@ -1,18 +1,16 @@
 import axios from "axios";
 
-import helpers from "./helpers";
-
 function getRequest(endpoint) {
   return axios
     .get(endpoint, {
       headers: {
-        authorization: helpers.getCookie("Authorization")
+        authorization: localStorage.getItem("authorization")
       }
     })
     .catch(function(error) {
       if (error.response.status == 401) {
-        if (helpers.getCookie("Authorization")) {
-          helpers.deleteCookie("Authorization");
+        if (localStorage.getItem("authorization")) {
+          localStorage.removeItem("authorization");
           window.location.href = "/";
         }
       } else {
@@ -24,14 +22,14 @@ function deleteRequest(endpoint, data) {
   return axios
     .delete(endpoint, {
       headers: {
-        authorization: helpers.getCookie("Authorization")
+        authorization: localStorage.getItem("authorization")
       },
       data: data
     })
     .catch(function(error) {
       if (error.response.status == 401) {
-        if (helpers.getCookie("Authorization")) {
-          helpers.deleteCookie("Authorization");
+        if (localStorage.getItem("authorization")) {
+          localStorage.removeItem("authorization");
           window.location.href = "/";
         }
       } else {
@@ -43,13 +41,13 @@ function postRequest(endpoint, data) {
   return axios
     .post(endpoint, data, {
       headers: {
-        authorization: helpers.getCookie("Authorization")
+        authorization: localStorage.getItem("authorization")
       }
     })
     .catch(function(error) {
       if (error.response.status == 401) {
-        if (helpers.getCookie("Authorization")) {
-          helpers.deleteCookie("Authorization");
+        if (localStorage.getItem("authorization")) {
+          localStorage.removeItem("authorization");
           window.location.href = "/";
         }
       } else {

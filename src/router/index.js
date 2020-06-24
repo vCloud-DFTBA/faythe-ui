@@ -17,7 +17,6 @@ import Login from "@/views/Login";
 import Logout from "@/views/Logout";
 import NotFoundComponent from "@/views/NotFoundComponent";
 
-import helpers from "@/plugins/helpers";
 Vue.use(VueRouter);
 
 const routes = [
@@ -113,7 +112,7 @@ let router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!helpers.getCookie("Authorization")) {
+    if (!localStorage.getItem("authorization")) {
       next({
         path: "/login",
         param: { nextUrl: to.fullPath }
@@ -122,7 +121,7 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else if (to.matched.some(record => record.meta.guest)) {
-    if (helpers.getCookie("Authorization")) {
+    if (localStorage.getItem("authorization")) {
       next("/");
     } else {
       next();
