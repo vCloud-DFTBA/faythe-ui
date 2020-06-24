@@ -136,13 +136,6 @@ export default {
                       return value != self.selectedForDelete[0];
                     })
                   : self.users;
-              if (!self.users.includes(self.selectedForDelete[0].name)) {
-                self.users.push({
-                  name: self.selectedForDelete[0].name,
-                  path: "",
-                  policies: ""
-                });
-              }
               self.selectedForDelete = [];
             }
           })
