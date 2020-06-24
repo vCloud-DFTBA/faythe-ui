@@ -1,26 +1,10 @@
 import axios from "axios";
 
-function getRequest(endpoint) {
+function executeRequest(endpoint, method, data) {
   return axios
-    .get(endpoint, {
-      headers: {
-        authorization: localStorage.getItem("authorization")
-      }
-    })
-    .catch(function(error) {
-      if (error.response.status == 401) {
-        if (localStorage.getItem("authorization")) {
-          localStorage.removeItem("authorization");
-          window.location.href = "/";
-        }
-      } else {
-        throw error;
-      }
-    });
-}
-function deleteRequest(endpoint, data) {
-  return axios
-    .delete(endpoint, {
+    .request({
+      method: method,
+      url: endpoint,
       headers: {
         authorization: localStorage.getItem("authorization")
       },
@@ -37,23 +21,17 @@ function deleteRequest(endpoint, data) {
       }
     });
 }
+
+function getRequest(endpoint) {
+  return executeRequest(endpoint, "GET", {});
+}
+
+function deleteRequest(endpoint, data) {
+  return executeRequest(endpoint, "DELETE", data);
+}
+
 function postRequest(endpoint, data) {
-  return axios
-    .post(endpoint, data, {
-      headers: {
-        authorization: localStorage.getItem("authorization")
-      }
-    })
-    .catch(function(error) {
-      if (error.response.status == 401) {
-        if (localStorage.getItem("authorization")) {
-          localStorage.removeItem("authorization");
-          window.location.href = "/";
-        }
-      } else {
-        throw error;
-      }
-    });
+  return executeRequest(endpoint, "POST", data);
 }
 
 export default {
