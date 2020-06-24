@@ -14,6 +14,7 @@ import CreateScaler from "@/views/CreateScaler";
 import CreateSilencer from "@/views/CreateSilencer";
 import ApplyPolicies from "@/views/ApplyPolicies";
 import Login from "@/views/Login";
+import Logout from "@/views/Logout";
 import NotFoundComponent from "@/views/NotFoundComponent";
 
 import helpers from "@/plugins/helpers";
@@ -77,8 +78,13 @@ const routes = [
       },
       {
         path: "/applypolicies",
-        name: "applu policies",
+        name: "apply policies",
         component: ApplyPolicies
+      },
+      {
+        path: "/logout",
+        name: "logout",
+        component: Logout
       }
     ],
     meta: {

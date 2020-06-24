@@ -50,6 +50,15 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
+        <v-list-item key="logout" to="/logout">
+          <v-list-item-icon>
+            <v-icon>mdi-logout</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-footer padless fixed tile app inset>

@@ -13,14 +13,24 @@
       <template v-slot:item.actions="{ item }">
         <v-row>
           <v-col cols="12" lg="2">
-            <v-icon @click="deleteUser(item)">
-              mdi-account-remove
-            </v-icon>
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon @click="deleteUser(item)" v-bind="attrs" v-on="on">
+                  mdi-account-remove
+                </v-icon>
+              </template>
+              <span> Delete User </span>
+            </v-tooltip>
           </v-col>
           <v-col cols="12" lg="2">
-            <v-icon @click="revokePolicy(item)">
-              mdi-delete
-            </v-icon>
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon @click="revokePolicy(item)" v-bind="attrs" v-on="on">
+                  mdi-delete
+                </v-icon>
+              </template>
+              <span> Delete Policy </span>
+            </v-tooltip>
           </v-col>
         </v-row>
       </template>
@@ -119,9 +129,20 @@ export default {
               self.snacktext = "Policy deleted!";
               self.snackbar = true;
               self.openDialog = false;
-              self.users = self.users.filter(function(value) {
-                return value != self.selectedForDelete[0];
-              });
+              self.users =
+                self.selectedForDelete[0].path != "" &&
+                self.selectedForDelete[0].policies != ""
+                  ? self.users.filter(function(value) {
+                      return value != self.selectedForDelete[0];
+                    })
+                  : self.users;
+              if (!self.users.includes(self.selectedForDelete[0].name)) {
+                self.users.push({
+                  name: self.selectedForDelete[0].name,
+                  path: "",
+                  policies: ""
+                });
+              }
               self.selectedForDelete = [];
             }
           })
