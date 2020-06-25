@@ -5,81 +5,64 @@
         <v-row>
           <v-col cols="12" class="py-0">
             <v-toolbar flat>
-              <v-toolbar-title>Create Silencer</v-toolbar-title>
+              <v-toolbar-title>Apply Policies</v-toolbar-title>
             </v-toolbar>
             <v-divider></v-divider>
             <v-container>
               <v-row>
-                <v-col cols="12" lg="6">
+                <v-col cols="12" lg="12">
                   <v-select
                     item-color="grey darken-3"
-                    :items="clouds"
-                    v-model="cloud"
-                    label="Cloud *"
+                    :items="users"
+                    v-model="user"
+                    label="User *"
                     color="black"
                     :rules="[rules.required]"
                   ></v-select>
                 </v-col>
-                <v-col cols="12" lg="6">
+              </v-row>
+              <v-row>
+                <v-col cols="12" lg="12">
                   <v-text-field
-                    label="Name *"
+                    label="Path *"
                     color="black"
                     :rules="[rules.required]"
-                    v-model="name"
+                    v-model="path"
                   ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="12" lg="6">
-                  <v-text-field
-                    label="Pattern *"
+                <v-col cols="12" lg="3">
+                  <v-checkbox
+                    v-model="methods"
+                    label="GET"
+                    value="GET"
                     color="black"
-                    :rules="[rules.required]"
-                    v-model="pattern"
-                  ></v-text-field>
+                  ></v-checkbox>
                 </v-col>
-                <v-col cols="12" lg="6">
-                  <v-text-field
-                    label="TTL *"
+                <v-col cols="12" lg="3">
+                  <v-checkbox
+                    v-model="methods"
+                    label="POST"
+                    value="POST"
                     color="black"
-                    :rules="[rules.required]"
-                    v-model="ttl"
-                  ></v-text-field>
+                  ></v-checkbox>
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12" lg="6">
-                  <v-combobox
-                    v-model="tags"
-                    chips
-                    clearable
-                    label="Tags"
-                    multiple
+                <v-col cols="12" lg="3">
+                  <v-checkbox
+                    v-model="methods"
+                    label="PUT"
+                    value="PUT"
                     color="black"
-                    append-icon=""
-                    small-chips
-                  >
-                    <template
-                      v-slot:selection="{ attrs, item, select, selected }"
-                    >
-                      <v-chip
-                        v-bind="attrs"
-                        :input-value="selected"
-                        close
-                        @click="select"
-                        @click:close="remove(item)"
-                      >
-                        {{ item }}
-                      </v-chip>
-                    </template>
-                  </v-combobox>
+                  ></v-checkbox>
                 </v-col>
-                <v-col cols="12" lg="6">
-                  <v-text-field
-                    label="Description"
+                <v-col cols="12" lg="3">
+                  <v-checkbox
+                    v-model="methods"
+                    label="DELETE"
+                    value="DELETE"
                     color="black"
-                    v-model="description"
-                  ></v-text-field>
+                  ></v-checkbox>
                 </v-col>
               </v-row>
             </v-container>
@@ -130,13 +113,12 @@ export default {
       valid: false,
       snacktext: "",
       snackbar: false,
-      clouds: [],
-      cloud: "",
-      name: "",
-      pattern: "",
-      ttl: "",
-      tags: [],
-      description: "",
+      showPassword: false,
+      users: [],
+      user: "",
+      path: "",
+      methods: [],
+      policies: "",
       rules: {
         required: value => !!value || "Required."
       },
@@ -145,41 +127,44 @@ export default {
   },
   mounted() {
     let self = this;
-    this.$api.getClouds().then(response => {
-      let arr = [];
-      for (let key in response.data.Data) {
-        let data = response.data.Data[key];
-        arr.push(data.id + " - " + data.provider + " - " + data.auth.auth_url);
+    this.$api.getUsers().then(response => {
+      let data = response.data.Data;
+      for (let k in data) {
+        if (!self.users.includes(k)) {
+          self.users.push(k);
+        }
       }
-      self.clouds = arr;
     });
     this.$root.$on("close_preview_data", function(data) {
       self.openDialog = data;
     });
   },
   methods: {
-    remove(item) {
-      this.tags.splice(this.tags.indexOf(item), 1);
-      this.tags = [...this.tags];
-    },
     formData() {
-      return {
-        name: this.name,
-        pattern: this.pattern,
-        ttl: this.ttl,
-        description: this.description,
-        tags: this.tags
-      };
+      var ms = "";
+      let self = this;
+      for (let i = 0; i < self.methods.length; i++) {
+        if (i != self.methods.length - 1) {
+          ms += "(" + self.methods[i] + ")|";
+        } else {
+          ms += "(" + self.methods[i] + ")";
+        }
+      }
+      return [
+        {
+          path: this.path,
+          method: ms
+        }
+      ];
     },
     submit() {
       let self = this;
-      let cid = this.cloud.split(" - ", 2)[0];
       let data = this.formData();
       this.$api
-        .createSilencer(cid, data)
+        .applyPolicies(self.user, data)
         .then(function(response) {
           if (response.data.Status == "OK") {
-            self.snacktext = "Silence registered!";
+            self.snacktext = "Policies applied!";
             self.snackbar = true;
           }
         })

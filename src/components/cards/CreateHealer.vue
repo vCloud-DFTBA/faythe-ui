@@ -167,6 +167,12 @@
                               value="mail"
                               color="black"
                             ></v-radio>
+                            <v-radio
+                              label="Mistral"
+                              value="mistral"
+                              color="black"
+                            >
+                            </v-radio>
                           </v-radio-group>
                         </v-col>
                         <v-col cols="12" lg="3" md="3" sm="3">
@@ -216,7 +222,11 @@
                           ></v-text-field>
                         </v-col>
                       </v-row>
-                      <v-row align="center" justify="center" v-else>
+                      <v-row
+                        align="center"
+                        justify="center"
+                        v-else-if="v.type == 'mail'"
+                      >
                         <v-col cols="12" lg="12" md="12" sm="12" class="py-0">
                           <p class="mb-3">
                             Send notification about healing actions triggered to
@@ -224,6 +234,16 @@
                             One Mail action per healer is
                             <strong>recommended</strong>.
                           </p>
+                        </v-col>
+                      </v-row>
+                      <v-row align="center" justify="center" v-else>
+                        <v-col cols="12" lg="12" md="12" sm="12" class="pt-0">
+                          <v-text-field
+                            label="Workflow ID *"
+                            color="black"
+                            :rules="[rules.required]"
+                            v-model="v.workflow_id"
+                          ></v-text-field>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -371,11 +391,13 @@ export default {
             method: a.method,
             type: a.type
           };
+        } else if (a.type == "mistral") {
+          t[a.type + "-" + i] = {
+            type: a.type,
+            workflow_id: a.workflow_id
+          };
         } else {
           t[a.type + "-" + i] = {
-            attempts: a.attempts,
-            delay: a.delay,
-            delay_type: a.delay_type,
             type: a.type
           };
         }
@@ -399,17 +421,19 @@ export default {
       this.$api
         .createHealer(cid, data)
         .then(function(response) {
-          if (response.data.Err != "") {
-            self.snacktext = response.data.Err;
-            self.snackbar = true;
-          } else {
+          if (response.data.Status == "OK") {
             self.snacktext = "Healer registered!";
             self.snackbar = true;
           }
         })
         .catch(function(e) {
-          self.snacktext = e;
-          self.snackbar = true;
+          if (e.response.data.Err) {
+            self.snacktext = e.response.data.Err;
+            self.snackbar = true;
+          } else {
+            self.snacktext = e;
+            self.snackbar = true;
+          }
         });
     }
   },

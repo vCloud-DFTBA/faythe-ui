@@ -22,7 +22,7 @@
         <td colspan="12">
           <v-container>
             <v-row>
-              <template v-for="n in ['auth', 'monitor', 'atengine']">
+              <template v-for="n in ['auth', 'monitor']">
                 <v-col cols="12" lg="4" :key="n">
                   <v-card raised>
                     <v-card-title class="justify-center text-capitalize">
@@ -97,7 +97,6 @@ export default {
         { text: "Type", value: "type" },
         { text: "Auth", value: "auth" },
         { text: "Monitor", value: "monitor" },
-        { text: "ATEngine", value: "atengine" },
         { text: "Actions", value: "actions" }
       ],
       rawClouds: {}
@@ -113,8 +112,7 @@ export default {
           id: cloud.id,
           type: cloud.provider,
           auth: cloud.auth.auth_url,
-          monitor: cloud.monitor.address,
-          atengine: cloud.atengine.address
+          monitor: cloud.monitor.address
         });
       }
       self.loading = false;
@@ -129,10 +127,7 @@ export default {
       this.$api
         .deleteCloud(this.selectedForDelete)
         .then(function(response) {
-          if (response.data.Err != "") {
-            self.snacktext = response.data.Err;
-            self.snackbar = true;
-          } else {
+          if (response.data.Status == "OK") {
             self.snacktext = "Cloud provider deleted!";
             self.snackbar = true;
             self.openDialog = false;
@@ -144,8 +139,13 @@ export default {
           }
         })
         .catch(function(e) {
-          self.snacktext = e;
-          self.snackbar = true;
+          if (e.response.data.Err) {
+            self.snacktext = e.response.data.Err;
+            self.snackbar = true;
+          } else {
+            self.snacktext = e;
+            self.snackbar = true;
+          }
         });
     },
     deleteCloud(cloud) {

@@ -7,10 +7,14 @@ import CreateCloud from "@/views/CreateCloud";
 import Healers from "@/views/Healers";
 import Scalers from "@/views/Scalers";
 import Silencers from "@/views/Silencers";
+import Users from "@/views/Users";
+import CreateUser from "@/views/CreateUser";
 import CreateHealer from "@/views/CreateHealer";
 import CreateScaler from "@/views/CreateScaler";
 import CreateSilencer from "@/views/CreateSilencer";
+import ApplyPolicies from "@/views/ApplyPolicies";
 import Login from "@/views/Login";
+import Logout from "@/views/Logout";
 import NotFoundComponent from "@/views/NotFoundComponent";
 
 Vue.use(VueRouter);
@@ -60,6 +64,26 @@ const routes = [
         path: "/createsilencer",
         name: "create silencer",
         component: CreateSilencer
+      },
+      {
+        path: "/users",
+        name: "users",
+        component: Users
+      },
+      {
+        path: "/createuser",
+        name: "create user",
+        component: CreateUser
+      },
+      {
+        path: "/applypolicies",
+        name: "apply policies",
+        component: ApplyPolicies
+      },
+      {
+        path: "/logout",
+        name: "logout",
+        component: Logout
       }
     ],
     meta: {
@@ -88,7 +112,7 @@ let router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (getCookie("status") !== "loggedIn") {
+    if (!localStorage.getItem("authorization")) {
       next({
         path: "/login",
         param: { nextUrl: to.fullPath }
@@ -97,7 +121,7 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else if (to.matched.some(record => record.meta.guest)) {
-    if (getCookie("status") == "loggedIn") {
+    if (localStorage.getItem("authorization")) {
       next("/");
     } else {
       next();
@@ -106,21 +130,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(";");
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
 
 export default router;

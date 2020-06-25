@@ -50,6 +50,15 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
+        <v-list-item key="logout" to="/logout">
+          <v-list-item-icon>
+            <v-icon>mdi-logout</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-footer padless fixed tile app inset>
@@ -71,7 +80,8 @@ export default {
         { id: "clouds", title: "Clouds", icon: "mdi-cloud" },
         { id: "healers", title: "Healers", icon: "mdi-ambulance" },
         { id: "scalers", title: "Scalers", icon: "mdi-arrow-expand-all" },
-        { id: "silencers", title: "Silencers", icon: "mdi-volume-mute" }
+        { id: "silencers", title: "Silencers", icon: "mdi-volume-mute" },
+        { id: "users", title: "Users", icon: "mdi-account" }
       ],
       items: {
         clouds: [
@@ -92,6 +102,11 @@ export default {
         silencers: [
           { title: "Silencers", link: "/silencers" },
           { title: "Create Silencer", link: "/createsilencer" }
+        ],
+        users: [
+          { title: "Users", link: "/users" },
+          { title: "Create User", link: "/createuser" },
+          { title: "Apply Policies", link: "/applypolicies" }
         ]
       }
     };
