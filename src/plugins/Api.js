@@ -34,6 +34,10 @@ function postRequest(endpoint, data) {
   return executeRequest(endpoint, "POST", data);
 }
 
+function putRequest(endpoint, data) {
+  return executeRequest(endpoint, "PUT", data);
+}
+
 export default {
   login(user, pass) {
     return axios.post(
@@ -114,5 +118,9 @@ export default {
 
   deletePolicy(user, data) {
     return deleteRequest("/policies/" + user, data);
+  },
+
+  changePassword(user, data) {
+    return putRequest("/users/" + user + "/change_password", data);
   }
 };
