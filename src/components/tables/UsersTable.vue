@@ -11,15 +11,15 @@
       :loading="loading"
     >
       <template v-slot:item.actions="{ item }">
-        <v-row>
+        <v-row justify="center">
           <v-col cols="12" lg="2">
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-                <v-icon @click="deleteUser(item)" v-bind="attrs" v-on="on">
-                  mdi-account-remove
+                <v-icon @click="changePassword(item)" v-bind="attrs" v-on="on">
+                  mdi-account-edit
                 </v-icon>
               </template>
-              <span> Delete User </span>
+              <span> Change Password </span>
             </v-tooltip>
           </v-col>
           <v-col cols="12" lg="2">
@@ -30,6 +30,16 @@
                 </v-icon>
               </template>
               <span> Delete Policy </span>
+            </v-tooltip>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon @click="deleteUser(item)" v-bind="attrs" v-on="on">
+                  mdi-account-remove
+                </v-icon>
+              </template>
+              <span> Delete User </span>
             </v-tooltip>
           </v-col>
         </v-row>
@@ -43,11 +53,15 @@
     </v-snackbar>
     <v-dialog v-model="openDialog" max-width="300">
       <v-card>
-        <v-card-title class="headline">
-          Delete {{ type_delete }}?
-        </v-card-title>
-
+        <v-card-title class="headline"> {{ dialog_type }}? </v-card-title>
         <v-card-text>
+          <v-text-field
+            v-if="dialog_type == 'Change Password'"
+            label="Password *"
+            color="black"
+            required
+            v-model="npassword"
+          ></v-text-field>
           Please recheck!
         </v-card-text>
 
@@ -75,13 +89,14 @@ export default {
       snackbar: false,
       snacktext: "",
       openDialog: false,
-      type_delete: "",
-      selectedForDelete: [],
+      dialog_type: "",
+      npassword: "",
+      selectedItem: [],
       headers: [
         { text: "Name", value: "name" },
         { text: "Path", value: "path" },
         { text: "Policies", value: "policies" },
-        { text: "Actions", value: "actions" }
+        { text: "Actions", value: "actions", align: "center" }
       ],
       users: []
     };
@@ -116,12 +131,12 @@ export default {
   methods: {
     confirmDelete() {
       let self = this;
-      if (this.type_delete == "Policy") {
+      if (this.dialog_type == "Delete Policy") {
         this.$api
-          .deletePolicy(this.selectedForDelete[0].name, [
+          .deletePolicy(this.selectedItem[0].name, [
             {
-              path: this.selectedForDelete[0].path,
-              method: this.selectedForDelete[0].policies
+              path: this.selectedItem[0].path,
+              method: this.selectedItem[0].policies
             }
           ])
           .then(function(response) {
@@ -130,13 +145,13 @@ export default {
               self.snackbar = true;
               self.openDialog = false;
               self.users =
-                self.selectedForDelete[0].path != "" &&
-                self.selectedForDelete[0].policies != ""
+                self.selectedItem[0].path != "" &&
+                self.selectedItem[0].policies != ""
                   ? self.users.filter(function(value) {
-                      return value != self.selectedForDelete[0];
+                      return value != self.selectedItem[0];
                     })
                   : self.users;
-              self.selectedForDelete = [];
+              self.selectedItem = [];
             }
           })
           .catch(function(e) {
@@ -148,18 +163,41 @@ export default {
               self.snackbar = true;
             }
           });
-      } else {
+      } else if (this.dialog_type == "Delete User") {
         this.$api
-          .deleteUser(this.selectedForDelete)
+          .deleteUser(this.selectedItem)
           .then(function(response) {
             if (response.data.Status == "OK") {
               self.snacktext = "User deleted!";
               self.snackbar = true;
               self.openDialog = false;
               self.users = self.users.filter(function(value) {
-                return value.name != self.selectedForDelete[0];
+                return value.name != self.selectedItem[0];
               });
-              self.selectedForDelete = [];
+              self.selectedItem = [];
+            }
+          })
+          .catch(function(e) {
+            if (e.response.data.Err) {
+              self.snacktext = e.response.data.Err;
+              self.snackbar = true;
+            } else {
+              self.snacktext = e;
+              self.snackbar = true;
+            }
+          });
+      } else if (this.dialog_type == "Change Password") {
+        let data = new URLSearchParams();
+        data.append("password", this.npassword);
+        this.$api
+          .changePassword(this.selectedItem[0], data)
+          .then(function(response) {
+            if (response.data.Status == "OK") {
+              self.snacktext = "Password Changed!";
+              self.snackbar = true;
+              self.openDialog = false;
+              self.selectedItem = [];
+              self.npassword = "";
             }
           })
           .catch(function(e) {
@@ -174,19 +212,25 @@ export default {
       }
     },
     deleteUser(user) {
-      this.selectedForDelete.push(user.name);
-      this.type_delete = "User";
+      this.selectedItem.push(user.name);
+      this.dialog_type = "Delete User";
       this.openDialog = true;
     },
     revokePolicy(item) {
-      this.selectedForDelete.push(item);
-      this.type_delete = "Policy";
+      this.selectedItem.push(item);
+      this.dialog_type = "Delete Policy";
+      this.openDialog = true;
+    },
+    changePassword(item) {
+      this.selectedItem.push(item.name);
+      this.dialog_type = "Change Password";
       this.openDialog = true;
     },
     onDismiss() {
       this.openDialog = false;
-      this.type_delete = "";
-      this.selectedForDelete = [];
+      this.dialog_type = "";
+      this.npassword = "";
+      this.selectedItem = [];
     }
   }
 };
