@@ -96,24 +96,24 @@ export default {
     return postRequest("/policies/" + user, data);
   },
 
-  deleteCloud(ids) {
-    return deleteRequest("/clouds/" + ids.join("/"), {});
+  deleteCloud(id) {
+    return deleteRequest("/clouds/" + id, {});
   },
 
-  deleteHealer(ids) {
-    return deleteRequest("/healers/" + ids.join("/"), {});
+  deleteHealer(id) {
+    return deleteRequest("/healers/" + id, {});
   },
 
-  deleteScaler(ids) {
-    return deleteRequest("/scalers/" + ids.join("/"), {});
+  deleteScaler(id) {
+    return deleteRequest("/scalers/" + id, {});
   },
 
-  deleteSilencer(ids) {
-    return deleteRequest("/silences/" + ids.join("/"), {});
+  deleteSilencer(id) {
+    return deleteRequest("/silences/" + id, {});
   },
 
-  deleteUser(ids) {
-    return deleteRequest("/users/" + ids.join("/"), {});
+  deleteUser(id) {
+    return deleteRequest("/users/" + id, {});
   },
 
   deletePolicy(user, data) {

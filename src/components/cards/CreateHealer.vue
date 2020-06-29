@@ -153,13 +153,9 @@
                 <v-row class="elevation-2 ma-3" :key="`${v.type}-${k}`">
                   <v-col cols="12" lg="11" md="11" sm="11" class="py-0">
                     <v-container fluid class="fill-height pa-0">
-                      <v-row align="center" justify="center">
-                        <v-col cols="12" lg="3" md="3" sm="3" class="py-0">
-                          <v-radio-group
-                            v-model="v.type"
-                            column
-                            :mandatory="true"
-                          >
+                      <v-row>
+                        <v-col cols="12" lg="12" md="12" sm="12" class="py-0">
+                          <v-radio-group v-model="v.type" :mandatory="true">
                             <v-radio label="HTTP" value="http" color="black">
                             </v-radio>
                             <v-radio
@@ -174,28 +170,6 @@
                             >
                             </v-radio>
                           </v-radio-group>
-                        </v-col>
-                        <v-col cols="12" lg="3" md="3" sm="3">
-                          <v-text-field
-                            label="Attempts"
-                            color="black"
-                            type="number"
-                            v-model="v.attempts"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" lg="3" md="3" sm="3">
-                          <v-text-field
-                            label="Delay"
-                            color="black"
-                            v-model="v.delay"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" lg="3" md="3" sm="3">
-                          <v-text-field
-                            label="Delay type"
-                            color="black"
-                            v-model="v.delay_type"
-                          ></v-text-field>
                         </v-col>
                       </v-row>
                       <v-row
@@ -219,6 +193,28 @@
                             color="black"
                             :rules="[rules.required]"
                             v-model="v.url"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" lg="4" md="4" sm="4">
+                          <v-text-field
+                            label="Attempts"
+                            color="black"
+                            type="number"
+                            v-model="v.attempts"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" lg="4" md="4" sm="4">
+                          <v-text-field
+                            label="Delay"
+                            color="black"
+                            v-model="v.delay"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" lg="4" md="4" sm="4">
+                          <v-text-field
+                            label="Delay type"
+                            color="black"
+                            v-model="v.delay_type"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -409,7 +405,7 @@ export default {
         active: this.active,
         interval: this.interval,
         duration: this.duration,
-        evaluation_level: this.evaluation_level,
+        evaluation_level: parseInt(this.evaluation_level),
         description: this.description,
         actions: t
       };

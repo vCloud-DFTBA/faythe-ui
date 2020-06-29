@@ -54,7 +54,7 @@ export default {
       snackbar: false,
       snacktext: "",
       openDialog: false,
-      selectedForDelete: [],
+      selectedForDelete: "",
       headers: [
         { text: "ID", value: "id" },
         { text: "Pattern", value: "pattern" },
@@ -99,9 +99,9 @@ export default {
             self.snackbar = true;
             self.openDialog = false;
             self.silences = self.silences.filter(function(value) {
-              return value.id != self.selectedForDelete[1];
+              return value.id != self.selectedForDelete.split("/")[1];
             });
-            self.selectedForDelete = [];
+            self.selectedForDelete = "";
           }
         })
         .catch(function(e) {
@@ -115,13 +115,12 @@ export default {
         });
     },
     deleteSilencer(silencer) {
-      this.selectedForDelete.push(silencer.cloudid);
-      this.selectedForDelete.push(silencer.id);
+      this.selectedForDelete = silencer.cloudid + "/" + silencer.id;
       this.openDialog = true;
     },
     onDismiss() {
       this.openDialog = false;
-      this.selectedForDelete = [];
+      this.selectedForDelete = "";
     }
   }
 };
