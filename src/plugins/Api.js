@@ -41,7 +41,7 @@ function putRequest(endpoint, data) {
 export default {
   login(user, pass) {
     return axios.post(
-      "/public/tokens",
+      "/tokens",
       {},
       {
         auth: {
