@@ -26,6 +26,15 @@
           </v-list-item-avatar>
         </v-list-item>
         <v-divider></v-divider>
+        <v-list-item key="dashboards" to="/dashboards">
+          <v-list-item-icon>
+            <v-icon>mdi-view-dashboard-variant</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Dashboards</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-group
           v-for="group in groupItems"
           :key="group.id"

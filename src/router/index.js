@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+import Dashboards from "@/views/Dashboards";
 import Clouds from "@/views/Clouds";
 import Home from "@/views/Home";
 import CreateCloud from "@/views/CreateCloud";
@@ -25,6 +26,11 @@ const routes = [
     redirect: "/clouds",
     component: Home,
     children: [
+      {
+        path: "/dashboards",
+        name: "dashboards",
+        component: Dashboards
+      },
       {
         path: "/clouds",
         name: "clouds",
