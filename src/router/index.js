@@ -23,7 +23,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "/clouds",
+    redirect: "/dashboards",
     component: Home,
     children: [
       {

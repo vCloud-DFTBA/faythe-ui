@@ -83,7 +83,7 @@ export default {
                 response.headers["authorization"]
               );
             }
-            window.location.href = "/clouds";
+            window.location.href = "/";
           }
         })
         .catch(function(error) {
