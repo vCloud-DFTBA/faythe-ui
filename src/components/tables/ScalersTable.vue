@@ -87,7 +87,7 @@ export default {
       snackbar: false,
       snacktext: "",
       openDialog: false,
-      selectedForDelete: [],
+      selectedForDelete: "",
       headers: [
         { text: "ID", value: "id" },
         { text: "Query", value: "query" },
@@ -146,12 +146,10 @@ export default {
             self.snackbar = true;
             self.openDialog = false;
             self.scalers = self.scalers.filter(function(value) {
-              return value.id != self.selectedForDelete[1];
+              return value.id != self.selectedForDelete.split("/")[1];
             });
-            delete self.rawScalers[
-              "/scalers/" + self.selectedForDelete.join("/")
-            ];
-            self.selectedForDelete = [];
+            delete self.rawScalers["/scalers/" + self.selectedForDelete];
+            self.selectedForDelete = "";
           }
         })
         .catch(function(e) {
@@ -165,13 +163,12 @@ export default {
         });
     },
     deleteScaler(scaler) {
-      this.selectedForDelete.push(scaler.cloudid);
-      this.selectedForDelete.push(scaler.id);
+      this.selectedForDelete = scaler.cloudid + "/" + scaler.id;
       this.openDialog = true;
     },
     onDismiss() {
       this.openDialog = false;
-      this.selectedForDelete = [];
+      this.selectedForDelete = "";
     }
   }
 };

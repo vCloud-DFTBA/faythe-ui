@@ -232,6 +232,17 @@ export default {
       this.npassword = "";
       this.selectedItem = [];
     }
+  },
+  watch: {
+    openDialog: function(val) {
+      if (!val) {
+        this.openDialog = false;
+        this.dialog_type = "";
+        this.npassword = "";
+        this.selectedItem = [];
+      }
+      return val;
+    }
   }
 };
 </script>

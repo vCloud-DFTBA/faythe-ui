@@ -2,7 +2,7 @@
   <v-container class="mt-3">
     <v-form @submit.prevent="submit" v-model="valid">
       <v-row>
-        <v-col cols="12" lg="3">
+        <v-col cols="12" lg="4">
           <v-card>
             <v-toolbar flat>
               <v-toolbar-title>Cloud Provider</v-toolbar-title>
@@ -42,7 +42,7 @@
             </v-container>
           </v-card>
         </v-col>
-        <v-col cols="12" lg="3">
+        <v-col cols="12" lg="4">
           <v-card>
             <v-toolbar flat>
               <v-toolbar-title>Monitor</v-toolbar-title>
@@ -81,7 +81,7 @@
             </v-container>
           </v-card>
         </v-col>
-        <v-col cols="12" lg="3">
+        <v-col cols="12" lg="4">
           <v-card>
             <v-toolbar flat>
               <v-toolbar-title>Authentication</v-toolbar-title>
@@ -110,53 +110,21 @@
                 color="black"
               ></v-text-field>
               <v-text-field
-                label="Project *"
+                label="Project Name *"
                 color="black"
                 :rules="[rules.required]"
-                v-model="auth.project"
+                v-model="auth.project_name"
               ></v-text-field>
               <v-text-field
-                label="Domain"
-                color="black"
-                v-model="auth.domain"
-              ></v-text-field>
-              <v-text-field
-                label="Region"
-                color="black"
-                v-model="auth.region"
-              ></v-text-field>
-            </v-container>
-          </v-card>
-        </v-col>
-        <v-col cols="12" lg="3">
-          <v-card>
-            <v-toolbar flat>
-              <v-toolbar-title>Automation Engine</v-toolbar-title>
-            </v-toolbar>
-            <v-divider></v-divider>
-            <v-container class="my-2">
-              <v-select
-                item-color="grey darken-3"
-                :items="atengines"
-                v-model="atengine.backend"
-                label="Automation Backend *"
-                color="black"
-                :rules="[rules.required]"
-              ></v-select>
-              <v-text-field
-                label="Address *"
-                color="black"
-                :rules="[rules.required]"
-                v-model="atengine.address"
-              ></v-text-field>
-              <v-text-field
-                v-model="atengine.apikey"
-                :append-icon="showPassword.atengine ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="showPassword.atengine ? 'text' : 'password'"
-                label="API Key *"
-                @click:append="showPassword.atengine = !showPassword.atengine"
+                label="Domain Name *"
                 :rules="[rules.required]"
                 color="black"
+                v-model="auth.domain_name"
+              ></v-text-field>
+              <v-text-field
+                label="Region Name"
+                color="black"
+                v-model="auth.region_name"
               ></v-text-field>
             </v-container>
           </v-card>
@@ -205,7 +173,6 @@ export default {
     return {
       providers: ["openstack"],
       monitors: ["prometheus"],
-      atengines: ["stackstorm"],
       monitor: {
         backend: "",
         address: "",
@@ -216,20 +183,14 @@ export default {
         auth_url: "",
         username: "",
         password: "",
-        project: "",
-        domain: "",
-        region: ""
-      },
-      atengine: {
-        backend: "",
-        address: "",
-        apikey: ""
+        project_name: "",
+        domain_name: "",
+        region_name: ""
       },
       provider: "",
       showPassword: {
         monitor: false,
-        auth: false,
-        atengine: false
+        auth: false
       },
       rules: {
         required: value => !!value || "Required."
@@ -255,7 +216,6 @@ export default {
     formData() {
       return {
         auth: this.auth,
-        atengine: this.atengine,
         monitor: this.monitor,
         provider: this.provider,
         tags: this.tags

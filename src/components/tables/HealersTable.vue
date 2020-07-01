@@ -87,7 +87,7 @@ export default {
       snackbar: false,
       snacktext: "",
       openDialog: false,
-      selectedForDelete: [],
+      selectedForDelete: "",
       headers: [
         { text: "ID", value: "id" },
         { text: "Query", value: "query" },
@@ -144,7 +144,7 @@ export default {
             self.openDialog = false;
             self.healers = [];
             self.rawClouds = {};
-            self.selectedForDelete = [];
+            self.selectedForDelete = "";
           }
         })
         .catch(function(e) {
@@ -157,13 +157,12 @@ export default {
         });
     },
     deleteHealer(healer) {
-      this.selectedForDelete.push(healer.cloudid);
-      this.selectedForDelete.push(healer.id);
+      this.selectedForDelete = healer.cloudid + "/" + healer.id;
       this.openDialog = true;
     },
     onDismiss() {
       this.openDialog = false;
-      this.selectedForDelete = [];
+      this.selectedForDelete = "";
     }
   },
   computed: {
