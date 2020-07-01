@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       dashboard_url:
-        process.env.VUE_APP_FAYTHE_DASHBOARD_URL + "&theme=light&kiosk=tv"
+        process.env.VUE_APP_FAYTHE_DASHBOARD_URL + "&theme=light&kiosk"
     };
   }
 };
