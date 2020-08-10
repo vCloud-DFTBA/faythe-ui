@@ -1,13 +1,13 @@
 FROM node:lts-alpine as build-stage
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package.json yarn.lock ./
+RUN yarn install
 COPY . .
 ARG VUE_APP_FAYTHE_URL
 ARG VUE_APP_FAYTHE_DASHBOARD_URL
 ENV VUE_APP_FAYTHE_URL=$VUE_APP_FAYTHE_URL \
     VUE_APP_FAYTHE_DASHBOARD_URL=$VUE_APP_FAYTHE_DASHBOARD_URL
-RUN npm run build
+RUN yarn build
 
 FROM nginx:stable-alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
