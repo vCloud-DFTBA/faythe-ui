@@ -177,7 +177,7 @@
                         justify="center"
                         v-if="v.type == 'http'"
                       >
-                        <v-col cols="12" lg="6" md="6" sm="6" class="pt-0">
+                        <v-col cols="12" lg="4" md="4" sm="4" class="pt-0">
                           <v-select
                             item-color="grey darken-3"
                             :items="methods"
@@ -187,7 +187,18 @@
                             :rules="[rules.required]"
                           ></v-select>
                         </v-col>
-                        <v-col cols="12" lg="6" md="6" sm="6" class="pt-0">
+                        <v-col cols="12" lg="8" md="8" sm="8" class="pt-0">
+                          <v-switch
+                            v-model="cloud_auth_token"
+                            :label="
+                              `Use Cloud provider token: ${
+                                cloud_auth_token ? 'Yes' : 'No'
+                              }`
+                            "
+                            color="black"
+                          ></v-switch>
+                        </v-col>
+                        <v-col cols="12" lg="12" md="12" sm="12" class="pt-0">
                           <v-text-field
                             label="URL *"
                             color="black"
@@ -305,6 +316,7 @@ export default {
       snackbar: false,
       snacktext: "",
       active: false,
+      cloud_auth_token: false,
       clouds: [],
       methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
       cloud: "",
@@ -403,6 +415,7 @@ export default {
         receivers: this.receivers,
         tags: this.tags,
         active: this.active,
+        cloud_auth_token: this.cloud_auth_token,
         interval: this.interval,
         duration: this.duration,
         evaluation_level: parseInt(this.evaluation_level),
