@@ -150,10 +150,10 @@
                         </v-col>
                         <v-col cols="12" lg="8" md="8" sm="8" class="pt-0">
                           <v-switch
-                            v-model="cloud_auth_token"
+                            v-model="v.cloud_auth_token"
                             :label="
                               `Use Cloud provider token: ${
-                                cloud_auth_token ? 'Yes' : 'No'
+                                v.cloud_auth_token ? 'Yes' : 'No'
                               }`
                             "
                             color="black"
@@ -257,7 +257,6 @@ export default {
       methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
       valid: false,
       active: false,
-      cloud_auth_token: false,
       interval: "",
       duration: "",
       cooldown: "600ms",
@@ -271,7 +270,8 @@ export default {
           delay_type: "fixed",
           method: "POST",
           type: "http",
-          url: ""
+          url: "",
+          cloud_auth_token: false
         }
       ],
       rules: {
@@ -319,7 +319,8 @@ export default {
         delay_type: "fixed",
         type: "HTTP",
         url: "",
-        method: "POST"
+        method: "POST",
+        cloud_auth_token: false
       });
     },
     formData() {
@@ -333,14 +334,14 @@ export default {
           delay_type: a.delay_type,
           url: a.url,
           method: a.method,
-          type: a.type
+          type: a.type,
+          cloud_auth_token: a.cloud_auth_token
         };
       }
       return {
         query: this.query,
         tags: this.tags,
         active: this.active,
-        cloud_auth_token: this.cloud_auth_token,
         interval: this.interval,
         duration: this.duration,
         cooldown: this.cooldown,

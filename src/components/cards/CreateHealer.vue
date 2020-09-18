@@ -189,10 +189,10 @@
                         </v-col>
                         <v-col cols="12" lg="8" md="8" sm="8" class="pt-0">
                           <v-switch
-                            v-model="cloud_auth_token"
+                            v-model="v.cloud_auth_token"
                             :label="
                               `Use Cloud provider token: ${
-                                cloud_auth_token ? 'Yes' : 'No'
+                                v.cloud_auth_token ? 'Yes' : 'No'
                               }`
                             "
                             color="black"
@@ -316,7 +316,6 @@ export default {
       snackbar: false,
       snacktext: "",
       active: false,
-      cloud_auth_token: false,
       clouds: [],
       methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
       cloud: "",
@@ -334,7 +333,8 @@ export default {
           delay_type: "fixed",
           type: "HTTP",
           url: "",
-          method: "POST"
+          method: "POST",
+          cloud_auth_token: false
         }
       ],
       rules: {
@@ -382,7 +382,8 @@ export default {
         delay_type: "fixed",
         type: "HTTP",
         url: "",
-        method: "POST"
+        method: "POST",
+        cloud_auth_token: false
       });
     },
     formData() {
@@ -397,7 +398,8 @@ export default {
             delay_type: a.delay_type,
             url: a.url,
             method: a.method,
-            type: a.type
+            type: a.type,
+            cloud_auth_token: a.cloud_auth_token
           };
         } else if (a.type == "mistral") {
           t[a.type + "-" + i] = {
@@ -415,7 +417,6 @@ export default {
         receivers: this.receivers,
         tags: this.tags,
         active: this.active,
-        cloud_auth_token: this.cloud_auth_token,
         interval: this.interval,
         duration: this.duration,
         evaluation_level: parseInt(this.evaluation_level),
