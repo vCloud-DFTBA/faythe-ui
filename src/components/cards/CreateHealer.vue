@@ -177,7 +177,7 @@
                         justify="center"
                         v-if="v.type == 'http'"
                       >
-                        <v-col cols="12" lg="6" md="6" sm="6" class="pt-0">
+                        <v-col cols="12" lg="4" md="4" sm="4" class="pt-0">
                           <v-select
                             item-color="grey darken-3"
                             :items="methods"
@@ -187,7 +187,18 @@
                             :rules="[rules.required]"
                           ></v-select>
                         </v-col>
-                        <v-col cols="12" lg="6" md="6" sm="6" class="pt-0">
+                        <v-col cols="12" lg="8" md="8" sm="8" class="pt-0">
+                          <v-switch
+                            v-model="v.cloud_auth_token"
+                            :label="
+                              `Use Cloud provider token: ${
+                                v.cloud_auth_token ? 'Yes' : 'No'
+                              }`
+                            "
+                            color="black"
+                          ></v-switch>
+                        </v-col>
+                        <v-col cols="12" lg="12" md="12" sm="12" class="pt-0">
                           <v-text-field
                             label="URL *"
                             color="black"
@@ -322,7 +333,8 @@ export default {
           delay_type: "fixed",
           type: "HTTP",
           url: "",
-          method: "POST"
+          method: "POST",
+          cloud_auth_token: false
         }
       ],
       rules: {
@@ -370,7 +382,8 @@ export default {
         delay_type: "fixed",
         type: "HTTP",
         url: "",
-        method: "POST"
+        method: "POST",
+        cloud_auth_token: false
       });
     },
     formData() {
@@ -385,7 +398,8 @@ export default {
             delay_type: a.delay_type,
             url: a.url,
             method: a.method,
-            type: a.type
+            type: a.type,
+            cloud_auth_token: a.cloud_auth_token
           };
         } else if (a.type == "mistral") {
           t[a.type + "-" + i] = {
