@@ -90,6 +90,7 @@ export default {
       selectedForDelete: "",
       headers: [
         { text: "ID", value: "id" },
+        { text: "Created by", value: "created_by" },
         { text: "Query", value: "query" },
         { text: "Interval", value: "interval" },
         { text: "Duration", value: "duration" },
@@ -124,7 +125,8 @@ export default {
             description: s.description,
             cooldown: s.cooldown,
             tags: s.tags,
-            active: s.active
+            active: s.active,
+            created_by: s.created_by
           });
         }
         self.scalers = arr;

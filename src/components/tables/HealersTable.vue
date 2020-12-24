@@ -90,6 +90,7 @@ export default {
       selectedForDelete: "",
       headers: [
         { text: "ID", value: "id" },
+        { text: "Created by", value: "created_by" },
         { text: "Query", value: "query" },
         { text: "Interval", value: "interval" },
         { text: "Duration", value: "duration" },
@@ -124,7 +125,8 @@ export default {
             evaluation_level: h.evaluation_level,
             description: h.description,
             tags: h.tags,
-            active: h.active
+            active: h.active,
+            created_by: h.created_by
           });
         }
         self.healers = arr;
