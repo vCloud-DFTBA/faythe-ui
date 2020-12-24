@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   data() {
     return {
@@ -58,7 +60,10 @@ export default {
       headers: [
         { text: "ID", value: "id" },
         { text: "Pattern", value: "pattern" },
+        { text: "Name", value: "name" },
         { text: "TTL", value: "ttl" },
+        { text: "Created at", value: "created_at" },
+        { text: "Expired at", value: "expired_at" },
         { text: "Description", value: "description" },
         { text: "Actions", value: "actions" }
       ],
@@ -74,13 +79,18 @@ export default {
         let arr = [];
         for (let k in response.data.Data) {
           let s = response.data.Data[k];
+          var created_at = moment(s.created_at).format("DD/MM/YYYY");
+          var expired_at = moment(s.expired_at).format("DD/MM/YYYY");
           arr.push({
             cloudid: cloudid,
             id: s.id,
             pattern: s.pattern,
             ttl: s.ttl,
             description: s.description,
-            tags: s.tags
+            tags: s.tags,
+            created_at: created_at,
+            expired_at: expired_at,
+            name: s.name
           });
         }
         self.silences = arr;

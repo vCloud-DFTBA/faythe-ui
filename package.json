@@ -11,6 +11,7 @@
     "@mdi/font": "^4.8.95",
     "axios": "^0.19.2",
     "core-js": "^3.4.4",
+    "moment": "^2.29.1",
     "typeface-roboto": "^0.0.75",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3",
