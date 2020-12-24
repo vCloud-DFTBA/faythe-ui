@@ -79,8 +79,8 @@ export default {
         let arr = [];
         for (let k in response.data.Data) {
           let s = response.data.Data[k];
-          var created_at = moment(s.created_at).format("DD/MM/YYYY");
-          var expired_at = moment(s.expired_at).format("DD/MM/YYYY");
+          var created_at = moment(s.created_at).format("DD/MM/YYYY HH:MM");
+          var expired_at = moment(s.expired_at).format("DD/MM/YYYY HH:MM");
           arr.push({
             cloudid: cloudid,
             id: s.id,
