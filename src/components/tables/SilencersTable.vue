@@ -59,6 +59,7 @@ export default {
       selectedForDelete: "",
       headers: [
         { text: "ID", value: "id" },
+        { text: "Created by", value: "created_by" },
         { text: "Pattern", value: "pattern" },
         { text: "Name", value: "name" },
         { text: "TTL", value: "ttl" },
@@ -90,7 +91,8 @@ export default {
             tags: s.tags,
             created_at: created_at,
             expired_at: expired_at,
-            name: s.name
+            name: s.name,
+            created_by: s.created_by
           });
         }
         self.silences = arr;

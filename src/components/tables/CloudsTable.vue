@@ -94,6 +94,7 @@ export default {
       selectedForDelete: "",
       headers: [
         { text: "ID", value: "id" },
+        { text: "Created by", value: "created_by" },
         { text: "Type", value: "type" },
         { text: "Auth", value: "auth" },
         { text: "Monitor", value: "monitor" },
@@ -112,7 +113,8 @@ export default {
           id: cloud.id,
           type: cloud.provider,
           auth: cloud.auth.auth_url,
-          monitor: cloud.monitor.address
+          monitor: cloud.monitor.address,
+          created_by: cloud.created_by
         });
       }
       self.loading = false;
