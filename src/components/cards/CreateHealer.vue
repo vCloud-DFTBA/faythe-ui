@@ -87,7 +87,7 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="12" lg="3">
+                <v-col cols="12" lg="4">
                   <v-text-field
                     label="Interval *"
                     color="black"
@@ -95,7 +95,7 @@
                     v-model="interval"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" lg="3">
+                <v-col cols="12" lg="4">
                   <v-text-field
                     label="Duration *"
                     :rules="[rules.required]"
@@ -103,7 +103,7 @@
                     color="black"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" lg="3">
+                <v-col cols="12" lg="4">
                   <v-text-field
                     label="Evaluation Level *"
                     color="black"
@@ -112,10 +112,25 @@
                     v-model="evaluation_level"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" lg="3">
+              </v-row>
+              <v-row>
+                <v-col cols="12" lg="4">
                   <v-switch
                     v-model="active"
                     :label="`${active ? 'Active' : 'Inactive'}`"
+                    color="black"
+                  ></v-switch>
+                </v-col>
+                <v-col cols="12" lg="8">
+                  <v-switch
+                    v-model="sync_silences"
+                    :label="
+                      `${
+                        sync_silences
+                          ? 'Sync silences (Prometheus only)'
+                          : 'Do not sync silences (Prometheus only)'
+                      }`
+                    "
                     color="black"
                   ></v-switch>
                 </v-col>
@@ -421,6 +436,7 @@ export default {
         duration: this.duration,
         evaluation_level: parseInt(this.evaluation_level),
         description: this.description,
+        sync_silences: this.sync_silences,
         actions: t
       };
     },
