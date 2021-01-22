@@ -331,6 +331,7 @@ export default {
       snackbar: false,
       snacktext: "",
       active: false,
+      sync_silences: false,
       clouds: [],
       methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
       cloud: "",
