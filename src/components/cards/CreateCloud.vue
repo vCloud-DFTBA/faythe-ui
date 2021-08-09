@@ -171,7 +171,7 @@ export default {
   },
   data() {
     return {
-      providers: ["openstack"],
+      providers: ["openstack", "opensourcemano"],
       monitors: ["prometheus"],
       monitor: {
         backend: "",
