@@ -167,6 +167,13 @@
                             v-model="v.url"
                           ></v-text-field>
                         </v-col>
+                        <v-col cols="12" lg="12" md="12" sm="12" class="pt-0">
+                          <v-text-field
+                            label="Body *"
+                            color="black"
+                            v-model="v.body"
+                          ></v-text-field>
+                        </v-col>
                         <v-col cols="12" lg="4" md="4" sm="4">
                           <v-text-field
                             label="Attempts"
@@ -271,6 +278,7 @@ export default {
           method: "POST",
           type: "http",
           url: "",
+          body: "{}",
           cloud_auth_token: false
         }
       ],
@@ -319,6 +327,7 @@ export default {
         delay_type: "fixed",
         type: "HTTP",
         url: "",
+        body: "{}",
         method: "POST",
         cloud_auth_token: false
       });
@@ -333,6 +342,7 @@ export default {
           delay: a.delay,
           delay_type: a.delay_type,
           url: a.url,
+          body: JSON.parse(a.body),
           method: a.method,
           type: a.type,
           cloud_auth_token: a.cloud_auth_token
